@@ -1,1 +1,1 @@
-export * from './header'
+export default '#'
