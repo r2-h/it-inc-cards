@@ -20,7 +20,7 @@ export const Primary: Story = {
   args: {
     children: (
       <Typography className={s.title} variant={'subtitle2'}>
-        Button primarydsfsfsdfsdfsdfsdfssfsdfsdfsd
+        Button primary
       </Typography>
     ),
     disabled: false,
