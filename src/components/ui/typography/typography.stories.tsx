@@ -1,4 +1,4 @@
-import { Typography } from '@/components/ui/typography/typography.tsx'
+import { Typography } from '@/components/ui/typography/typography'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
