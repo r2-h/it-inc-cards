@@ -37,7 +37,7 @@ export const SelectDemo: FC<SelectDemoProps> = ({
 
   return (
     <div className={s.root}>
-      <Typography className={s.selectLabel} variant={'body2'}>
+      <Typography as={'label'} className={s.selectLabel} variant={'body2'}>
         {label}
       </Typography>
       <Select.Root
