@@ -23,7 +23,7 @@ type TypographyProps<T extends ElementType = 'p'> = {
     | 'subtitle2'
 } & ComponentPropsWithoutRef<T>
 
-export const Typography = <T extends ElementType = 'p'>(
+export const Typography = <T extends ElementType = 'span'>(
   props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ) => {
   const { as: Component = 'span', className, variant = 'body1', ...rest } = props

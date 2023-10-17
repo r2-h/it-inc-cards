@@ -46,6 +46,12 @@
   background-color: var(--color-accent-500);
   box-shadow: 0 4px 18px 0 rgba(var(--color-accent-500) 0.35);
 
+  .icon {
+    path {
+      fill: var(--color-light-100);
+    }
+  }
+
   .title {
     color: var(--color-light-100);
   }
@@ -66,6 +72,12 @@
   &:disabled {
     color: var(--color-light-900);
     background-color: var(--color-accent-900);
+
+    .icon {
+      path {
+        fill: var(--color-light-900);
+      }
+    }
   }
 }
 
@@ -75,6 +87,12 @@
   min-width: 169px;
   height: 36px;
   background-color: var(--color-dark-300);
+
+  .icon {
+    path {
+      fill: var(--color-light-100);
+    }
+  }
 
   .title {
     color: var(--color-light-100);
@@ -96,6 +114,12 @@
   &:disabled {
     color: var(--color-light-900);
     background-color: var(--color-dark-300);
+
+    .icon {
+      path {
+        fill: var(--color-light-900);
+      }
+    }
   }
 }
 
