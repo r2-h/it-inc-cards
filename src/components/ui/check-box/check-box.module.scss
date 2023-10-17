@@ -1,1 +1,84 @@
-export default '#'
+button {
+  all: unset;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin: 6px;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: none;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-dark-100);
+      border-radius: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &:active::after,
+    &:hover::after,
+    &:focus-visible::after {
+      display: block;
+    }
+
+    &:active::after {
+      background-color: var(--color-dark-100);
+    }
+
+    &:hover::after {
+      background-color: var(--color-dark-500);
+    }
+
+    &:focus-visible::after {
+      background-color: var(--color-dark-100);
+    }
+
+    &:disabled {
+      &::after {
+        display: none;
+      }
+
+      .icon {
+        path {
+          fill: var(--color-dark-100);
+        }
+      }
+
+      path[fill='#fff'] {
+        fill: var(--color-dark-100);
+      }
+
+      path[fill='#000'] {
+        fill: var(--color-light-700);
+      }
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-self: center;
+      z-index: 1;
+    }
+  }
+}
+
+.checkboxLabel {
+  margin-left: 2px;
+  color: var(--color-light-100);
+}
+
+.checkboxLabelDisabled {
+  color: var(--color-dark-100);
+}
