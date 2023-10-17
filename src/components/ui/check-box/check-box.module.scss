@@ -3,38 +3,39 @@ button {
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
 
   .root {
+    position: relative;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 24px;
     height: 24px;
     margin: 6px;
-    position: relative;
 
     &::after {
       content: '';
-      display: none;
-      width: 36px;
-      height: 36px;
-      background-color: var(--color-dark-100);
-      border-radius: 100%;
+
       position: absolute;
       z-index: -1;
+
+      display: none;
+
+      width: 36px;
+      height: 36px;
+
+      border-radius: 100%;
     }
 
     &:active::after,
     &:hover::after,
     &:focus-visible::after {
       display: block;
-    }
-
-    &:active::after {
-      background-color: var(--color-dark-100);
     }
 
     &:hover::after {
@@ -45,18 +46,16 @@ button {
       background-color: var(--color-dark-100);
     }
 
+    &:active::after {
+      background-color: var(--color-dark-100);
+    }
+
     &:disabled {
       &::after {
         display: none;
       }
 
-      .icon {
-        path {
-          fill: var(--color-dark-100);
-        }
-      }
-
-      path[fill='#fff'] {
+      path {
         fill: var(--color-dark-100);
       }
 
@@ -66,19 +65,19 @@ button {
     }
 
     .icon {
+      z-index: 1;
       display: flex;
       align-items: center;
       justify-self: center;
-      z-index: 1;
     }
   }
-}
 
-.checkboxLabel {
-  margin-left: 2px;
-  color: var(--color-light-100);
-}
+  .checkboxLabel {
+    margin-left: 2px;
+    color: var(--color-light-100);
+  }
 
-.checkboxLabelDisabled {
-  color: var(--color-dark-100);
+  .checkboxLabelDisabled {
+    color: var(--color-dark-100);
+  }
 }
