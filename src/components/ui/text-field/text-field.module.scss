@@ -7,7 +7,7 @@
     color: var(--color-dark-100);
   }
 
-  .input {
+  .inputWrapper {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
@@ -37,12 +37,6 @@
       border: 1px solid var(--color-dark-100);
     }
 
-    .showPassword {
-      all: unset;
-      cursor: pointer;
-      display: flex;
-    }
-
     .textField {
       width: 100%;
       background: inherit;
@@ -63,33 +57,32 @@
         }
       }
 
-      &:disabled {
+      &.disabled {
         cursor: not-allowed;
+        color: var(--color-dark-300);
 
         &::placeholder {
           color: var(--color-dark-300);
         }
       }
     }
+
+    .delete {
+      all: unset;
+      cursor: pointer;
+      display: flex;
+    }
   }
 }
 
 .error {
   margin: 1px;
-  color: var(--color-danger-300) !important;
+  color: var(--color-danger-300);
 }
 
-.eye {
+.disabled {
   path {
-    fill: var(--color-dark-300);
-  }
-}
-
-.searchImgDisabled {
-  margin-right: 4px;
-
-  path {
-    fill: var(--color-dark-300);
+    fill: var(--color-dark-500) !important;
   }
 }
 
