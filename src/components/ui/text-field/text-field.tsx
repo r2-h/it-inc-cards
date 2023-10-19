@@ -5,29 +5,27 @@ import Eye from '@/assets/eye'
 import EyeClosed from '@/assets/eye-closed'
 import { SearchImg } from '@/assets/search'
 import { Typography } from '@/components/ui/typography'
+import { clsx } from 'clsx'
 
 import s from './text-field.module.scss'
 
 export type TextFieldProps = {
+  disabled?: boolean
   errorMessage?: string
   label?: string
   name?: string
-  onBlur?: any
   onChange?: any
-  ref?: any
   value?: string
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField: FC<TextFieldProps> = ({
   className,
+  disabled,
   errorMessage,
   label,
-  onChange,
   placeholder,
-  ref,
   type,
   value,
-  ...rest
 }) => {
   const [tempValue, setTempValue] = useState(value || '')
   const [showPassword, setShowPassword] = useState(false)
@@ -40,9 +38,14 @@ export const TextField: FC<TextFieldProps> = ({
     setShowPassword(prev => !prev)
   }
 
-  const searchImgCN = `${rest.disabled ? s.searchImgDisabled : s.searchImg} ${
-    errorMessage ? s.errorIcon : ''
-  }`
+  const searchImgCN = clsx(s.searchImg, { [s.errorIcon]: errorMessage }, { [s.disabled]: disabled })
+  const deleteCN = clsx(s.delete, { [s.disabled]: disabled })
+  const inputCN = clsx(
+    s.textField,
+    className,
+    { [s.error]: errorMessage },
+    { [s.disabled]: disabled }
+  )
 
   return (
     <div className={s.wrapper}>
@@ -51,27 +54,27 @@ export const TextField: FC<TextFieldProps> = ({
           {label}
         </Typography>
       )}
-      <div className={s.input} style={{ borderColor: errorMessage ? 'red' : '' }}>
+      <div className={s.inputWrapper} style={{ borderColor: errorMessage ? 'red' : '' }}>
         {type === 'search' && <SearchImg className={searchImgCN} />}
         <input
-          className={`${s.textField} ${className} ${errorMessage ? s.error : ''}`}
+          className={inputCN}
+          disabled={disabled}
           onChange={onChangeHandler}
           placeholder={placeholder}
-          ref={ref}
           type={finalType}
           value={tempValue}
         />
         {type === 'search' && (
-          <button className={s.showPassword} onClick={() => setTempValue('')} type={'button'}>
+          <button className={deleteCN} onClick={() => setTempValue('')} type={'button'}>
             <DeleteIcon />
           </button>
         )}
         {type === 'password' && (
           <button className={s.showPassword} onClick={onEyeClickHandler} type={'button'}>
             {showPassword ? (
-              <EyeClosed className={rest.disabled ? s.eye : ''} />
+              <EyeClosed className={disabled ? s.disabled : ''} />
             ) : (
-              <Eye className={rest.disabled ? s.eye : ''} />
+              <Eye className={disabled ? s.disabled : ''} />
             )}
           </button>
         )}

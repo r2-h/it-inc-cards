@@ -43,13 +43,3 @@ export const Search: Story = {
     type: 'search',
   },
 }
-
-export const SearchError: Story = {
-  args: {
-    disabled: false,
-    errorMessage: 'Error message',
-    placeholder: 'Input search',
-    type: 'search',
-    value: 'Wrong value',
-  },
-}
