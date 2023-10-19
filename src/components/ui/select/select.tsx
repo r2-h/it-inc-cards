@@ -14,6 +14,7 @@ export type Options = {
 
 type SelectDemoProps = {
   className?: string
+  defaultValue?: string
   disabled?: boolean
   label: string
   options: Options[]
@@ -21,6 +22,7 @@ type SelectDemoProps = {
 }
 
 export const SelectDemo: FC<SelectDemoProps> = ({
+  defaultValue,
   disabled = false,
   label,
   options,
@@ -41,30 +43,32 @@ export const SelectDemo: FC<SelectDemoProps> = ({
         {label}
       </Typography>
       <Select.Root
-        defaultValue={selectedValue}
+        defaultValue={defaultValue}
         disabled={disabled}
         onOpenChange={handleOpenChange}
         onValueChange={handleValueChange}
+        value={selectedValue}
       >
         <Select.Trigger className={s.trigger}>
           <Select.Value placeholder={placeholder} />
-          <Typography className={s.text} variant={'body1'}>
-            {selectedValue}
-          </Typography>
           <Select.Icon className={s.iconWrapper}>
             {isOpen ? <UpImg className={s.icon} /> : <DownImg className={s.icon} />}
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content>
+          <Select.Content position={'popper'}>
             <Select.Viewport className={s.viewport}>
-              {options.map(option => (
-                <Select.Item className={s.item} key={option.id} value={option.value}>
-                  <Typography className={s.text} variant={'body1'}>
-                    {option.value}
-                  </Typography>
-                </Select.Item>
-              ))}
+              <Select.Group>
+                {options.map(option => (
+                  <Select.Item className={s.item} key={option.id} value={option.value}>
+                    <Select.ItemText>
+                      <Typography className={s.text} variant={'body1'}>
+                        {option.value}
+                      </Typography>
+                    </Select.ItemText>
+                  </Select.Item>
+                ))}
+              </Select.Group>
             </Select.Viewport>
           </Select.Content>
         </Select.Portal>
