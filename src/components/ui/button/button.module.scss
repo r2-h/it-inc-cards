@@ -41,10 +41,9 @@
 .primary {
   @include button;
 
-  min-width: 150px;
   height: 36px;
   background-color: var(--color-accent-500);
-  box-shadow: 0 4px 18px 0 rgba(var(--color-accent-500) 0.35);
+  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
 
   .icon {
     path {
@@ -84,9 +83,9 @@
 .secondary {
   @include button;
 
-  min-width: 169px;
   height: 36px;
   background-color: var(--color-dark-300);
+  box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%);
 
   .icon {
     path {
@@ -127,9 +126,7 @@
   @include button;
 
   box-sizing: border-box;
-  min-width: 106px;
   height: 36px;
-
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-accent-700);
 
