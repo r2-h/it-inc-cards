@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, FC, useState } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC, useState } from 'react'
 
 import { DeleteIcon } from '@/assets/deleteIcon'
 import Eye from '@/assets/eye'
@@ -22,17 +22,15 @@ export const TextField: FC<TextFieldProps> = ({
   disabled,
   errorMessage,
   label,
+  onChange,
   placeholder,
   type,
   value,
 }) => {
-  const [tempValue, setTempValue] = useState(value || '')
+  const [tempValue, setTempValue] = useState(value)
   const [showPassword, setShowPassword] = useState(false)
   const finalType = getFinalType(type, showPassword)
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTempValue(e.currentTarget.value)
-  }
   const onEyeClickHandler = () => {
     setShowPassword(prev => !prev)
   }
@@ -56,7 +54,7 @@ export const TextField: FC<TextFieldProps> = ({
         <input
           className={inputCN}
           disabled={disabled}
-          onChange={onChangeHandler}
+          onChange={onChange}
           placeholder={placeholder}
           type={finalType}
           value={tempValue}
