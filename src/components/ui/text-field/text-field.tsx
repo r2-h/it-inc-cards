@@ -19,7 +19,6 @@ export type TextFieldProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField: FC<TextFieldProps> = ({
-  className,
   disabled,
   errorMessage,
   label,
@@ -38,23 +37,20 @@ export const TextField: FC<TextFieldProps> = ({
     setShowPassword(prev => !prev)
   }
 
-  const searchImgCN = clsx(s.searchImg, { [s.errorIcon]: errorMessage }, { [s.disabled]: disabled })
-  const deleteCN = clsx(s.delete, { [s.disabled]: disabled })
-  const inputCN = clsx(
-    s.textField,
-    className,
-    { [s.error]: errorMessage },
-    { [s.disabled]: disabled }
-  )
+  const searchImgCN = clsx(s.searchImg, { [s.disabled]: disabled })
+  const deleteCN = clsx(s.deleteBtn, { [s.disabled]: disabled })
+  const inputCN = clsx(s.textField, { [s.error]: errorMessage }, { [s.disabled]: disabled })
+  const inputWrapperCN = clsx(s.inputWrapper, { [s.error]: errorMessage })
+  const labelCN = clsx(s.label, { [s.disabled]: disabled })
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.container}>
       {label && (
-        <Typography as={'label'} className={s.label} variant={'body2'}>
+        <Typography as={'label'} className={labelCN} variant={'body2'}>
           {label}
         </Typography>
       )}
-      <div className={s.inputWrapper} style={{ borderColor: errorMessage ? 'red' : '' }}>
+      <div className={inputWrapperCN}>
         {type === 'search' && <SearchImg className={searchImgCN} />}
         <input
           className={inputCN}
@@ -70,7 +66,7 @@ export const TextField: FC<TextFieldProps> = ({
           </button>
         )}
         {type === 'password' && (
-          <button className={s.showPassword} onClick={onEyeClickHandler} type={'button'}>
+          <button className={s.eyeBtn} onClick={onEyeClickHandler} type={'button'}>
             {showPassword ? (
               <EyeClosed className={disabled ? s.disabled : ''} />
             ) : (
