@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, FC, useState } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC, useState } from 'react'
 
 import { DeleteIcon } from '@/assets/deleteIcon'
 import Eye from '@/assets/eye'
@@ -22,26 +22,25 @@ export const TextField: FC<TextFieldProps> = ({
   disabled,
   errorMessage,
   label,
+  onChange,
   placeholder,
   type,
   value,
 }) => {
-  const [tempValue, setTempValue] = useState(value || '')
+  const [tempValue, setTempValue] = useState(value)
   const [showPassword, setShowPassword] = useState(false)
   const finalType = getFinalType(type, showPassword)
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTempValue(e.currentTarget.value)
-  }
   const onEyeClickHandler = () => {
     setShowPassword(prev => !prev)
   }
 
-  const searchImgCN = clsx(s.searchImg, { [s.disabled]: disabled })
-  const deleteCN = clsx(s.deleteBtn, { [s.disabled]: disabled })
-  const inputCN = clsx(s.textField, { [s.error]: errorMessage }, { [s.disabled]: disabled })
-  const inputWrapperCN = clsx(s.inputWrapper, { [s.error]: errorMessage })
-  const labelCN = clsx(s.label, { [s.disabled]: disabled })
+  const searchImgCN = clsx(s.searchImg, disabled && s.disabled)
+  const deleteIconCN = clsx(s.deleteBtn, disabled && s.disabled)
+  const eyeIconCN = clsx(disabled && s.disabled)
+  const inputCN = clsx(s.textField, errorMessage && s.error, disabled && s.disabled)
+  const inputWrapperCN = clsx(s.inputWrapper, errorMessage && s.error)
+  const labelCN = clsx(s.label, disabled && s.disabled)
 
   return (
     <div className={s.container}>
@@ -55,23 +54,19 @@ export const TextField: FC<TextFieldProps> = ({
         <input
           className={inputCN}
           disabled={disabled}
-          onChange={onChangeHandler}
+          onChange={onChange}
           placeholder={placeholder}
           type={finalType}
           value={tempValue}
         />
         {type === 'search' && (
-          <button className={deleteCN} onClick={() => setTempValue('')} type={'button'}>
+          <button className={deleteIconCN} onClick={() => setTempValue('')} type={'button'}>
             <DeleteIcon />
           </button>
         )}
         {type === 'password' && (
           <button className={s.eyeBtn} onClick={onEyeClickHandler} type={'button'}>
-            {showPassword ? (
-              <EyeClosed className={disabled ? s.disabled : ''} />
-            ) : (
-              <Eye className={disabled ? s.disabled : ''} />
-            )}
+            {showPassword ? <EyeClosed className={eyeIconCN} /> : <Eye className={eyeIconCN} />}
           </button>
         )}
       </div>
