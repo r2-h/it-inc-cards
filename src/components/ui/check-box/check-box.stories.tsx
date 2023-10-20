@@ -13,14 +13,14 @@ type Story = StoryObj<typeof meta>
 
 export const Checkbox: Story = {
   args: {
-    onChange: () => {},
+    id: '1',
   },
 }
 
 export const CheckboxWithLabel: Story = {
   args: {
     disabled: false,
+    id: '1',
     label: 'Check-box',
-    onChange: () => {},
   },
 }

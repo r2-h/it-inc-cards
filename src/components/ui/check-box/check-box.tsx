@@ -9,11 +9,11 @@ import clsx from 'clsx'
 import s from './check-box.module.scss'
 
 type CheckboxDemoProps = {
-  checked: boolean
+  checked?: boolean
   disabled?: boolean
   id: string
   label?: string
-  onChange: (checked: boolean) => void
+  onChange?: (checked: boolean) => void
   required?: boolean
 }
 
