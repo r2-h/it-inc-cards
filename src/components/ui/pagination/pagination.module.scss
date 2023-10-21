@@ -1,0 +1,68 @@
+@mixin btn-params {
+  all: unset;
+
+  cursor: pointer;
+
+  width: 24px;
+  height: 24px;
+
+  text-align: center;
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-info-900);
+  }
+
+  &:disabled {
+    cursor: initial;
+  }
+}
+
+.buttons_container {
+  display: flex;
+  gap: 12px;
+  align-content: center;
+  justify-content: center;
+}
+
+.select_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.select {
+  width: 60px;
+}
+
+.root {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  padding: 20px;
+}
+
+.page {
+  @include btn-params;
+
+  &:disabled {
+    color: var(--color-dark-900);
+    background: var(--color-light-100);
+    border-radius: 2px;
+  }
+}
+
+.leftArrow {
+  @include btn-params;
+}
+
+.rigthArrow {
+  @include btn-params;
+}
+
+.dots {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
