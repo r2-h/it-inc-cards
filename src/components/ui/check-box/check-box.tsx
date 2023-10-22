@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 import s from './check-box.module.scss'
 
-type CheckboxDemoProps = {
+export type CheckboxDemoProps = {
   checked?: boolean
   disabled?: boolean
   id: string
