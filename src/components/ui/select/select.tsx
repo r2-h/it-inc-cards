@@ -18,7 +18,7 @@ type SelectDemoProps = {
   defaultValue?: string
   disabled?: boolean
   label?: string
-  onChangeValue?: (value: string) => void
+  onChangeValue: (value: string) => void
   options: Options[]
   placeholder?: string
   value?: string

@@ -15,6 +15,7 @@ export const SelectStory: Story = {
   args: {
     disabled: false,
     label: 'Select-box',
+    onChangeValue: () => {},
     options: [
       { id: '1', value: 'Select-box1' },
       { id: '2', value: 'Select-box2' },
