@@ -1,5 +1,5 @@
 import ArrowLeft from '@/assets/keyboard_arrow_left'
-import ArrowRigth from '@/assets/keyboard_arrow_rigth'
+import ArrowRight from '@/assets/keyboard_arrow_rigth'
 import { usePagination } from '@/components/ui/pagination/usePagination'
 import { SelectDemo } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
@@ -65,7 +65,7 @@ export const Pagination = ({
           }
         })}
         <button className={s.rigthArrow} disabled={isLastPage} onClick={nextPageHandler}>
-          <ArrowRigth />
+          <ArrowRight />
         </button>
       </div>
       <div className={s.select_container}>
