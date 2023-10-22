@@ -4,6 +4,7 @@ import DownImg from '@/assets/down-img'
 import UpImg from '@/assets/up-img'
 import { Typography } from '@/components/ui/typography'
 import * as Select from '@radix-ui/react-select'
+import clsx from 'clsx'
 
 import s from './select.module.scss'
 
@@ -16,29 +17,40 @@ type SelectDemoProps = {
   className?: string
   defaultValue?: string
   disabled?: boolean
-  label: string
+  label?: string
+  onChangeValue: (value: string) => void
   options: Options[]
-  placeholder: string
+  placeholder?: string
+  value: string
 }
 
 export const SelectDemo: FC<SelectDemoProps> = ({
+  className,
   defaultValue,
   disabled = false,
   label,
+  onChangeValue,
   options,
   placeholder,
+  value,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
+  //const [selectedValue, setSelectedValue] = useState<string | undefined>(value)
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const handleValueChange = (value: string | undefined) => {
-    setSelectedValue(value)
+  const handleValueChange = (value: string) => {
+    onChangeValue(value)
   }
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open)
   }
 
+  const cNames = {
+    root: clsx(s.root, className),
+    trigger: clsx(s.trigger, className),
+    viewport: clsx(s.viewport, className),
+  }
+
   return (
-    <div className={s.root}>
+    <div className={cNames.root}>
       <Typography as={'label'} className={s.selectLabel} variant={'body2'}>
         {label}
       </Typography>
@@ -47,9 +59,9 @@ export const SelectDemo: FC<SelectDemoProps> = ({
         disabled={disabled}
         onOpenChange={handleOpenChange}
         onValueChange={handleValueChange}
-        value={selectedValue}
+        value={value}
       >
-        <Select.Trigger className={s.trigger}>
+        <Select.Trigger className={cNames.trigger}>
           <Select.Value placeholder={placeholder} />
           <Select.Icon className={s.iconWrapper}>
             {isOpen ? <UpImg className={s.icon} /> : <DownImg className={s.icon} />}
@@ -57,7 +69,7 @@ export const SelectDemo: FC<SelectDemoProps> = ({
         </Select.Trigger>
         <Select.Portal>
           <Select.Content position={'popper'}>
-            <Select.Viewport className={s.viewport}>
+            <Select.Viewport className={cNames.viewport}>
               <Select.Group>
                 {options.map(option => (
                   <Select.Item className={s.item} key={option.id} value={option.value}>
