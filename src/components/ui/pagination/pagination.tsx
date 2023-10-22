@@ -69,16 +69,20 @@ export const Pagination = ({
         </button>
       </div>
       <div className={s.select_container}>
-        <Typography variant={'body2'}>Show</Typography>
-        <div>
-          <SelectDemo
-            className={s.select}
-            onChangeValue={onChangePageSize}
-            options={options}
-            value={`${pageSize}`}
-          />
-        </div>
-        <Typography variant={'body2'}>per page</Typography>
+        <Typography className={s.text} color={'red'} variant={'body2'}>
+          Show
+        </Typography>
+
+        <SelectDemo
+          className={s.select}
+          onChangeValue={onChangePageSize}
+          options={options}
+          value={`${pageSize}`}
+        />
+
+        <Typography className={s.text} variant={'body2'}>
+          per page
+        </Typography>
       </div>
     </div>
   )

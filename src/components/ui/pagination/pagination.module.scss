@@ -8,8 +8,9 @@
 
   text-align: center;
 
+  border-radius: 2px;
+
   &:focus-visible {
-    border-radius: 2px;
     outline: 2px solid var(--color-info-900);
   }
 
@@ -18,51 +19,60 @@
   }
 }
 
-.buttons_container {
-  display: flex;
-  gap: 12px;
-  align-content: center;
-  justify-content: center;
-}
-
-.select_container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.select {
-  width: 60px;
-}
-
 .root {
   display: flex;
   gap: 25px;
   align-items: center;
   padding: 20px;
-}
 
-.page {
-  @include btn-params;
+  .buttons_container {
+    display: flex;
+    gap: 12px;
+    align-content: center;
+    justify-content: center;
 
-  &:disabled {
-    color: var(--color-dark-900);
-    background: var(--color-light-100);
-    border-radius: 2px;
+    .page {
+      @include btn-params;
+
+      &:hover {
+        background-color: var(--color-dark-500);
+      }
+
+      &:disabled {
+        color: var(--color-dark-900);
+        background: var(--color-light-100);
+      }
+    }
+
+    .leftArrow {
+      @include btn-params;
+    }
+
+    .rigthArrow {
+      @include btn-params;
+    }
+
+    .dots {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+    }
   }
-}
 
-.leftArrow {
-  @include btn-params;
-}
+  .select_container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 
-.rigthArrow {
-  @include btn-params;
-}
+    .select {
+      cursor: pointer;
+      min-width: 60px;
+    }
 
-.dots {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  text-align: center;
+    .text {
+      font-size: 14px;
+      color: var(--color-light-100);
+    }
+  }
 }

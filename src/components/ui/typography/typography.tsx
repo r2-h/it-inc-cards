@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './typography.module.scss'
 
-type TypographyProps<T extends ElementType = 'p'> = {
+type TypographyProps<T extends ElementType = 'span'> = {
   as?: T
   children: ReactNode
   className?: string

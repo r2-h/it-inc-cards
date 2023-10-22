@@ -45,6 +45,7 @@ export const SelectDemo: FC<SelectDemoProps> = ({
 
   const cNames = {
     root: clsx(s.root, className),
+    trigger: clsx(s.trigger, className),
     viewport: clsx(s.viewport, className),
   }
 
@@ -60,7 +61,7 @@ export const SelectDemo: FC<SelectDemoProps> = ({
         onValueChange={handleValueChange}
         value={value}
       >
-        <Select.Trigger className={s.trigger}>
+        <Select.Trigger className={cNames.trigger}>
           <Select.Value placeholder={placeholder} />
           <Select.Icon className={s.iconWrapper}>
             {isOpen ? <UpImg className={s.icon} /> : <DownImg className={s.icon} />}
