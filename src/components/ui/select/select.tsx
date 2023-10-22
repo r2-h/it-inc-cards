@@ -21,7 +21,7 @@ type SelectDemoProps = {
   onChangeValue: (value: string) => void
   options: Options[]
   placeholder?: string
-  value: string
+  value?: string
 }
 
 export const SelectDemo: FC<SelectDemoProps> = ({
