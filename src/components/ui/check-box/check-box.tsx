@@ -1,24 +1,24 @@
 import { FC } from 'react'
 
-import CheckboxDoneImg from '@/assets/checkboxDone'
-import CheckboxImg from '@/assets/checkboxImg'
 import { Typography } from '@/components/ui/typography'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import clsx from 'clsx'
+import { CheckIcon } from '@radix-ui/react-icons'
+import { clsx } from 'clsx'
 
 import s from './check-box.module.scss'
 
 export type CheckboxDemoProps = {
   checked?: boolean
+  className?: string
   disabled?: boolean
   id: string
   label?: string
   onChange?: (checked: boolean) => void
   required?: boolean
 }
-
 export const CheckboxDemo: FC<CheckboxDemoProps> = ({
   checked,
+  className,
   disabled = false,
   id,
   label = '',
@@ -26,24 +26,25 @@ export const CheckboxDemo: FC<CheckboxDemoProps> = ({
   required,
 }) => {
   const labelCN = clsx(s.checkboxLabel, disabled && s.checkboxLabelDisabled)
+  const containerCN = clsx(s.container, className)
 
   return (
-    <div className={s.wrapper}>
-      <Checkbox.Root
-        checked={checked}
-        className={s.root}
-        // defaultChecked
-        disabled={disabled}
-        id={id}
-        onCheckedChange={onChange}
-        required={required}
-      >
-        <CheckboxImg className={s.icon} />
-        <Checkbox.Indicator>
-          <CheckboxDoneImg className={s.icon} />
-        </Checkbox.Indicator>
-      </Checkbox.Root>
-
+    <div className={containerCN}>
+      <div className={s.wrapper}>
+        <Checkbox.Root
+          checked={checked}
+          className={s.checkboxRoot}
+          // defaultChecked
+          disabled={disabled}
+          id={id}
+          onCheckedChange={onChange}
+          required={required}
+        >
+          <Checkbox.Indicator className={s.checkboxIndicator}>
+            <CheckIcon className={s.checkIcon} />
+          </Checkbox.Indicator>
+        </Checkbox.Root>
+      </div>
       {label && (
         <Typography as={'label'} className={labelCN} htmlFor={id} variant={'body2'}>
           {label}
