@@ -26,8 +26,12 @@
     height: 36px;
     padding: 6px 12px;
 
-    background-color: var(--color-dark-900);
+    background-color: inherit;
     outline: 1px solid var(--color-dark-300);
+
+    &.fullWidth {
+      width: 100%;
+    }
 
     .searchImg {
       margin-right: 4px;
@@ -100,8 +104,8 @@
       display: flex;
     }
   }
-}
 
-.error {
-  color: var(--color-danger-300);
+  .error {
+    color: var(--color-danger-300);
+  }
 }

@@ -16,6 +16,7 @@ export const Default: Story = {
     disabled: false,
     label: 'Input',
     placeholder: 'Input',
+    fullWidth: false,
   },
 }
 
@@ -25,6 +26,7 @@ export const Password: Story = {
     label: 'Input',
     placeholder: 'Password',
     type: 'password',
+    fullWidth: false,
   },
 }
 
@@ -34,6 +36,7 @@ export const Error: Story = {
     errorMessage: 'Error message',
     label: 'Input with error',
     value: 'Wrong value',
+    fullWidth: false,
   },
 }
 export const Search: Story = {
@@ -41,5 +44,6 @@ export const Search: Story = {
     disabled: false,
     placeholder: 'Input search',
     type: 'search',
+    fullWidth: false,
   },
 }

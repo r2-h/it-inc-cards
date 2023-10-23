@@ -1,17 +1,16 @@
 import { FC } from 'react'
-
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
-import { Button } from '../../ui/button'
+import { Card } from '@/components/ui/card'
+import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box/controlled-check-box'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field'
+import { Typography } from '@/components/ui/typography'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import s from './sign-in.module.scss'
 
-import { Card } from '@/components/ui/card'
-import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box/controlled-check-box.tsx'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field.tsx'
-import { Typography } from '@/components/ui/typography'
+import { Button } from '../../ui/button'
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -37,43 +36,43 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className={s.container}>
-        <Typography variant={'h2'} className={s.title}>
+        <Typography className={s.title} variant={'h2'}>
           Sign In
         </Typography>
 
         {/*<DevTool control={control} />*/}
         <ControlledTextField
-          fullWidth
           className={s.email}
-          name={'email'}
           control={control}
-          label={'Email'}
           errorMessage={errors.email?.message}
+          fullWidth
+          label={'Email'}
+          name={'email'}
         />
         <ControlledTextField
-          fullWidth
           className={s.password}
-          name={'password'}
           control={control}
-          label={'Password'}
           errorMessage={errors.password?.message}
+          fullWidth
+          label={'Password'}
+          name={'password'}
         />
         <ControlledCheckBox
-          label={'Remember me'}
-          control={control}
-          name={'rememberMe'}
           className={s.checkBox}
+          control={control}
+          label={'Remember me'}
+          name={'rememberMe'}
         />
-        <Typography variant={'body2'} className={s.forgotPassword}>
+        <Typography className={s.forgotPassword} variant={'body2'}>
           Forgot Password?
         </Typography>
-        <Button type="submit" fullWidth className={s.button}>
+        <Button className={s.button} fullWidth type={'submit'}>
           Sign In
         </Button>
-        <Typography variant={'body2'} className={s.haveAnAccount}>
+        <Typography className={s.haveAnAccount} variant={'body2'}>
           Don&apos;t have an account?
         </Typography>
-        <Button variant={'link'} type={'button'} className={s.signUp}>
+        <Button className={s.signUp} type={'button'} variant={'link'}>
           Sign Up
         </Button>
       </Card>
