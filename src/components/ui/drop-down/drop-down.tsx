@@ -21,7 +21,7 @@ export const DropDown: FC<DropDownProps> = ({ avatar, children, email, name, tri
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content align={'end'} className={s.content}>
+        <DropdownMenu.Content align={'end'} className={s.content} sideOffset={5}>
           {name && (
             <>
               <DropDownLabel avatar={avatar} email={email} name={name} />
