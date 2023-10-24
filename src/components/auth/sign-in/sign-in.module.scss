@@ -1,0 +1,57 @@
+.container {
+  padding: 33px 36px 29px;
+
+  .title {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 27px;
+
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-light-100);
+  }
+
+  .email {
+    margin-bottom: 24px;
+  }
+
+  .password {
+    margin-bottom: 12px;
+  }
+
+  .checkBox {
+    margin-bottom: 6px;
+    margin-left: -8px;
+  }
+
+  .forgotPassword {
+    display: flex;
+    justify-content: end;
+
+    margin-bottom: 66px;
+
+    font-size: var(--font-size-s);
+    color: var(--color-light-100);
+  }
+
+  .button {
+    margin-bottom: 20px;
+  }
+
+  .haveAnAccount {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 7px;
+
+    font-size: var(--font-size-s);
+    color: var(--color-light-900);
+  }
+
+  .signUp {
+    display: flex;
+    margin: 0 auto;
+    text-decoration: underline;
+  }
+}
