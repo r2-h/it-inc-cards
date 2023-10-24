@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Avatar } from '@/assets/avatar'
 import { Header } from '@/components/header/header'
 
 const meta = {
@@ -19,6 +20,8 @@ export const HeaderWithButton: Story = {
 
 export const HeaderWithAvatar: Story = {
   args: {
+    avatar: <Avatar />,
+    email: '123@gmail.com',
     isLoggedIn: true,
     name: 'Ivan',
   },
