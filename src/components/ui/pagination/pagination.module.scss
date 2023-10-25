@@ -67,10 +67,15 @@
 
     .select {
       cursor: pointer;
-      min-width: 60px;
+
+      button {
+        padding: 6px;
+      }
     }
 
     .text {
+      display: flex;
+      flex-shrink: 0;
       color: var(--color-light-100);
     }
   }
