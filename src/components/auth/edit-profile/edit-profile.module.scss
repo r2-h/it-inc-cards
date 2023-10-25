@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 33px 36px 84px;
+
+  .header {
+    margin-bottom: 27px;
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto;
+  }
+
+  .input {
+    margin-top: 12px;
+  }
+
+  .button {
+    margin-top: 36px;
+  }
+}
