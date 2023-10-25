@@ -50,7 +50,7 @@ export const CreateNewPassword: FC<CreateNewPasswordProps> = ({ onSubmit }) => {
           Create new password and we will send you further instructions to email
         </Typography>
         <Button fullWidth type={'submit'}>
-          Send Instructions
+          Create New Password
         </Button>
       </Card>
     </form>
