@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Typography } from '@/components/ui/typography'
-import * as Checkbox from '@radix-ui/react-checkbox'
+import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
@@ -16,7 +16,7 @@ export type CheckboxDemoProps = {
   onChange?: (checked: boolean) => void
   required?: boolean
 }
-export const CheckboxDemo: FC<CheckboxDemoProps> = ({
+export const Checkbox: FC<CheckboxDemoProps> = ({
   checked,
   className,
   disabled = false,
@@ -31,7 +31,7 @@ export const CheckboxDemo: FC<CheckboxDemoProps> = ({
   return (
     <div className={containerCN}>
       <div className={s.wrapper}>
-        <Checkbox.Root
+        <CheckboxRadix.Root
           checked={checked}
           className={s.checkboxRoot}
           // defaultChecked
@@ -40,10 +40,10 @@ export const CheckboxDemo: FC<CheckboxDemoProps> = ({
           onCheckedChange={onChange}
           required={required}
         >
-          <Checkbox.Indicator className={s.checkboxIndicator}>
+          <CheckboxRadix.Indicator className={s.checkboxIndicator}>
             <CheckIcon className={s.checkIcon} />
-          </Checkbox.Indicator>
-        </Checkbox.Root>
+          </CheckboxRadix.Indicator>
+        </CheckboxRadix.Root>
       </div>
       {label && (
         <Typography as={'label'} className={labelCN} htmlFor={id} variant={'body2'}>

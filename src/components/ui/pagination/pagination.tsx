@@ -1,7 +1,7 @@
 import ArrowLeft from '@/assets/keyboard_arrow_left'
 import ArrowRight from '@/assets/keyboard_arrow_rigth'
 import { usePagination } from '@/components/ui/pagination/usePagination'
-import { SelectDemo } from '@/components/ui/select'
+import { Select } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
 
 import s from './pagination.module.scss'
@@ -73,7 +73,7 @@ export const Pagination = ({
           Show
         </Typography>
 
-        <SelectDemo
+        <Select
           className={s.select}
           onChangeValue={onChangePageSize}
           options={options}
