@@ -65,13 +65,18 @@
     gap: 10px;
     align-items: center;
 
+    .select {
+      cursor: pointer;
+
+      button {
+        padding: 6px;
+      }
+    }
+
     .text {
+      display: flex;
+      flex-shrink: 0;
       color: var(--color-light-100);
     }
   }
-}
-
-.select {
-  cursor: pointer;
-  min-width: 60px;
 }
