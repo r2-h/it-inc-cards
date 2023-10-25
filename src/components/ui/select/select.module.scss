@@ -1,6 +1,7 @@
 .root {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   .selectLabel {
     color: var(--color-dark-100);
@@ -64,7 +65,7 @@
 }
 
 .viewport {
-  width: 100%;
+  width: var(--radix-select-trigger-width);
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;

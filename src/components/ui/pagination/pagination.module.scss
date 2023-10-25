@@ -65,13 +65,13 @@
     gap: 10px;
     align-items: center;
 
-    .select {
-      cursor: pointer;
-      min-width: 60px;
-    }
-
     .text {
       color: var(--color-light-100);
     }
   }
+}
+
+.select {
+  cursor: pointer;
+  min-width: 60px;
 }

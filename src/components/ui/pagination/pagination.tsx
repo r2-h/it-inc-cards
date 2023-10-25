@@ -69,7 +69,7 @@ export const Pagination = ({
         </button>
       </div>
       <div className={s.select_container}>
-        <Typography className={s.text} color={'red'} variant={'body2'}>
+        <Typography className={s.text} variant={'body2'}>
           Show
         </Typography>
 
