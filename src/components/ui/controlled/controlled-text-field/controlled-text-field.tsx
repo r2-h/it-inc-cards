@@ -11,7 +11,7 @@ export const ControlledTextField = <TFieldValues extends FieldValues>({
   name,
   rules,
   shouldUnregister,
-  ...checkboxProps
+  ...textFieldProps
 }: ControlledTextFieldProps<TFieldValues>) => {
   const {
     field: { onChange, value },
@@ -29,7 +29,7 @@ export const ControlledTextField = <TFieldValues extends FieldValues>({
         id: name,
         onChange: onChange,
         value: value,
-        ...checkboxProps,
+        ...textFieldProps,
       }}
     />
   )
