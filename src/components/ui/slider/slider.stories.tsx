@@ -27,13 +27,13 @@ const StorySlider = (args: SliderPropsType) => {
   const [state, setState] = useState(args.value)
 
   useEffect(() => {
+    setState(args.value)
     if (args.max && args.min) {
       if (args.value[0] < args.min) {
-        setState([args.min, args.value[1]])
-      } else if (args.value[1] > args.max) {
-        setState([args.value[0], args.max])
-      } else {
-        setState(args.value)
+        setState(prev => [args.min!, prev[1]])
+      }
+      if (args.value[1] > args.max) {
+        setState(prev => [prev[0], args.max!])
       }
     }
   }, [args])
