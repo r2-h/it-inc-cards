@@ -1,5 +1,5 @@
-import ArrowLeft from '@/assets/keyboard_arrow_left'
-import ArrowRight from '@/assets/keyboard_arrow_rigth'
+import ArrowLeft from '@/assets/keyboard-arrow-left'
+import ArrowRight from '@/assets/keyboard-arrow-rigth'
 import { usePagination } from '@/components/ui/pagination/usePagination'
 import { Select } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'

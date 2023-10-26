@@ -1,0 +1,31 @@
+.table {
+  border-collapse: collapse;
+  min-width: 1006px;
+  border: 1px solid var(--color-dark-500);
+}
+
+.row {
+  height: 36px;
+  text-align: left;
+}
+
+.headCell {
+  position: relative;
+
+  align-items: center;
+
+  padding: 6px 24px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  vertical-align: center;
+
+  background-color: var(--color-dark-500);
+}
+
+.tableCell {
+  padding: 6px 24px;
+  font-size: var(--font-size-s);
+  background-color: var(--color-dark-900);
+  border-bottom: 1px solid var(--color-dark-500);
+}
