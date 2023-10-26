@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Slider } from '@/components/ui/slider/slider'
+import { Slider, SliderPropsType } from '@/components/ui/slider/slider'
 
 const meta = {
   component: Slider,
@@ -15,14 +15,24 @@ type Story = StoryObj<typeof meta>
 
 export const SliderStory: Story = {
   args: {
-    onValueChange: () => {},
     value: [0, 100],
   },
-  render: () => <StorySlider />,
+  render: args => <StorySlider {...args} />,
 }
 
-const StorySlider = () => {
-  const [value, setValue] = useState([0, 100])
+const StorySlider = (args: SliderPropsType) => {
+  const [state, setState] = useState(args.value)
 
-  return <Slider onValueChange={value => setValue(value)} value={value} />
+  useEffect(() => {
+    setState(args.value)
+  }, [args])
+
+  return (
+    <Slider
+      max={args.max}
+      min={args.min}
+      onValueChange={(value: number[]) => setState(value)}
+      value={state}
+    />
+  )
 }

@@ -2,7 +2,7 @@ import * as RadixSlider from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
 
-type SliderPropsType = {
+export type SliderPropsType = {
   max?: number
   min?: number
   minStepsBetweenThumbs?: number
