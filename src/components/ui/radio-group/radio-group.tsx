@@ -2,45 +2,57 @@ import { FC } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import * as RadioGroupRadix from '@radix-ui/react-radio-group'
+import clsx from 'clsx'
 
 import s from './radio-group.module.scss'
 
-type RadioGroupProps = {
-  defaultValue: string
+export type RadioGroupProps = {
+  className?: string
+  defaultValue?: string
   disabled?: boolean
-  values: ValuesType[]
+  id?: string
+  onChange?: () => void
+  options: OptionsType[]
+  value?: number | string
 }
-type ValuesType = {
+type OptionsType = {
   disable: boolean
   title: string
 }
 
-export const RadioGroup: FC<RadioGroupProps> = ({ defaultValue, disabled, values }) => {
-  const labelCN = disabled ? `${s.label} ${s.disabled}` : s.label
+export const RadioGroup: FC<RadioGroupProps> = ({
+  className,
+  defaultValue,
+  disabled,
+  id,
+  onChange,
+  options,
+}) => {
+  const radioGroupCN = clsx(s.radioGroupRoot, className)
+  const labelCN = clsx(s.label, disabled && s.disabled)
 
   return (
-    <form>
-      <RadioGroupRadix.Root
-        className={s.radioGroupRoot}
-        defaultValue={defaultValue}
-        disabled={disabled}
-      >
-        {values.map(value => (
-          <div className={s.wrapper} key={value.title}>
-            <RadioGroupRadix.Item
-              className={s.radioGroupItem}
-              disabled={value.disable}
-              id={value.title}
-              value={value.title}
-            >
-              <RadioGroupRadix.Indicator className={s.radioGroupIndicator} />
-            </RadioGroupRadix.Item>
-            <Typography as={'label'} className={labelCN} htmlFor={value.title} variant={'body2'}>
-              {value.title}
-            </Typography>
-          </div>
-        ))}
-      </RadioGroupRadix.Root>
-    </form>
+    <RadioGroupRadix.Root
+      className={radioGroupCN}
+      defaultValue={defaultValue}
+      disabled={disabled}
+      onValueChange={onChange}
+    >
+      {options.map(option => (
+        <div className={s.wrapper} key={id}>
+          <RadioGroupRadix.Item
+            className={s.radioGroupItem}
+            disabled={option.disable}
+            id={option.title}
+            value={option.title}
+          >
+            <RadioGroupRadix.Indicator className={s.radioGroupIndicator} />
+          </RadioGroupRadix.Item>
+          <Typography as={'label'} className={labelCN} htmlFor={option.title} variant={'body2'}>
+            {option.title}
+          </Typography>
+        </div>
+      ))}
+    </RadioGroupRadix.Root>
   )
 }

@@ -14,7 +14,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     defaultValue: 'RadioGroup',
-    values: [
+    id: 'd',
+    options: [
       { disable: false, title: 'RadioGroup1' },
       { disable: false, title: 'RadioGroup2' },
       { disable: false, title: 'RadioGroup3' },
