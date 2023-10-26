@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  justify-content: center;
+
+  margin-top: 6px;
+
+  .name {
+    display: block;
+    margin: 0;
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+  .buttonName {
+    all: unset;
+    cursor: pointer;
+  }
+}
+
+.email {
+  margin-bottom: 13px;
+  color: var(--color-dark-100);
+  text-align: center;
+}
+
+.buttonLogout {
+  margin: 0 auto;
+
+  .iconLogout {
+    path {
+      fill: var(--color-light-100);
+    }
+  }
+}
