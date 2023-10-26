@@ -37,6 +37,7 @@ button {
       }
 
       &[data-disabled] {
+        cursor: initial;
         border: 2px solid var(--color-accent-900);
       }
 
