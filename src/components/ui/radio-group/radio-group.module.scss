@@ -3,6 +3,7 @@ button {
 }
 
 .radioGroupRoot {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -36,6 +37,7 @@ button {
       }
 
       &[data-disabled] {
+        cursor: initial;
         border: 2px solid var(--color-accent-900);
       }
 
