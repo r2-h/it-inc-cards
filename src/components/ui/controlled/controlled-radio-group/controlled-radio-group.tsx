@@ -11,7 +11,7 @@ export const ControlledRadioGroup = <TFieldValues extends FieldValues>({
   name,
   rules,
   shouldUnregister,
-  ...checkboxProps
+  ...restProps
 }: ControlledCheckboxProps<TFieldValues>) => {
   const {
     field: { onChange, value },
@@ -29,7 +29,7 @@ export const ControlledRadioGroup = <TFieldValues extends FieldValues>({
         id: name,
         onChange: onChange,
         value: value,
-        ...checkboxProps,
+        ...restProps,
       }}
     />
   )
