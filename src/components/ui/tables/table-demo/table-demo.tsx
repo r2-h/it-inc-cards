@@ -5,7 +5,7 @@ import { TableHeader } from '@/components/ui/tables/table-header'
 import { TableBody } from '../table-body/table-body'
 import { Table } from '../tables'
 
-export const TableDemo: FC<TablePropss> = ({ columns, data }) => {
+export const TableDemo: FC<TableProps> = ({ columns, data }) => {
   const [sort, setSort] = useState<Sort>(null)
 
   return (
@@ -16,7 +16,7 @@ export const TableDemo: FC<TablePropss> = ({ columns, data }) => {
   )
 }
 
-type TablePropss = {
+type TableProps = {
   columns: Array<Column>
   data: Array<DataType>
 }
