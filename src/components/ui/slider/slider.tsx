@@ -16,8 +16,6 @@ export const Slider = ({
   onValueChange,
   value,
 }: SliderPropsType) => {
-  console.log(min, max)
-
   return (
     <div className={s.container}>
       <div className={s.min}>{value[0] | 0}</div>
