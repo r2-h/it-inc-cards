@@ -15,7 +15,8 @@ export type TextFieldProps = {
   fullWidth?: boolean
   label?: string
   name?: string
-  onChange?: any
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onClearClick?: () => void
   value?: string
 } & ComponentPropsWithoutRef<'input'>
 
@@ -26,11 +27,11 @@ export const TextField: FC<TextFieldProps> = ({
   fullWidth,
   label,
   onChange,
+  onClearClick,
   placeholder,
   type,
   value,
 }) => {
-  const [tempValue, setTempValue] = useState(value)
   const [showPassword, setShowPassword] = useState(false)
   const finalType = getFinalType(type, showPassword)
 
@@ -61,10 +62,10 @@ export const TextField: FC<TextFieldProps> = ({
           onChange={onChange}
           placeholder={placeholder}
           type={finalType}
-          value={tempValue}
+          value={value}
         />
         {type === 'search' && (
-          <button className={deleteIconCN} onClick={() => setTempValue('')} type={'button'}>
+          <button className={deleteIconCN} onClick={onClearClick} type={'button'}>
             <DeleteIcon />
           </button>
         )}

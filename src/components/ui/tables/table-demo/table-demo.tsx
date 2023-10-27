@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import { TableHeader } from '@/components/ui/tables/table-header'
+import { Deck } from '@/services/decks/types'
 
 import { TableBody } from '../table-body/table-body'
 import { Table } from '../tables'
@@ -18,14 +19,9 @@ export const TableDemo: FC<TableProps> = ({ columns, data }) => {
 
 type TableProps = {
   columns: Array<Column>
-  data: Array<DataType>
+  data: Array<Deck> | undefined
 }
-type DataType = {
-  cardsCount: number
-  createdBy: string
-  title: string
-  updated: string
-}
+
 type Column = {
   key: string
   sortable: boolean

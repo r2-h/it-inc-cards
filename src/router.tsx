@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Navigate,
   Outlet,
@@ -6,8 +7,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { TextField } from '@/components/ui/text-field'
 import { Decks } from '@/pages/decks'
-import { useGetDecksQuery } from '@/services/base-api'
+import { useGetDecksQuery } from '@/services/decks/decks'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -16,10 +18,31 @@ const publicRoutes: RouteObject[] = [
   },
 ]
 
+const Component = () => {
+  const [search, setSearch] = useState('')
+  const { data } = useGetDecksQuery()
+
+  console.log(data)
+
+  return (
+    <div>
+      Component 2
+      <TextField
+        label={'Search by name'}
+        onChange={e => setSearch(e.currentTarget.value)}
+        value={search}
+      />
+    </div>
+  )
+}
 const privateRoutes: RouteObject[] = [
   {
     element: <Decks />,
     path: '/',
+  },
+  {
+    element: <Component />,
+    path: '/2',
   },
 ]
 
