@@ -14,7 +14,7 @@ import { Button } from '../../ui/button'
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(3),
+  password: z.string().min(6).max(20),
   rememberMe: z.boolean().default(false),
 })
 
@@ -56,6 +56,7 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
           fullWidth
           label={'Password'}
           name={'password'}
+          type={'password'}
         />
         <ControlledCheckBox
           className={s.checkBox}
