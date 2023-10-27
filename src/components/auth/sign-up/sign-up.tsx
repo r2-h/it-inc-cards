@@ -11,10 +11,12 @@ import { z } from 'zod'
 
 import s from './sign-up.module.scss'
 
+import { emailValidation, passwordValidation } from '../validation-schemas'
+
 const loginSchema = z.object({
-  confirmPassword: z.string().min(6).max(20),
-  email: z.string().min(1, 'Required').email(),
-  password: z.string().min(6).max(20),
+  confirmPassword: passwordValidation,
+  email: emailValidation,
+  password: passwordValidation,
 })
 
 export type FormValues = z.infer<typeof loginSchema>

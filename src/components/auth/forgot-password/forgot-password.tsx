@@ -11,8 +11,10 @@ import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
 
+import { emailValidation } from '../validation-schemas'
+
 const emailSchema = z.object({
-  email: z.string().email(),
+  email: emailValidation,
 })
 
 export type FormValues = z.infer<typeof emailSchema>

@@ -11,8 +11,10 @@ import { z } from 'zod'
 
 import s from './create-new-password.module.scss'
 
+import { passwordValidation } from '../validation-schemas'
+
 const passwordSchema = z.object({
-  password: z.string().min(6).max(20),
+  password: passwordValidation,
 })
 
 export type FormValues = z.infer<typeof passwordSchema>
