@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 33px 36px 29px;
+
+  .header {
+    margin-bottom: 27px;
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+  .input {
+    margin-bottom: 24px;
+  }
+
+  .button {
+    margin-top: 36px;
+  }
+
+  .text {
+    margin-top: 20px;
+    margin-bottom: 11px;
+    color: var(--color-light-900);
+    text-align: center;
+  }
+
+  .link {
+    text-decoration: underline;
+  }
+}
