@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import * as RadixSlider from '@radix-ui/react-slider'
 import clsx from 'clsx'
 
@@ -12,7 +14,7 @@ export type SliderProps = {
   step?: number
   value: number[]
 }
-export const Slider = ({
+export const Slider: FC<SliderProps> = ({
   className,
   max,
   min,
@@ -20,7 +22,7 @@ export const Slider = ({
   onValueChange,
   step = 1,
   value,
-}: SliderProps) => {
+}) => {
   const containerCN = clsx(s.container, className)
 
   return (
