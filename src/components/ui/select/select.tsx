@@ -17,6 +17,7 @@ type SelectDemoProps = {
   className?: string
   defaultValue?: string
   disabled?: boolean
+  fullWidth?: boolean
   label?: string
   onChangeValue: (value: string) => void
   options: Options[]
@@ -28,6 +29,7 @@ export const Select: FC<SelectDemoProps> = ({
   className,
   defaultValue,
   disabled = false,
+  fullWidth,
   label,
   onChangeValue,
   options,
@@ -44,7 +46,7 @@ export const Select: FC<SelectDemoProps> = ({
   }
 
   const cNames = {
-    root: clsx(s.root, className),
+    root: clsx(s.root, className, fullWidth && s.fullWidth),
   }
 
   return (

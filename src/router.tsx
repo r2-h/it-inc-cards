@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Navigate,
   Outlet,
@@ -7,14 +6,20 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Select } from '@/components/ui/select'
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
+import { SignUpPage } from '@/pages/sign-up-page'
 import { useGetDecksQuery } from '@/services/decks/decks'
 
 const publicRoutes: RouteObject[] = [
   {
     element: <SignInPage />,
     path: '/login',
+  },
+  {
+    element: <SignUpPage />,
+    path: '/sign-up',
   },
 ]
 
@@ -31,7 +36,18 @@ const privateRoutes: RouteObject[] = [
     path: '/',
   },
   {
-    element: <Component />,
+    element: (
+      <>
+        <Component />
+        <Select
+          onChangeValue={() => {}}
+          options={[
+            { id: '1', value: 'sdfsf' },
+            { id: '2', value: 'sdDFFsf' },
+          ]}
+        />
+      </>
+    ),
     path: '/2',
   },
 ]
