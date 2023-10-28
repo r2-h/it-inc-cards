@@ -1,14 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { baseApi } from '@/services/base-api'
 
-export const baseApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.flashcards.andrii.es',
-    credentials: 'include',
-    prepareHeaders: headers => {
-      headers.append('x-auth-skip', 'true')
-    },
-  }),
-  endpoints: () => ({}),
-  reducerPath: 'baseApi',
-  tagTypes: ['Decks'],
+const decksAPI = baseApi.injectEndpoints({
+  endpoints: builder => {
+    return {
+      login: builder.mutation<any, { email: string; password: string }>({
+        query: ({ email, password }) => ({
+          body: { email, password },
+          method: 'POST',
+          url: `v1/auth/login`,
+        }),
+      }),
+    }
+  },
 })
+
+export const { useLoginMutation } = decksAPI

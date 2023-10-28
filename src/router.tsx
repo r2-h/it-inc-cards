@@ -7,34 +7,23 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { TextField } from '@/components/ui/text-field'
 import { Decks } from '@/pages/decks'
-import { SignIn } from '@/pages/sign-in.tsx'
+import { SignInPage } from '@/pages/sign-in-page'
 import { useGetDecksQuery } from '@/services/decks/decks'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <SignIn />,
+    element: <SignInPage />,
     path: '/login',
   },
 ]
 
 const Component = () => {
-  const [search, setSearch] = useState('')
   const { data } = useGetDecksQuery()
 
   console.log(data)
 
-  return (
-    <div>
-      Component 2
-      <TextField
-        label={'Search by name'}
-        onChange={e => setSearch(e.currentTarget.value)}
-        value={search}
-      />
-    </div>
-  )
+  return <div>Component 2</div>
 }
 const privateRoutes: RouteObject[] = [
   {
