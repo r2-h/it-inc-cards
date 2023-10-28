@@ -11,11 +11,12 @@ import { z } from 'zod'
 import s from './sign-in.module.scss'
 
 import { Button } from '../../ui/button'
+import { emailValidation, passwordValidation, rememberMeValidation } from '../validation-schemas'
 
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3),
-  rememberMe: z.boolean().default(false),
+  email: emailValidation,
+  password: passwordValidation,
+  rememberMe: rememberMeValidation,
 })
 
 export type FormValues = z.infer<typeof loginSchema>
@@ -56,6 +57,7 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
           fullWidth
           label={'Password'}
           name={'password'}
+          type={'password'}
         />
         <ControlledCheckBox
           className={s.checkBox}
