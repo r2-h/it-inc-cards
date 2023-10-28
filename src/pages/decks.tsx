@@ -35,6 +35,7 @@ export const Decks = () => {
   const decks = useGetDecksQuery({
     itemsPerPage,
     name: search,
+    //debounce
   })
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 

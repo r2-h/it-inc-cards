@@ -9,11 +9,12 @@ import {
 
 import { TextField } from '@/components/ui/text-field'
 import { Decks } from '@/pages/decks'
+import { SignIn } from '@/pages/sign-in.tsx'
 import { useGetDecksQuery } from '@/services/decks/decks'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login</div>,
+    element: <SignIn />,
     path: '/login',
   },
 ]

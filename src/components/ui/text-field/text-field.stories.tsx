@@ -42,7 +42,7 @@ export const Error: Story = {
   },
 }
 
-export const Search = {
+export const Search: Story = {
   args: {
     disabled: false,
     fullWidth: false,
@@ -59,7 +59,6 @@ export const Search = {
           {...args}
           onChange={e => setText(e.currentTarget.value)}
           onClearClick={() => setText('')}
-          search
           value={text}
         />
       </>
