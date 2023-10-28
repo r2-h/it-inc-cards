@@ -9,35 +9,38 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './forgot-password.module.scss'
+import s from './sign-up.module.scss'
 
-import { emailValidation } from '../validation-schemas'
+import { emailValidation, passwordValidation } from '../validation-schemas'
 
-const emailSchema = z.object({
+const loginSchema = z.object({
+  confirmPassword: passwordValidation,
   email: emailValidation,
+  password: passwordValidation,
 })
 
-export type FormValues = z.infer<typeof emailSchema>
-
-type ForgotPasswordProps = {
+export type FormValues = z.infer<typeof loginSchema>
+type SignOutProps = {
   onSubmit?: any
 }
 
-export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
+export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({ resolver: zodResolver(emailSchema) })
+  } = useForm<FormValues>({
+    resolver: zodResolver(loginSchema),
+  })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DevTool control={control} />
-
       <Card className={s.wrapper}>
         <Typography className={s.header} variant={'large'}>
-          Forgot your password?
+          Sign Up
         </Typography>
+
         <ControlledTextField
           className={s.input}
           control={control}
@@ -46,17 +49,34 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
           label={'Email'}
           name={'email'}
         />
-        <Typography className={s.description} variant={'body2'}>
-          Enter your email address and we will send you further instructions
-        </Typography>
+        <ControlledTextField
+          className={s.input}
+          control={control}
+          errorMessage={errors.password?.message}
+          fullWidth
+          label={'Password'}
+          name={'password'}
+          type={'password'}
+        />
+
+        <ControlledTextField
+          className={s.input}
+          control={control}
+          errorMessage={errors.confirmPassword?.message}
+          fullWidth
+          label={'Confirm Password'}
+          name={'confirmPassword'}
+          type={'password'}
+        />
+
         <Button className={s.button} fullWidth type={'submit'}>
-          Send Instructions
+          Sign Up
         </Button>
-        <Typography className={s.rememberPassword} variant={'body2'}>
-          Did you remember your password?
+        <Typography className={s.text} variant={'body2'}>
+          Already have an account?
         </Typography>
         <Button className={s.link} type={'button'} variant={'link'}>
-          Try logging in
+          Sign In
         </Button>
       </Card>
     </form>
