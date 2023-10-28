@@ -75,6 +75,7 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
         <Typography className={s.text} variant={'body2'}>
           Already have an account?
         </Typography>
+        <></>
         <Button className={s.link} type={'button'} variant={'link'}>
           Sign In
         </Button>
