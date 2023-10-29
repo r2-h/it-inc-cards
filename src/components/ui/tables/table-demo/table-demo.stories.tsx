@@ -1,4 +1,5 @@
 import { TableDemo } from '@/components/ui/tables/table-demo/table-demo'
+import { Deck } from '@/services/decks/types'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
@@ -10,38 +11,99 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const data = [
+const data: Deck[] = [
   {
+    author: {
+      id: '1',
+      name: 'John Doe',
+    },
     cardsCount: 10,
-    createdBy: 'John Doe',
-    title: 'Project A',
+    cover: null,
+    created: 'string',
+    id: '',
+    isBlocked: null,
+    isDeleted: null,
+    isPrivate: false,
+    name: 'Project A',
+    rating: 0,
+    shots: 0,
     updated: '2023-07-07',
+    userId: '',
   },
   {
+    author: {
+      id: '2',
+      name: 'Jane Smith',
+    },
     cardsCount: 5,
-    createdBy: 'Jane Smith',
-    title: 'Project B',
+    cover: null,
+    created: 'string',
+    id: '',
+    isBlocked: null,
+    isDeleted: null,
+    isPrivate: false,
+    name: 'Project B',
+    rating: 0,
+    shots: 0,
     updated: '2023-07-06',
+    userId: '',
   },
   {
+    author: {
+      id: '3',
+      name: 'Alice Johnson',
+    },
     cardsCount: 8,
-    createdBy: 'Alice Johnson',
-    title: 'Project C',
+    cover: null,
+    created: 'string',
+    id: '',
+    isBlocked: null,
+    isDeleted: null,
+    isPrivate: false,
+    name: 'Project C',
+    rating: 0,
+    shots: 0,
     updated: '2023-07-05',
+    userId: '',
   },
   {
+    author: {
+      id: '4',
+      name: 'Bob Anderson',
+    },
     cardsCount: 3,
-    createdBy: 'Bob Anderson',
-    title: 'Project D',
+    cover: null,
+    created: 'string',
+    id: '',
+    isBlocked: null,
+    isDeleted: null,
+    isPrivate: false,
+    name: 'Project D',
+    rating: 0,
+    shots: 0,
     updated: '2023-07-07',
+    userId: '',
   },
   {
+    author: {
+      id: '5',
+      name: 'Emma Davis',
+    },
     cardsCount: 12,
-    createdBy: 'Emma Davis',
-    title: 'Project E',
+    cover: null,
+    created: 'string',
+    id: '',
+    isBlocked: null,
+    isDeleted: null,
+    isPrivate: false,
+    name: 'Project E',
+    rating: 0,
+    shots: 0,
     updated: '2023-07-04',
+    userId: '',
   },
 ]
+
 const columns = [
   {
     key: 'name',
