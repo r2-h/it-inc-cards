@@ -76,7 +76,7 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
           <Typography className={s.haveAnAccount} variant={'body2'}>
             Don&apos;t have an account?
           </Typography>
-          <Button className={s.signUp} type={'button'} variant={'link'}>
+          <Button as={'a'} className={s.signUp} type={'button'} variant={'link'}>
             Sign Up
           </Button>
         </Card>

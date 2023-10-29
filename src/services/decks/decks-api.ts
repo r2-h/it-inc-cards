@@ -1,13 +1,13 @@
 import { baseApi } from '@/services/base-api'
-import { Deck, DecksParams, DecksResponse } from '@/services/decks/types'
+import { CreateDeckArgs, Deck, DecksParams, DecksResponse } from '@/services/decks/types'
 
 const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createDeck: builder.mutation<Deck, { name: string }>({
+      createDeck: builder.mutation<Deck, CreateDeckArgs>({
         invalidatesTags: ['Decks'],
-        query: ({ name }) => ({
-          body: { name },
+        query: body => ({
+          body,
           method: 'POST',
           url: `v1/decks`,
         }),

@@ -68,7 +68,7 @@ export const Select: FC<SelectDemoProps> = ({
           </SelectRadix.Icon>
         </SelectRadix.Trigger>
         <SelectRadix.Portal>
-          <SelectRadix.Content position={'popper'}>
+          <SelectRadix.Content collisionPadding={0} position={'popper'}>
             <SelectRadix.Viewport className={s.viewport}>
               <SelectRadix.Group>
                 {options.map(option => (

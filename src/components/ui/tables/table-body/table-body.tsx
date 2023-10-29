@@ -17,7 +17,7 @@ export const TableBody: FC<
         <Row key={item.name}>
           <TD>{item.name}</TD>
           <TD>{item.cardsCount}</TD>
-          <TD>{item.updated}</TD>
+          <TD>{new Date(item.updated).toLocaleDateString()}</TD>
           <TD>{item.author.name}</TD>
           <TD>icons...</TD>
         </Row>

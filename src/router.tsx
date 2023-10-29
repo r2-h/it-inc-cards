@@ -6,11 +6,10 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { Select } from '@/components/ui/select'
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
-import { useGetDecksQuery } from '@/services/decks/decks'
+import { useGetDecksQuery } from '@/services/decks/decks-api.ts'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -30,24 +29,14 @@ const Component = () => {
 
   return <div>Component 2</div>
 }
+
 const privateRoutes: RouteObject[] = [
   {
     element: <Decks />,
     path: '/',
   },
   {
-    element: (
-      <>
-        <Component />
-        <Select
-          onChangeValue={() => {}}
-          options={[
-            { id: '1', value: 'sdfsf' },
-            { id: '2', value: 'sdDFFsf' },
-          ]}
-        />
-      </>
-    ),
+    element: <Component />,
     path: '/2',
   },
 ]
@@ -57,6 +46,7 @@ function PrivateRoutes() {
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
+
 const router = createBrowserRouter([
   {
     children: privateRoutes,
