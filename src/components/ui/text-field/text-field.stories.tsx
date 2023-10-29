@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta, StoryObj } from '@storybook/react'
 
 import { TextField } from './text-field'
@@ -39,11 +41,25 @@ export const Error: Story = {
     value: 'Wrong value',
   },
 }
+
 export const Search: Story = {
   args: {
     disabled: false,
     fullWidth: false,
+    label: 'Some label',
     placeholder: 'Input search',
     type: 'search',
+  },
+  render: args => {
+    const [text, setText] = useState('')
+
+    return (
+      <TextField
+        {...args}
+        onChange={e => setText(e.currentTarget.value)}
+        onClearClick={() => setText('')}
+        value={text}
+      />
+    )
   },
 }
