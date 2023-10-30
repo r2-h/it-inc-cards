@@ -23,7 +23,7 @@ export const DropDown: FC<DropDownProps> = ({
   name,
   trigger,
 }) => {
-  const contentCN = clsx(s.contentm, className)
+  const contentCN = clsx(s.content, className)
 
   return (
     <DropdownMenu.Root>
