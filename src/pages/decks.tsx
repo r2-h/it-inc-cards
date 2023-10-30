@@ -44,7 +44,7 @@ export const Decks = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [email, setEmail] = useState('e@mail.com')
+  const email = 'e@mail.com'
   const [name, setName] = useState('Ivan')
 
   const decks = useGetDecksQuery({
