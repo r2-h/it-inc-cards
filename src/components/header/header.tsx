@@ -19,22 +19,24 @@ type HeaderProps = {
 
 export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLoggedIn, name }) => {
   return (
-    <div className={s.wrapper}>
-      <ItIncubatorImg />
-      {isLoggedIn ? (
-        <div className={s.avatarBlock}>
-          <Typography className={s.name} variant={'subtitle1'}>
-            {name}
-          </Typography>
-          <DropDown avatar={avatar} email={email} name={name} trigger={<button>{avatar}</button>}>
-            {dropDownChildren}
-          </DropDown>
-        </div>
-      ) : (
-        <Modal trigger={<Button>Sign in</Button>}>
-          <SignIn />
-        </Modal>
-      )}
+    <div className={s.root}>
+      <div className={s.wrapper}>
+        <ItIncubatorImg />
+        {isLoggedIn ? (
+          <div className={s.avatarBlock}>
+            <Typography className={s.name} variant={'subtitle1'}>
+              {name}
+            </Typography>
+            <DropDown avatar={avatar} email={email} name={name} trigger={<button>{avatar}</button>}>
+              {dropDownChildren}
+            </DropDown>
+          </div>
+        ) : (
+          <Modal trigger={<Button>Sign in</Button>}>
+            <SignIn />
+          </Modal>
+        )}
+      </div>
     </div>
   )
 }
