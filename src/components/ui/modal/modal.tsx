@@ -8,7 +8,7 @@ type ModalProps = {
   children: ReactNode
   onOpenChange?: (open: boolean) => void
   open?: boolean
-  trigger: ReactNode
+  trigger?: ReactNode
 }
 export const Modal: FC<ModalProps> = ({ children, onOpenChange, open, trigger }) => {
   return (
