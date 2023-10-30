@@ -40,7 +40,7 @@ export const EditModeOn: FC<EditModeOnProps> = ({ onSubmit }) => {
         label={'Nickname'}
         name={'name'}
       />
-      <Button className={s.buttonSave} fullWidth type={'submit'}>
+      <Button className={s.buttonSave} fullWidth>
         Save Changes
       </Button>
     </form>

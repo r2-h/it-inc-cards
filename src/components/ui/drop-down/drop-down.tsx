@@ -7,6 +7,7 @@ import { clsx } from 'clsx'
 import s from './drop-down.module.scss'
 
 type DropDownProps = {
+  align?: 'center' | 'end' | 'start' | undefined
   avatar?: ReactNode
   children?: ReactNode
   className?: string
@@ -16,6 +17,7 @@ type DropDownProps = {
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Root>
 
 export const DropDown: FC<DropDownProps> = ({
+  align = 'end',
   avatar,
   children,
   className,
@@ -35,7 +37,7 @@ export const DropDown: FC<DropDownProps> = ({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          align={'end'}
+          align={align}
           className={contentCN}
           // onClick={e => e.stopPropagation()}
           sideOffset={5}
@@ -59,13 +61,14 @@ export const DropDown: FC<DropDownProps> = ({
 type DropDownItemProps = {
   icon?: ReactNode
   lastItem?: boolean
+  onSelect?: () => void
   text: string
-}
+} & ComponentPropsWithoutRef<typeof DropdownMenu.Item>
 
-export const DropDownItem: FC<DropDownItemProps> = ({ icon, lastItem, text }) => {
+export const DropDownItem: FC<DropDownItemProps> = ({ icon, lastItem, onSelect, text }) => {
   return (
     <>
-      <DropdownMenu.Item className={s.item}>
+      <DropdownMenu.Item className={s.item} onSelect={onSelect}>
         <div className={s.icon}>{icon}</div>
         <Typography className={s.text} variant={'caption'}>
           {text}
