@@ -9,7 +9,7 @@ import {
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
-import { useGetDecksQuery } from '@/services/decks/decks-api.ts'
+import { useGetDecksQuery } from '@/services/decks/decks-api'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -56,9 +56,5 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  const result = useGetDecksQuery()
-
-  console.log(result)
-
   return <RouterProvider router={router} />
 }

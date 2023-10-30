@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { Avatar } from '@/assets/avatar.tsx'
+import { Header } from '@/components/header'
 import { Button } from '@/components/ui/button'
 import { TableDemo } from '@/components/ui/tables/table-demo'
 import { TextField } from '@/components/ui/text-field'
@@ -52,7 +54,8 @@ export const Decks = () => {
   }
 
   return (
-    <div>
+    <>
+      <Header avatar={<Avatar />} email={'e@mail.com'} isLoggedIn name={'Ivan'} />
       <Link to={'/2'}>go to 2</Link>
 
       <TextField
@@ -78,6 +81,6 @@ export const Decks = () => {
           </Button>
         ))}
       </div>
-    </div>
+    </>
   )
 }
