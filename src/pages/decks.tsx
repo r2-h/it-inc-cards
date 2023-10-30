@@ -1,7 +1,16 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { Avatar } from '@/assets/avatar'
+import { AvatarLarge } from '@/assets/avatar-large'
+import { MyProfileImg } from '@/assets/my-profile-img'
+import { SignOutImg } from '@/assets/sign-out-img'
+import { EditProfile } from '@/components/auth/edit-profile'
+import { FormValues } from '@/components/auth/edit-profile/edit-mode-on'
+import { Header } from '@/components/header'
 import { Button } from '@/components/ui/button'
+import { DropDownItem } from '@/components/ui/drop-down'
+import { Modal } from '@/components/ui/modal'
 import { TableDemo } from '@/components/ui/tables/table-demo'
 import { TextField } from '@/components/ui/text-field'
 import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks-api'
@@ -31,18 +40,21 @@ const columns = [
 
 export const Decks = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10) // в слайс редакса
-  const [name, setName] = useState('')
+  const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [email, setEmail] = useState('e@mail.com')
+  const [name, setName] = useState('Ivan')
 
   const decks = useGetDecksQuery({
     currentPage,
     itemsPerPage,
-    name,
+    name: search,
     //debounce
   })
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 
-  console.log(decks)
   if (decks.isLoading) {
     return <div>...loading</div>
   }
@@ -52,14 +64,44 @@ export const Decks = () => {
   }
 
   return (
-    <div>
+    <>
+      <Header
+        avatar={<Avatar />}
+        dropDownChildren={
+          <>
+            <DropDownItem
+              icon={<MyProfileImg />}
+              onSelect={() => setIsModalOpen(true)}
+              text={'My profile'}
+            />
+            <DropDownItem icon={<SignOutImg />} lastItem text={'Sign Out'} />
+          </>
+        }
+        email={email}
+        isLoggedIn
+        name={name}
+      />
+      {isModalOpen && (
+        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen} trigger={<></>}>
+          <EditProfile
+            avatar={<AvatarLarge />}
+            email={email}
+            name={name}
+            onSubmit={(data: FormValues) => {
+              console.log(data)
+              setName(data.name)
+            }}
+          />
+        </Modal>
+      )}
+
       <Link to={'/2'}>go to 2</Link>
 
       <TextField
         label={'Search by name'}
-        onChange={e => setName(e.currentTarget.value)}
+        onChange={e => setSearch(e.currentTarget.value)}
         type={'search'}
-        value={name}
+        value={search}
       />
 
       <Button disabled={isLoading} onClick={() => createDeck({ name: 'new name' })}>
@@ -78,6 +120,6 @@ export const Decks = () => {
           </Button>
         ))}
       </div>
-    </div>
+    </>
   )
 }

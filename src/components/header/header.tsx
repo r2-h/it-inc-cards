@@ -1,11 +1,9 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { ItIncubatorImg } from '@/assets/it-incubator'
-import { MyProfileImg } from '@/assets/my-profile-img'
-import { SignOutImg } from '@/assets/sign-out-img'
 import { SignIn } from '@/components/auth/sign-in'
 import { Button } from '@/components/ui/button'
-import { DropDown, DropDownItem } from '@/components/ui/drop-down'
+import { DropDown } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 
@@ -13,12 +11,13 @@ import s from './header.module.scss'
 
 type HeaderProps = {
   avatar?: any
+  dropDownChildren?: ReactNode
   email?: string
   isLoggedIn: boolean
   name?: string
 }
 
-export const Header: FC<HeaderProps> = ({ avatar, email, isLoggedIn, name }) => {
+export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLoggedIn, name }) => {
   return (
     <div className={s.wrapper}>
       <ItIncubatorImg />
@@ -28,8 +27,7 @@ export const Header: FC<HeaderProps> = ({ avatar, email, isLoggedIn, name }) => 
             {name}
           </Typography>
           <DropDown avatar={avatar} email={email} name={name} trigger={<button>{avatar}</button>}>
-            <DropDownItem icon={<MyProfileImg />} text={'My profile'}></DropDownItem>
-            <DropDownItem icon={<SignOutImg />} lastItem text={'Sign Out'}></DropDownItem>
+            {dropDownChildren}
           </DropDown>
         </div>
       ) : (
