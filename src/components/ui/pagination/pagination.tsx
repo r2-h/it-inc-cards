@@ -75,6 +75,7 @@ export const Pagination = ({
 
         <Select
           className={s.select}
+          fullWidth
           onChangeValue={onChangePageSize}
           options={options}
           value={`${pageSize}`}

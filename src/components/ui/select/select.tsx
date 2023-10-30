@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { ComponentPropsWithoutRef, FC, useState } from 'react'
 
 import DownImg from '@/assets/down-img'
 import UpImg from '@/assets/up-img'
@@ -23,7 +23,7 @@ type SelectDemoProps = {
   options: Options[]
   placeholder?: string
   value?: string
-}
+} & ComponentPropsWithoutRef<typeof SelectRadix.Root>
 
 export const Select: FC<SelectDemoProps> = ({
   className,
@@ -46,7 +46,7 @@ export const Select: FC<SelectDemoProps> = ({
   }
 
   const cNames = {
-    root: clsx(s.root, className, fullWidth && s.fullWidth),
+    root: clsx(s.root, fullWidth && s.fullWidth, className),
   }
 
   return (

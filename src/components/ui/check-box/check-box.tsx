@@ -12,7 +12,7 @@ export type CheckboxDemoProps = {
   className?: string
   disabled?: boolean
   id: string
-  label?: string
+  label: string
   onChange?: (checked: boolean) => void
   required?: boolean
 }
@@ -45,11 +45,9 @@ export const Checkbox: FC<CheckboxDemoProps> = ({
           </CheckboxRadix.Indicator>
         </CheckboxRadix.Root>
       </div>
-      {label && (
-        <Typography as={'label'} className={labelCN} htmlFor={id} variant={'body2'}>
-          {label}
-        </Typography>
-      )}
+      <Typography as={'label'} className={labelCN} htmlFor={id} variant={'body2'}>
+        {label}
+      </Typography>
     </div>
   )
 }
