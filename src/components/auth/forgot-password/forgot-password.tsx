@@ -49,7 +49,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
         <Typography className={s.description} variant={'body2'}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button className={s.button} fullWidth type={'submit'}>
+        <Button className={s.button} fullWidth>
           Send Instructions
         </Button>
         <Typography className={s.rememberPassword} variant={'body2'}>

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ export type SliderProps = {
   onValueChange: (value: number[]) => void
   step?: number
   value: number[]
-}
+} & ComponentPropsWithoutRef<typeof RadixSlider.Root>
 export const Slider: FC<SliderProps> = ({
   className,
   max,

@@ -1,27 +1,45 @@
-import { FC, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 import s from './drop-down.module.scss'
 
 type DropDownProps = {
   avatar?: ReactNode
   children?: ReactNode
+  className?: string
   email?: string
   name?: string
   trigger?: ReactNode
-}
+} & ComponentPropsWithoutRef<typeof DropdownMenu.Root>
 
-export const DropDown: FC<DropDownProps> = ({ avatar, children, email, name, trigger }) => {
+export const DropDown: FC<DropDownProps> = ({
+  avatar,
+  children,
+  className,
+  email,
+  name,
+  trigger,
+}) => {
+  const contentCN = clsx(s.contentm, className)
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className={s.trigger}>
         {trigger ?? <button className={s.buttonTrigger}></button>}
+        {/*если trigger кнопка, в кнопку
+        нужен forwardRef*/}
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content align={'end'} className={s.content} sideOffset={5}>
+        <DropdownMenu.Content
+          align={'end'}
+          className={contentCN}
+          // onClick={e => e.stopPropagation()}
+          sideOffset={5}
+        >
           {name && (
             <>
               <DropDownLabel avatar={avatar} email={email} name={name} />

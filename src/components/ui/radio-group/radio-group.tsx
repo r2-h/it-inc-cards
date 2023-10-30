@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import * as RadioGroupRadix from '@radix-ui/react-radio-group'
@@ -14,7 +14,7 @@ export type RadioGroupProps = {
   onChange?: () => void
   options: OptionsType[]
   value?: number | string
-}
+} & ComponentPropsWithoutRef<typeof RadioGroupRadix.Root>
 type OptionsType = {
   disable: boolean
   title: string
