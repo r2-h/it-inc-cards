@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Layout } from '@/components/layout/layout'
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
@@ -49,10 +50,16 @@ function PrivateRoutes() {
 
 const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      ...publicRoutes,
+    ],
+    element: <Layout />,
+    path: '/',
   },
-  ...publicRoutes,
 ])
 
 export const Router = () => {
