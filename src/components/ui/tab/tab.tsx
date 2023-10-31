@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Typography } from '@/components/ui/typography'
 import * as Tabs from '@radix-ui/react-tabs'
 
-import s from './tab-switcher.module.scss'
+import s from './tab.module.scss'
 
 type TabProps = {
   defaultValue?: string

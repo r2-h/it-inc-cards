@@ -5,8 +5,8 @@ import DotsImg from '@/assets/dots-img'
 import { EditImg } from '@/assets/edit-img'
 import EllipseImg from '@/assets/ellipse-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
-import StarFillImg from '@/assets/star-fill-img'
-import StarImg from '@/assets/star-img'
+import { StarFilled } from '@/assets/star-fill-img.tsx'
+import { StarEmpty } from '@/assets/star-img.tsx'
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
 import { AddAndEditCard } from '@/components/modal-for-cards/add-and-edit-card'
@@ -107,11 +107,12 @@ export const DeckCards = () => {
               <TD>{item.updated}</TD>
               <TD>
                 <div className={s.stars}>
-                  <StarFillImg />
-                  <StarFillImg />
-                  <StarFillImg />
-                  <StarFillImg />
-                  <StarImg />
+                  <StarFilled />
+                  <StarFilled />
+                  <StarFilled />
+                  <StarFilled />
+                  <StarFilled />
+                  <StarEmpty />
                 </div>
               </TD>
               <TD>

@@ -1,9 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { EditImg } from '@/assets/edit-img'
-import { PlayCircleImg } from '@/assets/play-circle-img'
-import { TrashImg } from '@/assets/trash-img'
 import { Body, Row, TD } from '@/components/ui/tables'
+import { EditButtons } from '@/components/ui/tables/edit-buttons/edit-buttons'
 import { Deck } from '@/services/decks/types'
 
 export const TableBody: FC<
@@ -23,22 +21,7 @@ export const TableBody: FC<
           <TD>{new Date(item.updated).toLocaleDateString()}</TD>
           <TD>{item.author.name}</TD>
           <TD>
-            <div
-              style={{
-                display: 'flex',
-                gap: 10,
-              }}
-            >
-              <button style={{ display: 'flex' }}>
-                <PlayCircleImg />
-              </button>
-              <button style={{ display: 'flex' }}>
-                <EditImg />
-              </button>
-              <button style={{ display: 'flex' }}>
-                <TrashImg />
-              </button>
-            </div>
+            <EditButtons />
           </TD>
         </Row>
       ))}

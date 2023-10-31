@@ -10,9 +10,9 @@ export type SliderProps = {
   max?: number
   min?: number
   minStepsBetweenThumbs?: number
-  onValueChange: (value: number[]) => void
+  onValueChange: (value: [number, number]) => void
   step?: number
-  value: number[]
+  value: [number, number]
 } & ComponentPropsWithoutRef<typeof RadixSlider.Root>
 export const Slider: FC<SliderProps> = ({
   className,
@@ -36,6 +36,7 @@ export const Slider: FC<SliderProps> = ({
         onValueChange={onValueChange}
         step={step}
         value={value}
+        // onValueCommit={}
       >
         <RadixSlider.Track className={s.sliderTrack}>
           <RadixSlider.Range className={s.sliderRange} />
