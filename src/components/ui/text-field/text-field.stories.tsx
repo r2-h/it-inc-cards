@@ -51,15 +51,19 @@ export const Search: Story = {
     type: 'search',
   },
   render: args => {
-    const [text, setText] = useState('')
+    const SearchStory = () => {
+      const [text, setText] = useState('')
 
-    return (
-      <TextField
-        {...args}
-        onChange={e => setText(e.currentTarget.value)}
-        onClearClick={() => setText('')}
-        value={text}
-      />
-    )
+      return (
+        <TextField
+          {...args}
+          onChange={e => setText(e.currentTarget.value)}
+          onClearClick={() => setText('')}
+          value={text}
+        />
+      )
+    }
+
+    return <SearchStory />
   },
 }

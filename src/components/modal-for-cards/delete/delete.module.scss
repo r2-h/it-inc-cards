@@ -1,0 +1,15 @@
+.wrapperText {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 24px;
+
+  .text {
+    color: var(--color-light-100);
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px 36px;
+}
