@@ -27,7 +27,6 @@ const StorySlider = (args: SliderProps) => {
     setState(prev => (prev.toString() !== args.value.toString() ? args.value : prev))
 
     // if (args.min && args.value[0] < args.min) {
-    //   console.log(args.min)
     //   setState(prev => [args.min!, prev[1]])
     // }
     // if (args.max && args.value[1] > args.max) {

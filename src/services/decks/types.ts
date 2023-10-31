@@ -26,7 +26,7 @@ export type Deck = {
   userId: string
 }
 
-export type CreateDeckArgs = Pick<Deck, 'cover' | 'isPrivate' | 'name'>
+export type CreateDeckParams = Pick<Deck, 'cover' | 'isPrivate' | 'name'>
 
 export type DecksResponse = {
   items: Array<Deck>

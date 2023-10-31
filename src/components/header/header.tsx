@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 import { ItIncubatorImg } from '@/assets/it-incubator'
 import { SignIn } from '@/components/auth/sign-in'
@@ -21,13 +22,16 @@ export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLog
   return (
     <div className={s.root}>
       <div className={s.wrapper}>
-        <ItIncubatorImg />
+        <Link to={'/'}>
+          <ItIncubatorImg className={s.incImg} />
+        </Link>
+
         {isLoggedIn ? (
           <div className={s.avatarBlock}>
             <Typography className={s.name} variant={'subtitle1'}>
               {name}
             </Typography>
-            <DropDown avatar={avatar} email={email} name={name} trigger={<button>{avatar}</button>}>
+            <DropDown email={email} name={name} trigger={<button>{avatar}</button>}>
               {dropDownChildren}
             </DropDown>
           </div>

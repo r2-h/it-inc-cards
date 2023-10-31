@@ -8,7 +8,6 @@ import s from './drop-down.module.scss'
 
 type DropDownProps = {
   align?: 'center' | 'end' | 'start' | undefined
-  avatar?: ReactNode
   children?: ReactNode
   className?: string
   email?: string
@@ -18,7 +17,6 @@ type DropDownProps = {
 
 export const DropDown: FC<DropDownProps> = ({
   align = 'end',
-  avatar,
   children,
   className,
   email,
@@ -44,7 +42,7 @@ export const DropDown: FC<DropDownProps> = ({
         >
           {name && (
             <>
-              <DropDownLabel avatar={avatar} email={email} name={name} />
+              <DropDownLabel avatar={trigger} email={email} name={name} />
               <DropdownMenu.Separator className={s.separator} />
             </>
           )}
