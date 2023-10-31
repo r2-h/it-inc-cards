@@ -20,7 +20,6 @@ type Story = StoryObj<typeof meta>
 
 export const DropDownProfile: Story = {
   args: {
-    avatar: <Avatar />,
     children: (
       <>
         <DropDownItem icon={<MyProfileImg />} text={'My profile'}></DropDownItem>

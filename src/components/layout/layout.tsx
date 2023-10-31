@@ -10,12 +10,15 @@ import { FormValues } from '@/components/auth/edit-profile/edit-mode-on'
 import { Header } from '@/components/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
+import { useMeQuery } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
 
 export const Layout = () => {
+  const auth = useMeQuery()
+
+  console.log(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const email = 'e@mail.com'
   const [name, setName] = useState('Ivan')
 
   return (
@@ -29,10 +32,15 @@ export const Layout = () => {
               onSelect={() => setIsModalOpen(true)}
               text={'My profile'}
             />
-            <DropDownItem icon={<SignOutImg />} lastItem text={'Sign Out'} />
+            <DropDownItem
+              icon={<SignOutImg />}
+              lastItem
+              onSelect={() => alert('SIGN OUT')}
+              text={'Sign Out'}
+            />
           </>
         }
-        email={email}
+        email={auth.data?.email}
         isLoggedIn
         name={name}
       />
@@ -40,10 +48,10 @@ export const Layout = () => {
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen} trigger={<></>}>
           <EditProfile
             avatar={<AvatarLarge />}
-            email={email}
+            email={auth.data?.email}
             name={name}
             onSubmit={(data: FormValues) => {
-              console.log(data)
+              setIsModalOpen(false)
               setName(data.name)
             }}
           />
