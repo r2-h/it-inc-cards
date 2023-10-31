@@ -5,6 +5,7 @@ const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<void, LoginParams>({
+        invalidatesTags: ['Decks'],
         query: params => ({
           body: params,
           method: 'POST',
@@ -19,6 +20,7 @@ const decksAPI = baseApi.injectEndpoints({
         }),
       }),
       signUp: builder.mutation<AuthResponse, void>({
+        invalidatesTags: ['Decks'],
         query: params => ({
           body: params,
           method: 'POST',

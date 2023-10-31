@@ -11,7 +11,6 @@ import { DeckCards } from '@/pages/deck-cards'
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
-import { useGetDecksQuery } from '@/services/decks/decks-api'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -24,23 +23,12 @@ const publicRoutes: RouteObject[] = [
   },
 ]
 
-const Component = () => {
-  const { data } = useGetDecksQuery()
-
-  console.log(data)
-
-  return <div>Component 2</div>
-}
-
 const privateRoutes: RouteObject[] = [
   {
     element: <Decks />,
     path: '/',
   },
-  {
-    element: <Component />,
-    path: '/2',
-  },
+
   {
     element: <DeckCards />,
     path: '/cards',

@@ -19,7 +19,7 @@ const columns = [
   },
   {
     key: 'updated',
-    sortable: false,
+    sortable: true,
     title: 'Last Updated',
   },
   {
@@ -52,7 +52,7 @@ export const Decks = () => {
 
   return (
     <>
-      <Link to={'/2'}>go to 2</Link>
+      <Link to={'/cards'}>go to cards</Link>
 
       <TextField
         label={'Search by name'}
