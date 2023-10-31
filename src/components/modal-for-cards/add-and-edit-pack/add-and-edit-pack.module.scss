@@ -1,0 +1,12 @@
+.wrapperForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  padding: 24px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px 36px;
+}

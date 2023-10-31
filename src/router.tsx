@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { Layout } from '@/components/layout/layout'
+import { DeckCards } from '@/pages/deck-cards'
 import { Decks } from '@/pages/decks'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
@@ -39,6 +40,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <Component />,
     path: '/2',
+  },
+  {
+    element: <DeckCards />,
+    path: '/cards',
   },
 ]
 
