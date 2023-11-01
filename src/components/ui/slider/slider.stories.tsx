@@ -21,7 +21,7 @@ export const Default: Story = {
 }
 
 const StorySlider = (args: SliderProps) => {
-  const [state, setState] = useState(args.value)
+  const [state, setState] = useState<[number, number]>(args.value)
 
   useEffect(() => {
     setState(prev => (prev.toString() !== args.value.toString() ? args.value : prev))
@@ -34,5 +34,7 @@ const StorySlider = (args: SliderProps) => {
     // }
   }, [args])
 
-  return <Slider {...args} onValueChange={(value: number[]) => setState(value)} value={state} />
+  return (
+    <Slider {...args} onValueChange={(value: [number, number]) => setState(value)} value={state} />
+  )
 }
