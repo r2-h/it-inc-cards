@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
 import DotsImg from '@/assets/dots-img'
@@ -18,37 +18,11 @@ import { Body, Row, TD, Table } from '@/components/ui/tables'
 import { TableHeader } from '@/components/ui/tables/table-header'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
+import { useGetCardsInDeckQuery } from '@/services/decks/decks-api'
 
 import s from './deck-cards.module.scss'
 
 export const DeckCards = () => {
-  const items = [
-    {
-      answer: 'This is how "This" works in JavaScript',
-      id: '1',
-      question: 'How "This" works in JavaScript?',
-      updated: '18.03.2021',
-    },
-    {
-      answer: 'This is how "This" works in JavaScript',
-      id: '2',
-      question: 'How "This" works in JavaScript?',
-      updated: '18.03.2021',
-    },
-    {
-      answer: 'This is how "This" works in JavaScript',
-      id: '3',
-      question: 'How "This" works in JavaScript?',
-      updated: '18.03.2021',
-    },
-    {
-      answer: 'This is how "This" works in JavaScript',
-      id: '4',
-      question: 'How "This" works in JavaScript?',
-      updated: '18.03.2021',
-    },
-  ]
-
   const columns = [
     {
       key: 'question',
@@ -71,6 +45,9 @@ export const DeckCards = () => {
       title: 'Grade',
     },
   ]
+  const { id } = useParams<{ id: string }>()
+
+  const cards = useGetCardsInDeckQuery({ id: id ?? '' })
 
   return (
     <>
@@ -100,11 +77,11 @@ export const DeckCards = () => {
       <Table>
         <TableHeader className={s.tableHeader} columns={columns} />
         <Body>
-          {items.map(item => (
+          {cards?.data?.items.map(item => (
             <Row key={item.id}>
               <TD>{item.question}</TD>
               <TD>{item.answer}</TD>
-              <TD>{item.updated}</TD>
+              <TD>{new Date(item.updated).toLocaleDateString()}</TD>
               <TD>
                 <div className={s.stars}>
                   <StarFilled />
