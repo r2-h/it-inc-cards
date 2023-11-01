@@ -1,3 +1,5 @@
+import { CardsResponse } from '@/services/cards/types'
+
 export type Pagination = {
   currentPage: number
   itemsPerPage: number
@@ -44,3 +46,13 @@ export type DecksParams = {
   name?: string
   orderBy?: `${Field}-${Direction}`
 } | void
+
+export type GetCardInDeckResponse = {
+  items: CardsResponse[]
+  pagination: {
+    currentPage: number
+    itemsPerPage: number
+    totalItems: number
+    totalPages: number
+  }
+}
