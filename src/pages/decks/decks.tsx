@@ -94,7 +94,7 @@ export const Decks = () => {
           onValueChange={handleSliderChange}
           value={sliderValue}
         ></Slider>
-        <Button variant={'secondary'}>
+        <Button onClick={() => setSliderValue([0, 100])} variant={'secondary'}>
           <TrashImg />
           Clear Filter
         </Button>
