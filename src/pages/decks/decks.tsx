@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import { TrashImg } from '@/assets/trash-img'
@@ -10,7 +10,7 @@ import { TableDemo } from '@/components/ui/tables/table-demo'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks-api'
-import { setSliderValue } from '@/services/decks/decks-slice'
+import { decksActions } from '@/services/decks/decks-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './decks.module.scss'
@@ -39,15 +39,22 @@ const columns = [
 ]
 
 export const Decks = () => {
-  const [itemsPerPage, setItemsPerPage] = useState(10) // в слайс редакса
-  const [search, setSearch] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  // const [sliderValue, setSliderValue] = useState<[number, number]>([0, 100])
+  const currentPage = useAppSelector(state => state.decks.currentPage)
+  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
+  const currenPageHandler = (number: number) => dispatch(decksActions.setCurrentPage(number))
+  const itemsPerPageHandler = (size: string) => dispatch(decksActions.setItemsPerPage(+size))
+
   const sliderValue = useAppSelector(state => state.decks.sliderValue)
+  const search = useAppSelector(state => state.decks.search)
   const dispatch = useAppDispatch()
-  const handleSliderChange = (newValue: [number, number]) => {
-    dispatch(setSliderValue(newValue))
-  }
+
+  // handlers
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(decksActions.setSearch(e.currentTarget.value))
+  const clearSearchHandler = () => decksActions.setSearch('')
+
+  const sliderHandler = (newValue: [number, number]) =>
+    dispatch(decksActions.setSliderValue(newValue))
 
   const decks = useGetDecksQuery({
     currentPage,
@@ -57,6 +64,7 @@ export const Decks = () => {
     name: search,
     //debounce
   })
+
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 
   if (decks.isLoading) {
@@ -82,8 +90,8 @@ export const Decks = () => {
       <div className={s.wrapper2}>
         <TextField
           className={s.search}
-          onChange={e => setSearch(e.currentTarget.value)}
-          onClearClick={() => setSearch('')}
+          onChange={searchHandler}
+          onClearClick={clearSearchHandler}
           type={'search'}
           value={search}
         />
@@ -94,12 +102,8 @@ export const Decks = () => {
             { title: 'All Cards', value: 'All Cards' },
           ]}
         ></Tab>
-        <Slider
-          label={'Number of cards'}
-          onValueChange={handleSliderChange}
-          value={sliderValue}
-        ></Slider>
-        <Button onClick={() => handleSliderChange([0, 100])} variant={'secondary'}>
+        <Slider label={'Number of cards'} onValueChange={sliderHandler} value={sliderValue} />
+        <Button onClick={() => sliderHandler([0, 100])} variant={'secondary'}>
           <TrashImg />
           Clear Filter
         </Button>
@@ -109,20 +113,12 @@ export const Decks = () => {
 
       <Pagination
         currentPage={currentPage}
-        onChangePage={setCurrentPage}
-        onChangePageSize={val => setItemsPerPage(+val)}
+        onChangePage={currenPageHandler}
+        onChangePageSize={itemsPerPageHandler}
         pageSize={itemsPerPage}
         totalCount={90}
       />
-      {/*<div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '30px' }}>*/}
-      {/*  {[...Array(decks.data?.pagination?.totalPages)].map((_, i) => (*/}
-      {/*    <Button key={i} onClick={() => setCurrentPage(i + 1)} variant={'secondary'}>*/}
-      {/*      {i + 1}*/}
-      {/*    </Button>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
       <Link to={'/cards'}>go to cards</Link>
-      {/*<Button onClick={() => setItemsPerPage(30)}>30 items per page</Button>*/}
     </>
   )
 }

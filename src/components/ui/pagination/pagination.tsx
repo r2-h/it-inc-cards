@@ -14,7 +14,7 @@ const options = [
   { id: '100', value: '100' },
 ]
 
-export type PaginationPropsType = {
+export type PaginationProps = {
   currentPage: number
   onChangePage: (page: number) => void
   onChangePageSize: (size: string) => void
@@ -27,7 +27,7 @@ export const Pagination = ({
   onChangePageSize,
   pageSize,
   totalCount,
-}: PaginationPropsType) => {
+}: PaginationProps) => {
   const { isFirstPage, isLastPage, nextPageHandler, onClickHandler, pages, prevPageHandler } =
     usePagination({
       currentPage,
