@@ -1,7 +1,10 @@
 @import '@/styles/mixin';
 
 .content {
-  @include container(1010px);
-
+  max-width: 1010px;
+  margin: 0 auto;
   padding-block: 96px 30px;
+
+  //@include container(1010px);
+  // ?
 }

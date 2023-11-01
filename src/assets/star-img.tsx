@@ -18,4 +18,4 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export default memo(SvgComponent)
+export const StarEmpty = memo(SvgComponent)

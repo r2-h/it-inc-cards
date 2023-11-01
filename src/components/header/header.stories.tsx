@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { BrowserRouter } from 'react-router-dom'
+
 import { Avatar } from '@/assets/avatar'
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
@@ -19,6 +21,11 @@ export const HeaderWithButton: Story = {
   args: {
     isLoggedIn: false,
   },
+  render: args => (
+    <BrowserRouter>
+      <Header {...args} />
+    </BrowserRouter>
+  ),
 }
 
 export const HeaderWithAvatar: Story = {
@@ -34,4 +41,9 @@ export const HeaderWithAvatar: Story = {
     isLoggedIn: true,
     name: 'Ivan',
   },
+  render: args => (
+    <BrowserRouter>
+      <Header {...args} />
+    </BrowserRouter>
+  ),
 }

@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
 import { Body, Row, TD } from '@/components/ui/tables'
+import { EditButtons } from '@/components/ui/tables/edit-buttons/edit-buttons'
 import { Deck } from '@/services/decks/types'
 
 export const TableBody: FC<
@@ -19,7 +20,9 @@ export const TableBody: FC<
           <TD>{item.cardsCount}</TD>
           <TD>{new Date(item.updated).toLocaleDateString()}</TD>
           <TD>{item.author.name}</TD>
-          <TD>icons...</TD>
+          <TD>
+            <EditButtons />
+          </TD>
         </Row>
       ))}
     </Body>
