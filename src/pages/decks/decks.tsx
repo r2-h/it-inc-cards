@@ -2,7 +2,9 @@ import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import { TrashImg } from '@/assets/trash-img'
+import { SignIn } from '@/components/auth/sign-in'
 import { Button } from '@/components/ui/button'
+import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { Tab } from '@/components/ui/tab'
@@ -48,14 +50,6 @@ export const Decks = () => {
   const search = useAppSelector(state => state.decks.search)
   const dispatch = useAppDispatch()
 
-  // handlers
-  const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
-    dispatch(decksActions.setSearch(e.currentTarget.value))
-  const clearSearchHandler = () => decksActions.setSearch('')
-
-  const sliderHandler = (newValue: [number, number]) =>
-    dispatch(decksActions.setSliderValue(newValue))
-
   const decks = useGetDecksQuery({
     currentPage,
     itemsPerPage,
@@ -66,6 +60,18 @@ export const Decks = () => {
   })
 
   const [createDeck, { isLoading }] = useCreateDeckMutation()
+
+  const maxCardsCount = decks.data?.maxCardsCount || 61
+  // handlers
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(decksActions.setSearch(e.currentTarget.value))
+  const clearSearchHandler = () => decksActions.setSearch('')
+
+  const sliderHandler = (newValue: [number, number]) =>
+    dispatch(decksActions.setSliderValue(newValue))
+
+  const clearSliderHandler = () =>
+    dispatch(decksActions.setSliderValue([0, decks.data?.maxCardsCount || 61]))
 
   if (decks.isLoading) {
     return <div>...loading</div>
@@ -85,6 +91,15 @@ export const Decks = () => {
         <Button disabled={isLoading} onClick={() => createDeck({ name: 'new name' })}>
           Create Deck
         </Button>
+        <Modal
+          trigger={
+            <Button disabled={isLoading} onClick={() => createDeck({ name: 'new name' })}>
+              Create Deck
+            </Button>
+          }
+        >
+          <SignIn />
+        </Modal>
       </div>
 
       <div className={s.wrapper2}>
@@ -95,15 +110,23 @@ export const Decks = () => {
           type={'search'}
           value={search}
         />
+
         <Tab
           label={'Show decks'}
           tabs={[
             { title: 'My Cards', value: 'My Cards' },
             { title: 'All Cards', value: 'All Cards' },
           ]}
-        ></Tab>
-        <Slider label={'Number of cards'} onValueChange={sliderHandler} value={sliderValue} />
-        <Button onClick={() => sliderHandler([0, 100])} variant={'secondary'}>
+        />
+
+        <Slider
+          label={'Number of cards'}
+          max={maxCardsCount}
+          onValueChange={sliderHandler}
+          value={sliderValue}
+        />
+
+        <Button onClick={clearSliderHandler} variant={'secondary'}>
           <TrashImg />
           Clear Filter
         </Button>
@@ -112,13 +135,14 @@ export const Decks = () => {
       <TableDemo columns={columns} data={decks.data?.items} />
 
       <Pagination
+        className={s.pagination}
         currentPage={currentPage}
         onChangePage={currenPageHandler}
         onChangePageSize={itemsPerPageHandler}
         pageSize={itemsPerPage}
-        totalCount={90}
+        totalCount={decks.data?.pagination.totalItems || 1000}
       />
-      <Link to={'/cards'}>go to cards</Link>
+      <Link to={'/cards'}>asdas</Link>
     </>
   )
 }
