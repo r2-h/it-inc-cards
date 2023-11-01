@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { TrashImg } from '@/assets/trash-img.tsx'
+import { TrashImg } from '@/assets/trash-img'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
@@ -10,6 +10,8 @@ import { TableDemo } from '@/components/ui/tables/table-demo'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks-api'
+import { setSliderValue } from '@/services/decks/decks-slice'
+import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './decks.module.scss'
 
@@ -40,15 +42,18 @@ export const Decks = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10) // в слайс редакса
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [sliderValue, setSliderValue] = useState<[number, number]>([0, 100])
-
+  // const [sliderValue, setSliderValue] = useState<[number, number]>([0, 100])
+  const sliderValue = useAppSelector(state => state.decks.sliderValue)
+  const dispatch = useAppDispatch()
   const handleSliderChange = (newValue: [number, number]) => {
-    setSliderValue(newValue)
+    dispatch(setSliderValue(newValue))
   }
 
   const decks = useGetDecksQuery({
     currentPage,
     itemsPerPage,
+    maxCardsCount: `${sliderValue[1]}`,
+    minCardsCount: `${sliderValue[0]}`,
     name: search,
     //debounce
   })
@@ -94,7 +99,7 @@ export const Decks = () => {
           onValueChange={handleSliderChange}
           value={sliderValue}
         ></Slider>
-        <Button onClick={() => setSliderValue([0, 100])} variant={'secondary'}>
+        <Button onClick={() => handleSliderChange([0, 100])} variant={'secondary'}>
           <TrashImg />
           Clear Filter
         </Button>

@@ -14,8 +14,8 @@ export const TableBody: FC<
 > = ({ data, ...restProps }) => {
   return (
     <Body {...restProps}>
-      {data?.map(item => (
-        <Row key={item.name}>
+      {data?.map((item, idx) => (
+        <Row key={item.name + idx}>
           <TD>{item.name}</TD>
           <TD>{item.cardsCount}</TD>
           <TD>{new Date(item.updated).toLocaleDateString()}</TD>
