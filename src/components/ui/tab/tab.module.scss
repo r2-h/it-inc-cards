@@ -1,4 +1,8 @@
 .tabsRoot {
+  .label {
+    color: var(--color-light-100);
+  }
+
   .tabsList {
     .tabsTrigger {
       all: unset;

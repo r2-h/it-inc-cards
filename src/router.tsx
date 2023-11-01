@@ -8,7 +8,7 @@ import {
 
 import { Layout } from '@/components/layout/layout'
 import { DeckCards } from '@/pages/deck-cards'
-import { Decks } from '@/pages/decks'
+import { Decks } from '@/pages/decks/decks.tsx'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
 

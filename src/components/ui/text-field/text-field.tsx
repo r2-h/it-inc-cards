@@ -43,12 +43,16 @@ export const TextField: FC<TextFieldProps> = ({
   const deleteIconCN = clsx(s.deleteBtn, disabled && s.disabled)
   const eyeIconCN = clsx(disabled && s.disabled)
   const inputCN = clsx(s.textField, errorMessage && s.error, disabled && s.disabled)
-  const inputWrapperCN = clsx(s.inputWrapper, errorMessage && s.error, fullWidth && s.fullWidth)
+  const inputWrapperCN = clsx(
+    s.inputWrapper,
+    errorMessage && s.error,
+    fullWidth && s.fullWidth,
+    className
+  )
   const labelCN = clsx(s.label, disabled && s.disabled)
-  const containerCN = clsx(s.container, className)
 
   return (
-    <div className={containerCN}>
+    <div className={s.container}>
       {label && (
         <Typography as={'label'} className={labelCN} variant={'body2'}>
           {label}

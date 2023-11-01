@@ -8,6 +8,7 @@ import s from './tab.module.scss'
 type TabProps = {
   defaultValue?: string
   disabled?: boolean
+  label?: string
   tabs: TabsType[]
 }
 type TabsType = {
@@ -15,8 +16,13 @@ type TabsType = {
   value: string
 }
 
-export const Tab: FC<TabProps> = ({ defaultValue = 'tab1', disabled, tabs }) => (
+export const Tab: FC<TabProps> = ({ defaultValue = 'tab1', disabled, label, tabs }) => (
   <Tabs.Root className={s.tabsRoot} defaultValue={defaultValue}>
+    {label && (
+      <Typography as={'label'} className={s.label} variant={'body2'}>
+        {label}
+      </Typography>
+    )}
     <Tabs.List className={s.tabsList}>
       {tabs.map(tab => (
         <Tabs.Trigger
