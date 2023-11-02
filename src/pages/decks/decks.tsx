@@ -1,8 +1,10 @@
 import { ChangeEvent } from 'react'
-import { Link } from 'react-router-dom'
 
 import { TrashImg } from '@/assets/trash-img'
-import { SignIn } from '@/components/auth/sign-in'
+import {
+  AddAndEditPack,
+  CreateDeckFormValues,
+} from '@/components/modal-for-cards/add-and-edit-pack'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
@@ -62,16 +64,21 @@ export const Decks = () => {
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 
   const maxCardsCount = decks.data?.maxCardsCount || 61
-  // handlers
+
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(decksActions.setSearch(e.currentTarget.value))
-  const clearSearchHandler = () => decksActions.setSearch('')
+  const clearSearchHandler = () => {
+    dispatch(decksActions.setSearch(''))
+  }
 
   const sliderHandler = (newValue: [number, number]) =>
     dispatch(decksActions.setSliderValue(newValue))
 
   const clearSliderHandler = () =>
     dispatch(decksActions.setSliderValue([0, decks.data?.maxCardsCount || 61]))
+
+  const createDeckHandler = (data: CreateDeckFormValues) =>
+    createDeck({ isPrivate: data.isPrivate, name: data.name })
 
   if (decks.isLoading) {
     return <div>...loading</div>
@@ -88,17 +95,8 @@ export const Decks = () => {
           Decks list
         </Typography>
 
-        <Button disabled={isLoading} onClick={() => createDeck({ name: 'new name' })}>
-          Create Deck
-        </Button>
-        <Modal
-          trigger={
-            <Button disabled={isLoading} onClick={() => createDeck({ name: 'new name' })}>
-              Create Deck
-            </Button>
-          }
-        >
-          <SignIn />
+        <Modal trigger={<Button disabled={isLoading}>Create Deck</Button>}>
+          <AddAndEditPack onSubmit={createDeckHandler} variant={'add'} />
         </Modal>
       </div>
 
@@ -142,7 +140,6 @@ export const Decks = () => {
         pageSize={itemsPerPage}
         totalCount={decks.data?.pagination.totalItems || 1000}
       />
-      <Link to={'/cards'}>asdas</Link>
     </>
   )
 }

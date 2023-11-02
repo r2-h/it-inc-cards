@@ -45,7 +45,7 @@ export const Layout = () => {
         name={name}
       />
       {isModalOpen && (
-        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen} trigger={<></>}>
+        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
             avatar={<AvatarLarge />}
             email={auth.data?.email}
