@@ -1,8 +1,9 @@
 import { ChangeEvent } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
+import { ModalForCards } from '@/components/modal-for-cards'
 import {
-  AddAndEditPack,
+  AddAndEditDeck,
   CreateDeckFormValues,
 } from '@/components/modal-for-cards/add-and-edit-pack'
 import { Button } from '@/components/ui/button'
@@ -96,7 +97,10 @@ export const Decks = () => {
         </Typography>
 
         <Modal trigger={<Button disabled={isLoading}>Create Deck</Button>}>
-          <AddAndEditPack onSubmit={createDeckHandler} variant={'add'} />
+          <ModalForCards
+            body={<AddAndEditDeck onSubmit={createDeckHandler} variant={'add'} />}
+            title={'Add new deck'}
+          />
         </Modal>
       </div>
 

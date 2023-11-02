@@ -13,3 +13,15 @@ export type CardsResponse = {
   updated: string
   userId: string
 }
+
+export type CreateCardArg = {
+  answer?: string
+  deckId?: string
+  question?: string
+}
+
+export type UpdateCardArg = {
+  answer?: string
+  id?: string
+  question?: string
+}

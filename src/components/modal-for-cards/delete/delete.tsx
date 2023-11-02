@@ -5,10 +5,11 @@ import { DialogClose } from '@radix-ui/react-dialog'
 import s from './delete.module.scss'
 
 type DeleteProps = {
-  variant: 'card' | 'pack'
+  callback?: any
+  variant: 'card' | 'deck'
 }
-export const Delete = ({ variant }: DeleteProps) => {
-  const text = variant === 'card' ? 'Card' : 'Pack'
+export const Delete = ({ callback, variant }: DeleteProps) => {
+  const text = variant === 'card' ? 'Card' : 'Deck'
 
   return (
     <>
@@ -27,11 +28,9 @@ export const Delete = ({ variant }: DeleteProps) => {
 
       <div className={s.buttons}>
         <DialogClose>
-          <Button type={'button'} variant={'secondary'}>
-            Cancel
-          </Button>
+          <Button variant={'secondary'}>Cancel</Button>
         </DialogClose>
-        <Button type={'submit'} variant={'primary'}>
+        <Button onClick={callback} variant={'primary'}>
           Delete {text}
         </Button>
       </div>
