@@ -17,7 +17,6 @@ import s from './layout.module.scss'
 export const Layout = () => {
   const auth = useMeQuery()
 
-  console.log(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [name, setName] = useState('Ivan')
 
