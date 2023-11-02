@@ -39,6 +39,7 @@ export type DecksResponse = {
 type Field = 'name' | 'updated'
 type Direction = 'asc' | 'desc'
 export type DecksParams = {
+  authorId?: string
   currentPage?: number
   itemsPerPage?: number
   maxCardsCount?: string

@@ -5,6 +5,7 @@ const initialState: DecksStateType = {
   itemsPerPage: 10,
   search: '',
   sliderValue: [0, 10],
+  tabsValue: '',
 }
 
 const slice = createSlice({
@@ -25,6 +26,9 @@ const slice = createSlice({
     setSliderValue: (state, action: PayloadAction<[number, number]>) => {
       state.sliderValue = action.payload
     },
+    setTabsValue: (state, action: PayloadAction<string>) => {
+      state.tabsValue = action.payload
+    },
   },
 })
 
@@ -33,6 +37,7 @@ type DecksStateType = {
   itemsPerPage: number
   search: string
   sliderValue: [number, number]
+  tabsValue: string
 }
 
 export const decksReducers = slice.reducer
