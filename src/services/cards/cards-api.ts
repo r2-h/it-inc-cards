@@ -1,9 +1,18 @@
 import { baseApi } from '@/services/base-api'
-import { CardsResponse } from '@/services/cards/types'
+import { CardsResponse, CreateCardArg, UpdateCardArg } from '@/services/cards/types'
+import { GetCardInDeckResponse } from '@/services/decks/types'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createCard: builder.mutation<CardsResponse, CreateCardArg>({
+        invalidatesTags: ['Cards'],
+        query: ({ deckId, ...body }) => ({
+          body,
+          method: 'POST',
+          url: `v1/decks/${deckId}/cards`,
+        }),
+      }),
       deleteCard: builder.mutation<void, { id: string }>({
         invalidatesTags: ['Cards'],
         query: ({ id }) => ({
@@ -11,16 +20,23 @@ const cardsApi = baseApi.injectEndpoints({
           url: `v1/cards/${id}`,
         }),
       }),
-      getCard: builder.query<CardsResponse, { id: string }>({
+      getCard: builder.query<CardsResponse, { id?: string }>({
         providesTags: ['Cards'],
         query: ({ id }) => ({
           method: 'GET',
           url: `v1/cards/${id}`,
         }),
       }),
-      updateCard: builder.mutation<CardsResponse, { id: string }>({
-        invalidatesTags: ['Cards'],
+      getCardsInDeck: builder.query<GetCardInDeckResponse, { id: string }>({
+        providesTags: ['Cards'],
         query: ({ id }) => ({
+          url: `v1/decks/${id}/cards`,
+        }),
+      }),
+      updateCard: builder.mutation<CardsResponse, UpdateCardArg>({
+        invalidatesTags: ['Cards'],
+        query: ({ id, ...body }) => ({
+          body,
           method: 'PATCH',
           url: `v1/cards/${id}`,
         }),
@@ -29,4 +45,10 @@ const cardsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useDeleteCardMutation, useGetCardQuery, useUpdateCardMutation } = cardsApi
+export const {
+  useCreateCardMutation,
+  useDeleteCardMutation,
+  useGetCardQuery,
+  useGetCardsInDeckQuery,
+  useUpdateCardMutation,
+} = cardsApi

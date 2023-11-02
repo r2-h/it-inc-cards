@@ -13,27 +13,27 @@ import { z } from 'zod'
 
 import s from './add-and-edit-pack.module.scss'
 
-const addNewPackSchema = z.object({
+const addNewDeckSchema = z.object({
   isPrivate: privateCheckboxSchema,
   name: namePackSchema,
 })
 
-export type CreateDeckFormValues = z.infer<typeof addNewPackSchema>
+export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
-type AddNewPackProps = {
+type AddNewDeckProps = {
   onSubmit?: any
   variant: 'add' | 'edit'
 }
 
-export const AddAndEditPack = ({ onSubmit, variant }: AddNewPackProps) => {
+export const AddAndEditDeck = ({ onSubmit, variant }: AddNewDeckProps) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm<CreateDeckFormValues>({
-    resolver: zodResolver(addNewPackSchema),
+    resolver: zodResolver(addNewDeckSchema),
   })
-  const textButton = variant === 'add' ? 'Add New Pack' : 'Edit Pack'
+  const textButton = variant === 'add' ? 'Add New Deck' : 'Edit Deck'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,10 +42,10 @@ export const AddAndEditPack = ({ onSubmit, variant }: AddNewPackProps) => {
           control={control}
           errorMessage={errors.name?.message}
           fullWidth
-          label={'Name pack'}
+          label={'Name deck'}
           name={'name'}
         />
-        <ControlledCheckBox control={control} label={'Private pack'} name={'isPrivate'} />
+        <ControlledCheckBox control={control} label={'Private deck'} name={'isPrivate'} />
       </div>
       <div className={s.buttons}>
         <DialogClose>

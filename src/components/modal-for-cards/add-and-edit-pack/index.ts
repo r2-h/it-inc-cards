@@ -1,1 +1,1 @@
-export * from './add-and-edit-pack'
+export * from './add-and-edit-deck'
