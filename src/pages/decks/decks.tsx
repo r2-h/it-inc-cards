@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
-import { Tab } from '@/components/ui/tab'
+import { Tab, TabsType } from '@/components/ui/tab'
 import { TableDemo } from '@/components/ui/tables/table-demo'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
+import { useMeQuery } from '@/services/auth/auth-api'
 import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks-api'
 import { decksActions } from '@/services/decks/decks-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
@@ -46,31 +47,17 @@ const columns = [
 export const Decks = () => {
   const currentPage = useAppSelector(state => state.decks.currentPage)
   const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
+  const sliderValue = useAppSelector(state => state.decks.sliderValue)
+  const search = useAppSelector(state => state.decks.search)
+  const tabsValue = useAppSelector(state => state.decks.tabsValue)
+
+  const dispatch = useAppDispatch()
   const currenPageHandler = (number: number) => dispatch(decksActions.setCurrentPage(number))
   const itemsPerPageHandler = (size: string) => dispatch(decksActions.setItemsPerPage(+size))
 
-  const sliderValue = useAppSelector(state => state.decks.sliderValue)
-  const search = useAppSelector(state => state.decks.search)
-  const dispatch = useAppDispatch()
-
-  const decks = useGetDecksQuery({
-    currentPage,
-    itemsPerPage,
-    maxCardsCount: `${sliderValue[1]}`,
-    minCardsCount: `${sliderValue[0]}`,
-    name: search,
-    //debounce
-  })
-
-  const [createDeck, { isLoading }] = useCreateDeckMutation()
-
-  const maxCardsCount = decks.data?.maxCardsCount || 61
-
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(decksActions.setSearch(e.currentTarget.value))
-  const clearSearchHandler = () => {
-    dispatch(decksActions.setSearch(''))
-  }
+  const clearSearchHandler = () => dispatch(decksActions.setSearch(''))
 
   const sliderHandler = (newValue: [number, number]) =>
     dispatch(decksActions.setSliderValue(newValue))
@@ -80,6 +67,29 @@ export const Decks = () => {
 
   const createDeckHandler = (data: CreateDeckFormValues) =>
     createDeck({ isPrivate: data.isPrivate, name: data.name })
+
+  const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
+
+  const decks = useGetDecksQuery({
+    authorId: tabsValue,
+    currentPage,
+    itemsPerPage,
+    maxCardsCount: `${sliderValue[1]}`,
+    minCardsCount: `${sliderValue[0]}`,
+    name: search,
+    //debounce
+  })
+
+  const { data: me } = useMeQuery()
+
+  const [createDeck, { isLoading }] = useCreateDeckMutation()
+
+  const maxCardsCount = decks.data?.maxCardsCount || 61
+
+  const tabs: TabsType[] = [
+    { title: 'My Cards', value: me?.id! },
+    { title: 'All Cards', value: '' },
+  ]
 
   if (decks.isLoading) {
     return <div>...loading</div>
@@ -113,13 +123,7 @@ export const Decks = () => {
           value={search}
         />
 
-        <Tab
-          label={'Show decks'}
-          tabs={[
-            { title: 'My Cards', value: 'My Cards' },
-            { title: 'All Cards', value: 'All Cards' },
-          ]}
-        />
+        <Tab label={'Show decks'} onChange={setTabsHandler} tabs={tabs} value={tabsValue} />
 
         <Slider
           label={'Number of cards'}

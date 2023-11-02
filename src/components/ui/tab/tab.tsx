@@ -9,15 +9,29 @@ type TabProps = {
   defaultValue?: string
   disabled?: boolean
   label?: string
+  onChange?: (value: string) => void
   tabs: TabsType[]
+  value?: string
 }
-type TabsType = {
+export type TabsType = {
   title: string
   value: string
 }
 
-export const Tab: FC<TabProps> = ({ defaultValue = 'tab1', disabled, label, tabs }) => (
-  <Tabs.Root className={s.tabsRoot} defaultValue={defaultValue}>
+export const Tab: FC<TabProps> = ({
+  defaultValue = 'tab1',
+  disabled,
+  label,
+  onChange,
+  tabs,
+  value,
+}) => (
+  <Tabs.Root
+    className={s.tabsRoot}
+    defaultValue={defaultValue}
+    onValueChange={onChange}
+    value={value}
+  >
     {label && (
       <Typography as={'label'} className={s.label} variant={'body2'}>
         {label}
