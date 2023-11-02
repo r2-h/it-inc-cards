@@ -123,7 +123,7 @@ export const Decks = () => {
           value={search}
         />
 
-        <Tab label={'Show decks'} onChangeValue={setTabsHandler} tabs={tabs} value={tabsValue} />
+        <Tab label={'Show decks'} onChange={setTabsHandler} tabs={tabs} value={tabsValue} />
 
         <Slider
           label={'Number of cards'}

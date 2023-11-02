@@ -4,7 +4,7 @@ const initialState: DecksStateType = {
   currentPage: 1,
   itemsPerPage: 10,
   search: '',
-  sliderValue: [0, 10],
+  sliderValue: [0, 61],
   tabsValue: '',
 }
 

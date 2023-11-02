@@ -9,7 +9,7 @@ type TabProps = {
   defaultValue?: string
   disabled?: boolean
   label?: string
-  onChangeValue?: (value: string) => void
+  onChange?: (value: string) => void
   tabs: TabsType[]
   value?: string
 }
@@ -22,14 +22,14 @@ export const Tab: FC<TabProps> = ({
   defaultValue = 'tab1',
   disabled,
   label,
-  onChangeValue,
+  onChange,
   tabs,
   value,
 }) => (
   <Tabs.Root
     className={s.tabsRoot}
     defaultValue={defaultValue}
-    onValueChange={onChangeValue}
+    onValueChange={onChange}
     value={value}
   >
     {label && (
