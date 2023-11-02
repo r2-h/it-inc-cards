@@ -14,11 +14,11 @@ import { z } from 'zod'
 import s from './add-and-edit-pack.module.scss'
 
 const addNewPackSchema = z.object({
-  namePack: namePackSchema,
-  privatePack: privateCheckboxSchema,
+  isPrivate: privateCheckboxSchema,
+  name: namePackSchema,
 })
 
-export type FormValues = z.infer<typeof addNewPackSchema>
+export type CreateDeckFormValues = z.infer<typeof addNewPackSchema>
 
 type AddNewPackProps = {
   onSubmit?: any
@@ -30,7 +30,7 @@ export const AddAndEditPack = ({ onSubmit, variant }: AddNewPackProps) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<CreateDeckFormValues>({
     resolver: zodResolver(addNewPackSchema),
   })
   const textButton = variant === 'add' ? 'Add New Pack' : 'Edit Pack'
@@ -40,12 +40,12 @@ export const AddAndEditPack = ({ onSubmit, variant }: AddNewPackProps) => {
       <div className={s.wrapperForm}>
         <ControlledTextField
           control={control}
-          errorMessage={errors.namePack?.message}
+          errorMessage={errors.name?.message}
           fullWidth
           label={'Name pack'}
-          name={'namePack'}
+          name={'name'}
         />
-        <ControlledCheckBox control={control} label={'Private pack'} name={'privatePack'} />
+        <ControlledCheckBox control={control} label={'Private pack'} name={'isPrivate'} />
       </div>
       <div className={s.buttons}>
         <DialogClose>

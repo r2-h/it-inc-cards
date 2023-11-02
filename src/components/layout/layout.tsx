@@ -17,7 +17,6 @@ import s from './layout.module.scss'
 export const Layout = () => {
   const auth = useMeQuery()
 
-  console.log(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [name, setName] = useState('Ivan')
 
@@ -45,7 +44,7 @@ export const Layout = () => {
         name={name}
       />
       {isModalOpen && (
-        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen} trigger={<></>}>
+        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
             avatar={<AvatarLarge />}
             email={auth.data?.email}

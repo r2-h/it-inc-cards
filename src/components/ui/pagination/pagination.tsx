@@ -3,6 +3,7 @@ import ArrowRight from '@/assets/keyboard-arrow-rigth'
 import { usePagination } from '@/components/ui/pagination/usePagination'
 import { Select } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
+import clsx from 'clsx'
 
 import s from './pagination.module.scss'
 
@@ -14,7 +15,8 @@ const options = [
   { id: '100', value: '100' },
 ]
 
-export type PaginationPropsType = {
+export type PaginationProps = {
+  className?: string
   currentPage: number
   onChangePage: (page: number) => void
   onChangePageSize: (size: string) => void
@@ -22,12 +24,13 @@ export type PaginationPropsType = {
   totalCount: number
 }
 export const Pagination = ({
+  className,
   currentPage,
   onChangePage,
   onChangePageSize,
   pageSize,
   totalCount,
-}: PaginationPropsType) => {
+}: PaginationProps) => {
   const { isFirstPage, isLastPage, nextPageHandler, onClickHandler, pages, prevPageHandler } =
     usePagination({
       currentPage,
@@ -35,9 +38,10 @@ export const Pagination = ({
       pageSize,
       totalCount,
     })
+  const rootCN = clsx(s.root, className)
 
   return (
-    <div className={s.root}>
+    <div className={rootCN}>
       <div className={s.buttons_container}>
         <button className={s.leftArrow} disabled={isFirstPage} onClick={prevPageHandler}>
           <ArrowLeft />

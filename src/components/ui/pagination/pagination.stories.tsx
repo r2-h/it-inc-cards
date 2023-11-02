@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { FC, useState } from 'react'
 
-import { Pagination, PaginationPropsType } from '@/components/ui/pagination/pagination'
+import { Pagination, PaginationProps } from '@/components/ui/pagination/pagination'
 
 const meta = {
   component: Pagination,
@@ -23,7 +23,7 @@ const meta = {
   title: 'Components/Pagination',
 } satisfies Meta<typeof Pagination>
 
-const ControlledPagination: FC<PaginationPropsType> = ({
+const ControlledPagination: FC<PaginationProps> = ({
   currentPage,
   onChangePage,
   onChangePageSize,
