@@ -3,8 +3,6 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 import { ArrowDown } from '@/assets/arrow-down'
 import { ArrowUp } from '@/assets/arrow-up'
 import { Head, Row, TH } from '@/components/ui/tables'
-import { Sort } from '@/pages/decks'
-import { Field } from '@/services/decks/types'
 
 import s from './table-header.module.scss'
 
@@ -55,3 +53,13 @@ export const TableHeader: FC<
     </Head>
   )
 }
+
+type Column = {
+  key: string
+  sortable: boolean
+  title: string
+}
+type Sort = {
+  direction: 'asc' | 'desc'
+  key: string
+} | null
