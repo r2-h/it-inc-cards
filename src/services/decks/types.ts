@@ -36,8 +36,8 @@ export type DecksResponse = {
   pagination: Pagination
 }
 
-type Field = 'name' | 'updated'
-type Direction = 'asc' | 'desc'
+export type Field = 'cardsCount' | 'createdBy' | 'name' | 'updated'
+export type Direction = 'asc' | 'desc'
 export type DecksParams = {
   authorId?: string
   currentPage?: number
