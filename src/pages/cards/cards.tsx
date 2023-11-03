@@ -134,7 +134,7 @@ export const Cards = () => {
                           callback={() => {
                             deleteCardHandler(card.id)
                           }}
-                          variant={'card'}
+                          title={'здесь должно быть название вопроса'}
                         />
                       }
                       title={'Delete Card'}

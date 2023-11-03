@@ -8,7 +8,7 @@ import img from '../../assets/404.svg'
 export const Error404 = () => {
   return (
     <div className={s.wrapper}>
-      <img alt={''} src={img} />
+      <img alt={'error-404'} src={img} />
       <Typography className={s.text} variant={'body2'}>
         Sorry! Page not found!
       </Typography>
