@@ -6,19 +6,14 @@ import s from './delete.module.scss'
 
 type DeleteProps = {
   callback?: any
-  variant: 'card' | 'deck'
+  title: string
 }
-export const Delete = ({ callback, variant }: DeleteProps) => {
-  const text = variant === 'card' ? 'Card' : 'Deck'
-
+export const Delete = ({ callback, title }: DeleteProps) => {
   return (
     <>
       <div className={s.wrapperText}>
         <Typography className={s.text} variant={'body1'}>
-          Do you really want to remove{' '}
-          <Typography className={s.text} variant={'subtitle2'}>
-            {text} Name?
-          </Typography>
+          Do you really want to remove &quot;<b>{title}</b>&quot; ?
         </Typography>
 
         <Typography className={s.text} variant={'body1'}>
@@ -31,7 +26,7 @@ export const Delete = ({ callback, variant }: DeleteProps) => {
           <Button variant={'secondary'}>Cancel</Button>
         </DialogClose>
         <Button onClick={callback} variant={'primary'}>
-          Delete {text}
+          Delete {title}
         </Button>
       </div>
     </>
