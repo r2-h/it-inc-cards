@@ -10,4 +10,22 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    item: {
+      author: { id: 'asd', name: 'ada' },
+      cardsCount: 1,
+      cover: 'string',
+      created: 'string',
+      id: 'string',
+      isBlocked: false,
+      isDeleted: false,
+      isPrivate: false,
+      name: 'string',
+      rating: 1,
+      shots: 1,
+      updated: 'string',
+      userId: 'string',
+    },
+  },
+}

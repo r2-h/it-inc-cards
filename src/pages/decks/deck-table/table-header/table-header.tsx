@@ -42,7 +42,7 @@ export const TableHeader: FC<
       <Row>
         {columns.map(({ key, sortable, title }) => (
           <TH key={key} onClick={handleSort(key, sortable)}>
-            <div className={s.wrapper}>
+            <div className={`${s.wrapper} ${!sortable && s.notSortable}`}>
               {title}
               {sort && sort.key === key && (
                 <span>
