@@ -1,9 +1,19 @@
 .wrapper {
+  all: unset;
   display: flex;
   gap: 10px;
 
   button {
-    cursor: pointer;
-    display: flex;
+    &.disabled {
+      cursor: initial;
+
+      path {
+        fill: var(--color-dark-300);
+      }
+    }
+
+    path {
+      fill: var(--color-light-100);
+    }
   }
 }

@@ -27,6 +27,18 @@ export type Deck = {
   updated: string
   userId: string
 }
+export type DeleteResponse = {
+  cardsCount: number
+  cover: string
+  created: string
+  id: string
+  isPrivate: boolean
+  name: string
+  rating: number
+  shots: number
+  updated: string
+  userId: string
+}
 
 export type CreateDeckParams = Pick<Deck, 'cover' | 'isPrivate' | 'name'>
 
@@ -36,8 +48,8 @@ export type DecksResponse = {
   pagination: Pagination
 }
 
-type Field = 'name' | 'updated'
-type Direction = 'asc' | 'desc'
+export type Field = 'cardsCount' | 'createdBy' | 'name' | 'updated'
+export type Direction = 'asc' | 'desc'
 export type DecksParams = {
   authorId?: string
   currentPage?: number

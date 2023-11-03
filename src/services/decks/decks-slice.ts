@@ -1,3 +1,4 @@
+import { Sort } from '@/pages/decks'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: DecksStateType = {
@@ -5,6 +6,7 @@ const initialState: DecksStateType = {
   itemsPerPage: 10,
   search: '',
   sliderValue: [0, 61],
+  sort: null,
   tabsValue: '',
 }
 
@@ -26,6 +28,10 @@ const slice = createSlice({
     setSliderValue: (state, action: PayloadAction<[number, number]>) => {
       state.sliderValue = action.payload
     },
+    setSort: (state, action: PayloadAction<Sort>) => {
+      state.sort = action.payload
+    },
+
     setTabsValue: (state, action: PayloadAction<string>) => {
       state.tabsValue = action.payload
     },
@@ -37,6 +43,7 @@ type DecksStateType = {
   itemsPerPage: number
   search: string
   sliderValue: [number, number]
+  sort: Sort
   tabsValue: string
 }
 
