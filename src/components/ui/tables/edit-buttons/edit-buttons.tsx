@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
@@ -20,6 +20,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: me } = useMeQuery()
   const my = me?.id === item.userId
+  const [isOpen, setIsOpen] = useState(false)
 
   const buttonCN = clsx(!my && s.disabled)
 
@@ -37,13 +38,10 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       <button className={buttonCN}>
         <EditImg />
       </button>
-      <Modal
-        trigger={
-          <button className={buttonCN}>
-            <TrashImg />
-          </button>
-        }
-      >
+      <button className={buttonCN} onClick={() => setIsOpen(my)}>
+        <TrashImg />
+      </button>
+      <Modal onOpenChange={() => setIsOpen(false)} open={isOpen}>
         <ModalForCards
           body={<Delete callback={deleteHandler} title={item.name} />}
           title={'Delete Deck'}
