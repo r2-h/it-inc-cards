@@ -18,19 +18,20 @@ const addNewCardSchema = z.object({
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
 type AddNewCardProps = {
+  defaultValue?: AddCardsFormValues
   onSubmit?: any
   variant: 'add' | 'edit'
 }
 
-export const AddAndEditCard = ({ onSubmit, variant }: AddNewCardProps) => {
+export const AddAndEditCard = ({ defaultValue, onSubmit, variant }: AddNewCardProps) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm<AddCardsFormValues>({
     defaultValues: {
-      answer: '',
-      question: '',
+      answer: defaultValue?.answer ?? '',
+      question: defaultValue?.question ?? '',
     },
     resolver: zodResolver(addNewCardSchema),
   })

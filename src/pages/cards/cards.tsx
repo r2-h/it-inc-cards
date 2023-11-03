@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
 import DotsImg from '@/assets/dots-img'
@@ -51,7 +51,7 @@ export const Cards = () => {
   ]
   const { id } = useParams<{ id: string }>()
 
-  const cards = useGetCardsInDeckQuery({ id: id ?? '' })
+  const { data: cards, isError } = useGetCardsInDeckQuery({ id: id ?? '' })
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
@@ -66,6 +66,10 @@ export const Cards = () => {
 
   const deleteCardHandler = (id: string) => {
     deleteCard({ id })
+  }
+
+  if (isError) {
+    return <Navigate to={'/404'} />
   }
 
   return (
@@ -99,11 +103,11 @@ export const Cards = () => {
       <Table>
         <TableHeader className={s.tableHeader} columns={columns} />
         <Body>
-          {cards?.data?.items.map(item => (
-            <Row key={item?.id}>
-              <TD>{item?.question}</TD>
-              <TD>{item?.answer}</TD>
-              <TD>{new Date(item?.updated).toLocaleDateString()}</TD>
+          {cards?.items.map(card => (
+            <Row key={card?.id}>
+              <TD>{card?.question}</TD>
+              <TD>{card?.answer}</TD>
+              <TD>{new Date(card?.updated).toLocaleDateString()}</TD>
               <TD>
                 <Grade />
               </TD>
@@ -113,8 +117,9 @@ export const Cards = () => {
                     <ModalForCards
                       body={
                         <AddAndEditCard
+                          defaultValue={{ answer: card.answer, question: card.question }}
                           onSubmit={(data: AddCardsFormValues) => {
-                            editCardHandler(item.id, data)
+                            editCardHandler(card.id, data)
                           }}
                           variant={'edit'}
                         />
@@ -127,7 +132,7 @@ export const Cards = () => {
                       body={
                         <Delete
                           callback={() => {
-                            deleteCardHandler(item.id)
+                            deleteCardHandler(card.id)
                           }}
                           variant={'card'}
                         />
