@@ -6,18 +6,35 @@
   color: var(--color-light-100);
   text-decoration: none;
 
-  .title {
-    color: var(--color-light-100);
-  }
-
   .deckImage {
-    width: 150px;
-    height: 50px;
-    object-fit: cover;
+    display: inline-flex;
+    align-items: center;
+
+    width: 120px;
+    height: 40px;
+
+    color: transparent;
+
+    background-position: center;
+    background-size: cover;
+    border-radius: 2px;
+
+    .transparent {
+      color: transparent;
+    }
   }
 }
 
 .private {
   margin-left: 10px;
   color: var(--color-info-300);
+}
+
+.title1 {
+  color: var(--color-light-100);
+}
+
+.title2 {
+  margin-left: 65px;
+  color: var(--color-light-100);
 }

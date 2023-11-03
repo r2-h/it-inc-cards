@@ -20,12 +20,22 @@ export const TableBody: FC<
     <Body {...restProps}>
       {data?.map((item, idx) => (
         <Row key={item.name + idx}>
-          <TD>
+          <TD className={s.s}>
             <Link className={s.link} to={`/cards/${item.id}`}>
-              <Typography className={s.title} variant={'body2'}>
-                {item.name}
-              </Typography>
-              {item.cover && <img alt={'deck image'} className={s.deckImage} src={item.cover} />}
+              {item.cover ? (
+                <div className={s.deckImage} style={{ backgroundImage: `url(${item.cover})` }}>
+                  <Typography className={s.transparent} variant={'body2'}>
+                    {item.name}
+                  </Typography>
+                  <Typography className={s.title2} variant={'body2'}>
+                    {item.name}
+                  </Typography>
+                </div>
+              ) : (
+                <Typography className={s.title1} variant={'body2'}>
+                  {item.name}
+                </Typography>
+              )}
             </Link>
             {item.isPrivate && (
               <Typography className={s.private} variant={'body2'}>
