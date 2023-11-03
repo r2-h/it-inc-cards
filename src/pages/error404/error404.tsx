@@ -1,13 +1,14 @@
-import Error404Img from '@/assets/error-404-img'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
 import s from './error404.module.scss'
 
+import img from '../../assets/404.svg'
+
 export const Error404 = () => {
   return (
     <div className={s.wrapper}>
-      <Error404Img />
+      <img alt={''} src={img} />
       <Typography className={s.text} variant={'body2'}>
         Sorry! Page not found!
       </Typography>
