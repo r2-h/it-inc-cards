@@ -13,11 +13,21 @@ import s from './sign-up.module.scss'
 
 import { emailValidation, passwordValidation } from '../validation-schemas'
 
-const loginSchema = z.object({
-  confirmPassword: passwordValidation,
-  email: emailValidation,
-  password: passwordValidation,
-})
+const loginSchema = z
+  .object({
+    confirmPassword: passwordValidation,
+    email: emailValidation,
+    password: passwordValidation,
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+      })
+    }
+  })
 
 export type FormValues = z.infer<typeof loginSchema>
 type SignOutProps = {
