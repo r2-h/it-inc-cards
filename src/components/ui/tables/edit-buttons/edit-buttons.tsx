@@ -19,13 +19,13 @@ type EditButtonsProps = {
 export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: me } = useMeQuery()
-  const my = me?.id === item.userId
+  const isMy = me?.id === item.userId
   const [isOpen, setIsOpen] = useState(false)
 
-  const buttonCN = clsx(!my && s.disabled)
+  const buttonCN = clsx(!isMy && s.disabled)
 
   const deleteHandler = () => {
-    if (my) {
+    if (isMy) {
       deleteDeck({ id: item.id })
     }
   }
@@ -38,7 +38,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       <button className={buttonCN}>
         <EditImg />
       </button>
-      <button className={buttonCN} onClick={() => setIsOpen(my)}>
+      <button className={buttonCN} onClick={() => setIsOpen(isMy)}>
         <TrashImg />
       </button>
       <Modal onOpenChange={() => setIsOpen(false)} open={isOpen}>
