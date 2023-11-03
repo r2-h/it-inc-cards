@@ -1,4 +1,23 @@
 .link {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+
   color: var(--color-light-100);
   text-decoration: none;
+
+  .title {
+    color: var(--color-light-100);
+  }
+
+  .deckImage {
+    width: 150px;
+    height: 50px;
+    object-fit: cover;
+  }
+}
+
+.private {
+  margin-left: 10px;
+  color: var(--color-info-300);
 }

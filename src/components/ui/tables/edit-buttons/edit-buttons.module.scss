@@ -4,6 +4,8 @@
   gap: 10px;
 
   button {
+    display: inline-flex;
+
     &.disabled {
       cursor: initial;
 
