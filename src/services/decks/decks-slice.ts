@@ -31,6 +31,7 @@ const slice = createSlice({
     setSort: (state, action: PayloadAction<Sort>) => {
       state.sort = action.payload
     },
+
     setTabsValue: (state, action: PayloadAction<string>) => {
       state.tabsValue = action.payload
     },

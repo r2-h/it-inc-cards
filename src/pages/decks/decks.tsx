@@ -64,7 +64,7 @@ export const Decks = () => {
   const sortHandler = (sort: Sort) => dispatch(decksActions.setSort(sort))
 
   const tabs: TabsType[] = [
-    { title: 'My Cards', value: me?.id! },
+    { title: 'My Cards', value: me?.id ?? 'My Cards' },
     { title: 'All Cards', value: '' },
   ]
 

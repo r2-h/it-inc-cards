@@ -28,7 +28,7 @@ export const TableBody: FC<
           <TD>{new Date(item.updated).toLocaleDateString()}</TD>
           <TD>{item.author.name}</TD>
           <TD>
-            <EditButtons />
+            <EditButtons item={item} />
           </TD>
         </Row>
       ))}
