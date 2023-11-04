@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Body, Row, TD } from '@/components/ui/tables'
 import { EditButtons } from '@/components/ui/tables/edit-buttons/edit-buttons'
+import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services/decks/types'
 
 import s from './table-body.module.scss'
@@ -21,11 +22,26 @@ export const TableBody: FC<
         <Row key={item.name + idx}>
           <TD>
             <Link className={s.link} to={`/cards/${item.id}`}>
-              {item.name}
+              {item.cover ? (
+                <div className={s.deckImage} style={{ backgroundImage: `url(${item.cover})` }}>
+                  <Typography className={s.title} variant={'body2'}>
+                    {item.name}
+                  </Typography>
+                </div>
+              ) : (
+                <Typography className={s.title} variant={'body2'}>
+                  {item.name}
+                </Typography>
+              )}
             </Link>
+            {item.isPrivate && (
+              <Typography className={s.private} variant={'body2'}>
+                private
+              </Typography>
+            )}
           </TD>
           <TD>{item.cardsCount}</TD>
-          <TD>{new Date(item.updated).toLocaleDateString()}</TD>
+          <TD>{new Date(item.updated).toLocaleString('en-GB')}</TD>
           <TD>{item.author.name}</TD>
           <TD>
             <EditButtons item={item} />

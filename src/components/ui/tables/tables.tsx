@@ -30,7 +30,7 @@ export const TH: FC<THeadCellProps> = ({ className, ...rest }) => {
 }
 
 export const TD: FC<TDataProps> = ({ className, ...rest }) => {
-  const cellCN = clsx(className, s.tableCell)
+  const cellCN = clsx(s.tableCell, className)
 
   return <td className={cellCN} {...rest} />
 }
