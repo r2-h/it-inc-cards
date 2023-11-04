@@ -25,9 +25,11 @@ export const Delete = ({ callback, title }: DeleteProps) => {
         <DialogClose>
           <Button variant={'secondary'}>Cancel</Button>
         </DialogClose>
-        <Button onClick={callback} variant={'primary'}>
-          Delete {title}
-        </Button>
+        <DialogClose>
+          <Button onClick={callback} variant={'primary'}>
+            Delete {title}
+          </Button>
+        </DialogClose>
       </div>
     </>
   )

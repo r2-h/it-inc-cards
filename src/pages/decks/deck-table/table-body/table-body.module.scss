@@ -2,25 +2,21 @@
   display: inline-flex;
   gap: 10px;
   align-items: center;
-
-  color: var(--color-light-100);
   text-decoration: none;
 
   .deckImage {
     display: inline-flex;
     align-items: center;
 
-    width: 120px;
+    width: 110px;
     height: 40px;
-
-    color: transparent;
 
     background-position: center;
     background-size: cover;
     border-radius: 2px;
 
-    .transparent {
-      color: transparent;
+    .title {
+      margin-left: 118px;
     }
   }
 }
@@ -30,11 +26,6 @@
   color: var(--color-info-300);
 }
 
-.title1 {
-  color: var(--color-light-100);
-}
-
-.title2 {
-  margin-left: 65px;
+.title {
   color: var(--color-light-100);
 }
