@@ -1,13 +1,16 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
-import { Delete } from '@/components/modal-for-cards/delete'
+import {
+  AddAndEditDeck,
+  CreateDeckFormValues,
+} from '@/components/modal-for-cards/add-and-edit-pack'
 import { Modal } from '@/components/ui/modal'
 import { useMeQuery } from '@/services/auth/auth-api'
-import { useDeleteDeckMutation } from '@/services/decks/decks-api'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks-api'
 import { Deck } from '@/services/decks/types'
 import clsx from 'clsx'
 
@@ -18,14 +21,17 @@ type EditButtonsProps = {
 }
 export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [deleteDeck] = useDeleteDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
   const { data: me } = useMeQuery()
-  const isMy = me?.id === item.userId
-  const [isOpen, setIsOpen] = useState(false)
+  const my = me?.id === item.userId
 
-  const buttonCN = clsx(!isMy && s.disabled)
+  const buttonCN = clsx(!my && s.disabled)
+
+  const updateDeckHandler = (data: CreateDeckFormValues) =>
+    updateDeck({ id: item.id, isPrivate: data.isPrivate, name: data.name })
 
   const deleteHandler = () => {
-    if (isMy) {
+    if (my) {
       deleteDeck({ id: item.id })
     }
   }
@@ -35,18 +41,28 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       <button>
         <PlayCircleImg />
       </button>
-      <button className={buttonCN}>
-        <EditImg />
-      </button>
-      <button className={buttonCN} onClick={() => setIsOpen(isMy)}>
-        <TrashImg />
-      </button>
-      <Modal onOpenChange={() => setIsOpen(false)} open={isOpen}>
+      <Modal
+        trigger={
+          <button className={buttonCN} disabled={false}>
+            <EditImg />
+          </button>
+        }
+      >
         <ModalForCards
-          body={<Delete callback={deleteHandler} title={item.name} />}
-          title={'Delete Deck'}
+          body={
+            <AddAndEditDeck
+              isPrivate={item.isPrivate}
+              name={item.name}
+              onSubmit={updateDeckHandler}
+              variant={'edit'}
+            />
+          }
+          title={'Add new deck'}
         />
       </Modal>
+      <button className={buttonCN} onClick={deleteHandler}>
+        <TrashImg />
+      </button>
     </div>
   )
 }

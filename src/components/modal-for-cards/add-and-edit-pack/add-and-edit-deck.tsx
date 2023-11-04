@@ -21,17 +21,29 @@ const addNewDeckSchema = z.object({
 export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
 type AddNewDeckProps = {
+  cover?: string
+  isPrivate?: boolean
+  name?: string
   onSubmit?: any
   variant: 'add' | 'edit'
 }
 
-export const AddAndEditDeck = ({ onSubmit, variant }: AddNewDeckProps) => {
+export const AddAndEditDeck = ({
+  isPrivate = false,
+  name = '',
+  onSubmit,
+  variant,
+}: AddNewDeckProps) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm<CreateDeckFormValues>({
     resolver: zodResolver(addNewDeckSchema),
+    values: {
+      isPrivate: isPrivate,
+      name: name,
+    },
   })
   const textButton = variant === 'add' ? 'Add New Deck' : 'Edit Deck'
 

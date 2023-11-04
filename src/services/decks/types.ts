@@ -41,7 +41,7 @@ export type DeleteResponse = {
 }
 
 export type CreateDeckParams = Pick<Deck, 'cover' | 'isPrivate' | 'name'>
-
+export type UpdateDeckParams = CreateDeckParams & Pick<Deck, 'id'>
 export type DecksResponse = {
   items: Array<Deck>
   maxCardsCount: number
@@ -57,7 +57,7 @@ export type DecksParams = {
   maxCardsCount?: string
   minCardsCount?: string
   name?: string
-  orderBy?: `${Field}-${Direction}`
+  orderBy?: `${Field}-${Direction}` | null
 } | void
 
 export type GetCardInDeckResponse = {
