@@ -26,7 +26,7 @@ export type UpdateCardArg = {
   question?: string
 }
 
-export type Tt = {
+export type GetCardsParams = {
   answer?: string
   currentPage?: number
   id: string

@@ -1,21 +1,33 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: CardsStateType = {
-  search: '',
+  currentPage: 1,
+  itemsPerPage: 10,
+  searchQuestion: '',
 }
 
 const slice = createSlice({
   initialState,
   name: 'decksSlice',
   reducers: {
-    setSearch: (state, action: PayloadAction<string>) => {
-      state.search = action.payload
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload
+    },
+    setItemsPerPage: (state, action: PayloadAction<number>) => {
+      state.itemsPerPage = action.payload
+      state.currentPage = 1
+    },
+    setSearchQuestion: (state, action: PayloadAction<string>) => {
+      state.searchQuestion = action.payload
+      state.currentPage = 1
     },
   },
 })
 
 type CardsStateType = {
-  search: string
+  currentPage: number
+  itemsPerPage: number
+  searchQuestion: string
 }
 
 export const cardsReducers = slice.reducer
