@@ -23,12 +23,15 @@ import {
   useGetCardsInDeckQuery,
   useGetDeckQuery,
 } from '@/services/cards/cards-api'
+import { cardsActions } from '@/services/cards/cards-slice'
+import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
 
 import { EditCell } from './editCell'
 
 export const Cards = () => {
+  const dispatch = useAppDispatch()
   const columns = [
     {
       key: 'question',
@@ -55,7 +58,7 @@ export const Cards = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [search, setSearch] = useState('')
+  const search = useAppSelector(state => state.cards.search)
 
   const { data: cards, isError } = useGetCardsInDeckQuery({ id: id ?? '' })
   const { data: me } = useMeQuery()
@@ -74,10 +77,10 @@ export const Cards = () => {
   const itemsPerPageHandler = (size: string) => {
     setItemsPerPage(+size)
   }
-  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.currentTarget.value)
-  const clearSearchHandler = () => {
-    setSearch('')
-  }
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(cardsActions.setSearch(e.currentTarget.value))
+  const clearSearchHandler = () => dispatch(cardsActions.setSearch(''))
+
   const addCardHandler = (data: AddCardsFormValues) => {
     createCard({ answer: data.answer, deckId: id, question: data.question })
   }
