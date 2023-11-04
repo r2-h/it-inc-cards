@@ -7,9 +7,8 @@ import s from './delete.module.scss'
 type DeleteProps = {
   callback?: any
   title: string
-  titleButton: string
 }
-export const Delete = ({ callback, title, titleButton }: DeleteProps) => {
+export const Delete = ({ callback, title }: DeleteProps) => {
   return (
     <>
       <div className={s.wrapperText}>
@@ -26,9 +25,11 @@ export const Delete = ({ callback, title, titleButton }: DeleteProps) => {
         <DialogClose>
           <Button variant={'secondary'}>Cancel</Button>
         </DialogClose>
-        <Button onClick={callback} variant={'primary'}>
-          {titleButton}
-        </Button>
+        <DialogClose>
+          <Button onClick={callback} variant={'primary'}>
+            Delete {title}
+          </Button>
+        </DialogClose>
       </div>
     </>
   )
