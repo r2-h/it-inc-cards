@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api'
-import { CardsResponse, CreateCardArg, UpdateCardArg } from '@/services/cards/types'
+import { CardsResponse, CreateCardArg, Tt, UpdateCardArg } from '@/services/cards/types'
 import { Deck, GetCardInDeckResponse } from '@/services/decks/types'
 
 const cardsApi = baseApi.injectEndpoints({
@@ -27,7 +27,7 @@ const cardsApi = baseApi.injectEndpoints({
           url: `v1/cards/${id}`,
         }),
       }),
-      getCardsInDeck: builder.query<GetCardInDeckResponse, { id: string }>({
+      getCardsInDeck: builder.query<GetCardInDeckResponse, Tt>({
         providesTags: ['Cards'],
         query: ({ id }) => ({
           url: `v1/decks/${id}/cards`,

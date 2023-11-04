@@ -25,3 +25,12 @@ export type UpdateCardArg = {
   id?: string
   question?: string
 }
+
+export type Tt = {
+  answer?: string
+  currentPage?: number
+  id: string
+  itemsPerPage?: number
+  orderBy?: string
+  question?: string
+}

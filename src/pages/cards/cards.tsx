@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
@@ -9,6 +10,7 @@ import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
+import { Pagination } from '@/components/ui/pagination'
 import { Body, Row, TD, Table } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
 import { TableHeader } from '@/components/ui/tables/table-header'
@@ -51,11 +53,31 @@ export const Cards = () => {
   ]
   const { id } = useParams<{ id: string }>()
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [search, setSearch] = useState('')
+
   const { data: cards, isError } = useGetCardsInDeckQuery({ id: id ?? '' })
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
+  const { data: qq } = useGetCardsInDeckQuery({
+    answer: search,
+    currentPage: 2,
+    id: id ?? '',
+    itemsPerPage,
+  })
   const [createCard] = useCreateCardMutation()
 
+  const currenPageHandler = (page: number) => {
+    setCurrentPage(page)
+  }
+  const itemsPerPageHandler = (size: string) => {
+    setItemsPerPage(+size)
+  }
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.currentTarget.value)
+  const clearSearchHandler = () => {
+    setSearch('')
+  }
   const addCardHandler = (data: AddCardsFormValues) => {
     createCard({ answer: data.answer, deckId: id, question: data.question })
   }
@@ -99,11 +121,19 @@ export const Cards = () => {
       {deck?.cover && (
         <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
       )}
-      <TextField className={s.input} fullWidth placeholder={'Input search'} type={'search'} />
+      <TextField
+        className={s.input}
+        fullWidth
+        onChange={searchHandler}
+        onClearClick={clearSearchHandler}
+        placeholder={'Input search'}
+        type={'search'}
+        value={search}
+      />
       <Table>
         <TableHeader className={s.tableHeader} columns={columns} />
         <Body>
-          {cards?.items.map(card => (
+          {qq?.items.map(card => (
             <Row key={card?.id}>
               <TD className={s.textCell}>{card?.question}</TD>
               <TD className={s.textCell}>{card?.answer}</TD>
@@ -116,6 +146,14 @@ export const Cards = () => {
           ))}
         </Body>
       </Table>
+      <Pagination
+        className={s.pagination}
+        currentPage={currentPage}
+        onChangePage={currenPageHandler}
+        onChangePageSize={itemsPerPageHandler}
+        pageSize={itemsPerPage}
+        totalCount={qq?.pagination.totalItems || cards?.items.length || 61} // ???
+      />
     </>
   )
 }
