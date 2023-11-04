@@ -1,14 +1,11 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
-import DotsImg from '@/assets/dots-img'
 import { EditImg } from '@/assets/edit-img'
-import EllipseImg from '@/assets/ellipse-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
 import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
-import { Delete } from '@/components/modal-for-cards/delete'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
@@ -16,15 +13,18 @@ import { Body, Row, TD, Table } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
 import { TableHeader } from '@/components/ui/tables/table-header'
 import { TextField } from '@/components/ui/text-field'
+import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
+import { useMeQuery } from '@/services/auth/auth-api'
 import {
   useCreateCardMutation,
-  useDeleteCardMutation,
   useGetCardsInDeckQuery,
-  useUpdateCardMutation,
+  useGetDeckQuery,
 } from '@/services/cards/cards-api'
 
 import s from './cards.module.scss'
+
+import { EditCell } from './editCell'
 
 export const Cards = () => {
   const columns = [
@@ -52,25 +52,19 @@ export const Cards = () => {
   const { id } = useParams<{ id: string }>()
 
   const { data: cards, isError } = useGetCardsInDeckQuery({ id: id ?? '' })
+  const { data: me } = useMeQuery()
+  const { data: deck } = useGetDeckQuery({ id: id ?? '' })
   const [createCard] = useCreateCardMutation()
-  const [updateCard] = useUpdateCardMutation()
-  const [deleteCard] = useDeleteCardMutation()
 
   const addCardHandler = (data: AddCardsFormValues) => {
     createCard({ answer: data.answer, deckId: id, question: data.question })
   }
 
-  const editCardHandler = (id: string, data: AddCardsFormValues) => {
-    updateCard({ answer: data.answer, id, question: data.question })
-  }
-
-  const deleteCardHandler = (id: string) => {
-    deleteCard({ id })
-  }
-
   if (isError) {
     return <Navigate to={'/404'} />
   }
+
+  const myDeck = deck?.userId === me?.id
 
   return (
     <>
@@ -83,7 +77,7 @@ export const Cards = () => {
       <div className={s.header}>
         <div>
           <Typography className={s.title} variant={'large'}>
-            My Deck
+            {deck?.name}
           </Typography>
           <DropDown trigger={<TriggerMore />}>
             <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
@@ -92,70 +86,36 @@ export const Cards = () => {
           </DropDown>
         </div>
 
-        <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
-          <ModalForCards
-            body={<AddAndEditCard onSubmit={addCardHandler} variant={'add'} />}
-            title={'Add New Card'}
-          />
-        </Modal>
+        {myDeck && (
+          <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
+            <ModalForCards
+              body={<AddAndEditCard onSubmit={addCardHandler} variant={'add'} />}
+              title={'Add New Card'}
+            />
+          </Modal>
+        )}
+        {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
+      {deck?.cover && (
+        <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
+      )}
       <TextField className={s.input} fullWidth placeholder={'Input search'} type={'search'} />
       <Table>
         <TableHeader className={s.tableHeader} columns={columns} />
         <Body>
           {cards?.items.map(card => (
             <Row key={card?.id}>
-              <TD>{card?.question}</TD>
-              <TD>{card?.answer}</TD>
+              <TD className={s.textCell}>{card?.question}</TD>
+              <TD className={s.textCell}>{card?.answer}</TD>
               <TD>{new Date(card?.updated).toLocaleDateString()}</TD>
               <TD>
                 <Grade />
               </TD>
-              <TD>
-                <div className={s.buttons}>
-                  <Modal trigger={<EditImg className={s.icon} />}>
-                    <ModalForCards
-                      body={
-                        <AddAndEditCard
-                          defaultValue={{ answer: card.answer, question: card.question }}
-                          onSubmit={(data: AddCardsFormValues) => {
-                            editCardHandler(card.id, data)
-                          }}
-                          variant={'edit'}
-                        />
-                      }
-                      title={'Edit Card'}
-                    />
-                  </Modal>
-                  <Modal trigger={<TrashImg className={s.icon} />}>
-                    <ModalForCards
-                      body={
-                        <Delete
-                          callback={() => {
-                            deleteCardHandler(card.id)
-                          }}
-                          title={card?.answer}
-                          titleButton={'Delete Card'}
-                        />
-                      }
-                      title={'Delete Card'}
-                    />
-                  </Modal>
-                </div>
-              </TD>
+              {myDeck && <EditCell card={card} />}
             </Row>
           ))}
         </Body>
       </Table>
     </>
-  )
-}
-
-export const TriggerMore = () => {
-  return (
-    <div className={s.img}>
-      <EllipseImg className={s.iconEllipse} />
-      <DotsImg className={s.iconDots} />
-    </div>
   )
 }
