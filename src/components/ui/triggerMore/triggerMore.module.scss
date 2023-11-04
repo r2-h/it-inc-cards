@@ -1,0 +1,17 @@
+.img {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  .iconEllipse {
+    position: absolute;
+    top: 7px;
+    left: 3px;
+  }
+
+  .iconDots {
+    position: absolute;
+    top: 10px;
+    left: 6px;
+  }
+}

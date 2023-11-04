@@ -43,7 +43,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       </button>
       <Modal onOpenChange={() => setIsOpen(false)} open={isOpen}>
         <ModalForCards
-          body={<Delete callback={deleteHandler} title={item.name} />}
+          body={<Delete callback={deleteHandler} title={item.name} titleButton={'Delete Deck'} />}
           title={'Delete Deck'}
         />
       </Modal>

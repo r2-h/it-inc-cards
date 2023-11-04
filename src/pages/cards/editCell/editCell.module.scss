@@ -1,0 +1,9 @@
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+
+  .icon {
+    cursor: pointer;
+  }
+}
