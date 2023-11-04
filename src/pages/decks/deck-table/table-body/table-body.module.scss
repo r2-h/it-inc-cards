@@ -16,6 +16,8 @@
     border-radius: 2px;
 
     .title {
+      display: inline-flex;
+      flex-shrink: 0;
       margin-left: 118px;
     }
   }
