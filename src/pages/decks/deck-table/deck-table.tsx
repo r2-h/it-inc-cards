@@ -42,10 +42,12 @@ type TableProps = {
   sort: Sort
 }
 
-export type Sort = {
-  direction: Direction
-  key: Field
-} | null
+export type Sort =
+  | ''
+  | {
+      direction: Direction
+      key: Field
+    }
 
 export type Column = {
   key: Field

@@ -6,7 +6,7 @@ const initialState: DecksStateType = {
   itemsPerPage: 10,
   search: '',
   sliderValue: [0, 61],
-  sort: null,
+  sort: undefined,
   tabsValue: '',
 }
 
@@ -43,7 +43,7 @@ type DecksStateType = {
   itemsPerPage: number
   search: string
   sliderValue: [number, number]
-  sort: Sort
+  sort: Sort | undefined
   tabsValue: string
 }
 

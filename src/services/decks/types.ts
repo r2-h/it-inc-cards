@@ -57,7 +57,7 @@ export type DecksParams = {
   maxCardsCount?: string
   minCardsCount?: string
   name?: string
-  orderBy?: `${Field}-${Direction}` | null
+  orderBy?: `${Field}-${Direction}` | undefined
 } | void
 
 export type GetCardInDeckResponse = {

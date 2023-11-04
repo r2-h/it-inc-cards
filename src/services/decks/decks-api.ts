@@ -51,7 +51,7 @@ const decksAPI = baseApi.injectEndpoints({
                 maxCardsCount: `${sliderValue[1]}`,
                 minCardsCount: `${sliderValue[0]}`,
                 name: search,
-                orderBy: sort && `${sort.key}-${sort.direction}`,
+                orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
               },
               draft => {
                 const deck = draft?.items?.find(d => d.id === id)
