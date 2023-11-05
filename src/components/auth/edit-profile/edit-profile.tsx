@@ -1,9 +1,10 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { EditImg } from '@/assets/edit-img'
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+import { authActions } from '@/services/auth'
+import { InputTypeFile } from '@/utils'
 
 import s from './edit-profile.module.scss'
 
@@ -11,13 +12,15 @@ import { EditModeOff } from './edit-mode-off'
 import { EditModeOn } from './edit-mode-on'
 
 type EditProfileProps = {
-  avatar?: ReactNode
+  avatar?: string
   email?: string
   name?: string
   onSubmit?: any
 }
 
 export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmit }) => {
+  const setAvatarHandler = authActions.setAvatar
+
   const [editMode, setEditMode] = useState<boolean>(false)
 
   return (
@@ -26,12 +29,8 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
         Personal Information
       </Typography>
       <div className={s.avatar}>
-        {avatar}
-        {!editMode && (
-          <Button className={s.buttonAvatar} type={'button'} variant={'secondary'}>
-            <EditImg />
-          </Button>
-        )}
+        <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
+        <InputTypeFile buttonImg={<EditImg />} setImage={setAvatarHandler} />
       </div>
       {editMode && <EditModeOn onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}
