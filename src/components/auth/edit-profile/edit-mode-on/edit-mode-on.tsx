@@ -14,18 +14,22 @@ const nameSchema = z.object({
   name: nameValidation,
 })
 
-export type FormValues = z.infer<typeof nameSchema>
+export type EditProfileFormValues = z.infer<typeof nameSchema>
 
 type EditModeOnProps = {
+  defaultValue?: string
   onSubmit?: any
 }
 
-export const EditModeOn: FC<EditModeOnProps> = ({ onSubmit }) => {
+export const EditModeOn: FC<EditModeOnProps> = ({ defaultValue, onSubmit }) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<EditProfileFormValues>({
+    defaultValues: {
+      name: defaultValue ?? '',
+    },
     resolver: zodResolver(nameSchema),
   })
 

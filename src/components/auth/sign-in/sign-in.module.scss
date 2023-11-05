@@ -1,14 +1,11 @@
 .container {
+  margin: 0 auto;
   padding: 33px 36px 29px;
 
   .title {
     display: flex;
     justify-content: center;
-
     margin-bottom: 27px;
-
-    font-size: var(--font-size-xxl);
-    font-weight: var(--font-weight-bold);
     color: var(--color-light-100);
   }
 

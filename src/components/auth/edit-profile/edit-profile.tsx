@@ -31,7 +31,7 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
           <EditImg />
         </Button>
       </div>
-      {editMode && <EditModeOn onSubmit={onSubmit} />}
+      {editMode && <EditModeOn defaultValue={name} onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}
     </Card>
   )

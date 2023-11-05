@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -42,6 +43,11 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
   })
+  const navigate = useNavigate()
+
+  const signInHandler = () => {
+    navigate('/login')
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +91,13 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
         <Typography className={s.text} variant={'body2'}>
           Already have an account?
         </Typography>
-        <Button className={s.link} type={'button'} variant={'link'}>
+        <Button
+          as={'a'}
+          className={s.link}
+          onClick={signInHandler}
+          type={'button'}
+          variant={'link'}
+        >
           Sign In
         </Button>
       </Card>

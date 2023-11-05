@@ -1,24 +1,37 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 import { Avatar } from '@/assets/avatar'
 import { AvatarLarge } from '@/assets/avatar-large'
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
 import { EditProfile } from '@/components/auth/edit-profile'
-import { FormValues } from '@/components/auth/edit-profile/edit-mode-on'
+import { EditProfileFormValues } from '@/components/auth/edit-profile/edit-mode-on'
 import { Header } from '@/components/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
-import { useMeQuery } from '@/services/auth/auth-api'
+import { useMeQuery, useSignOutMutation, useUpdateUserMutation } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
 
 export const Layout = () => {
-  const auth = useMeQuery()
+  const { data: auth, isError } = useMeQuery()
+  const isAuthenticated = !isError
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [name, setName] = useState(auth.data?.name)
+  const [edit] = useUpdateUserMutation()
+  const editProfileHandler = (args: EditProfileFormValues) => {
+    edit(args)
+    setIsModalOpen(false)
+  }
+  const [logOut] = useSignOutMutation()
+
+  const navigate = useNavigate()
+
+  const logOutHandler = () => {
+    navigate('/login')
+    logOut()
+  }
 
   return (
     <>
@@ -34,25 +47,22 @@ export const Layout = () => {
             <DropDownItem
               icon={<SignOutImg />}
               lastItem
-              onSelect={() => alert('SIGN OUT')}
+              onSelect={logOutHandler}
               text={'Sign Out'}
             />
           </>
         }
-        email={auth.data?.email}
-        isLoggedIn
-        name={auth.data?.name}
+        email={auth?.email}
+        isLoggedIn={isAuthenticated}
+        name={auth?.name}
       />
       {isModalOpen && (
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
             avatar={<AvatarLarge />}
-            email={auth.data?.email}
-            name={name}
-            onSubmit={(data: FormValues) => {
-              setIsModalOpen(false)
-              setName(data.name)
-            }}
+            email={auth?.email}
+            name={auth?.name}
+            onSubmit={editProfileHandler}
           />
         </Modal>
       )}

@@ -1,21 +1,24 @@
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { SignIn } from '@/components/auth/sign-in'
-import { useLoginMutation } from '@/services/auth/auth-api'
+import { useLoginMutation, useMeQuery } from '@/services/auth/auth-api'
 import { SignUpParams } from '@/services/auth/types'
 
 export const SignInPage = () => {
   const [logIn] = useLoginMutation()
 
-  const navigate = useNavigate()
-
+  const { isError, isLoading } = useMeQuery()
   const logInHandler = async (args: SignUpParams) => {
-    try {
-      await logIn(args)
-      navigate('/')
-    } catch (e) {
-      console.log(e)
-    }
+    await logIn(args)
+  }
+
+  if (isLoading) {
+    return <div>...loading</div>
+  }
+  const isAuthenticated = !isError
+
+  if (isAuthenticated) {
+    return <Navigate replace to={'/'} />
   }
 
   return <SignIn onSubmit={logInHandler} />
