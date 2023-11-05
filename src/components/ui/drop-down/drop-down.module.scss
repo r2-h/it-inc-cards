@@ -61,6 +61,15 @@
     gap: 8px;
     padding: 6px 28px 6px 6px;
 
+    .img {
+      width: 36px;
+      height: 36px;
+
+      background-color: #8c61ff;
+      background-size: cover;
+      border-radius: 50%;
+    }
+
     .label {
       display: flex;
       flex-direction: column;

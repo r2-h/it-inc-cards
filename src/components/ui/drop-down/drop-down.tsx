@@ -8,6 +8,7 @@ import s from './drop-down.module.scss'
 
 type DropDownProps = {
   align?: 'center' | 'end' | 'start' | undefined
+  avatar?: string
   children?: ReactNode
   className?: string
   email?: string
@@ -17,6 +18,7 @@ type DropDownProps = {
 
 export const DropDown: FC<DropDownProps> = ({
   align = 'end',
+  avatar,
   children,
   className,
   email,
@@ -42,7 +44,7 @@ export const DropDown: FC<DropDownProps> = ({
         >
           {name && (
             <>
-              <DropDownLabel avatar={trigger} email={email} name={name} />
+              <DropDownLabel avatar={avatar} email={email} name={name} />
               <DropdownMenu.Separator className={s.separator} />
             </>
           )}
@@ -78,7 +80,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({ icon, lastItem, onSelect, 
 }
 
 type DropDownLabelProps = {
-  avatar?: ReactNode
+  avatar?: string
   email?: string
   name?: string
 }
@@ -86,7 +88,7 @@ type DropDownLabelProps = {
 export const DropDownLabel: FC<DropDownLabelProps> = ({ avatar, email, name }) => {
   return (
     <div className={s.labelWrapper}>
-      {avatar}
+      <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
       <DropdownMenu.Label className={s.label}>
         <Typography as={'label'} className={s.name} variant={'subtitle2'}>
           {name}

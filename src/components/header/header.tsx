@@ -11,7 +11,7 @@ import { Typography } from '@/components/ui/typography'
 import s from './header.module.scss'
 
 type HeaderProps = {
-  avatar?: any
+  avatar?: string
   dropDownChildren?: ReactNode
   email?: string
   isLoggedIn: boolean
@@ -31,7 +31,16 @@ export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLog
             <Typography className={s.name} variant={'subtitle1'}>
               {name}
             </Typography>
-            <DropDown email={email} name={name} trigger={<button>{avatar}</button>}>
+            <DropDown
+              avatar={avatar}
+              email={email}
+              name={name}
+              trigger={
+                <button>
+                  <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
+                </button>
+              }
+            >
               {dropDownChildren}
             </DropDown>
           </div>
