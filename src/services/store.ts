@@ -1,6 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { authReducers } from '@/services/auth/auth-slice.ts'
+import { authReducers } from '@/services/auth/auth-slice'
 import { decksReducers } from '@/services/decks/decks-slice'
 import { configureStore } from '@reduxjs/toolkit'
 
