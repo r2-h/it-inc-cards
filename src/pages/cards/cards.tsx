@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
@@ -9,6 +10,7 @@ import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
+import { Pagination } from '@/components/ui/pagination'
 import { Body, Row, TD, Table } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
 import { TableHeader } from '@/components/ui/tables/table-header'
@@ -21,12 +23,16 @@ import {
   useGetCardsInDeckQuery,
   useGetDeckQuery,
 } from '@/services/cards/cards-api'
+import { cardsActions } from '@/services/cards/cards-slice'
+import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
 
 import { EditCell } from './editCell'
 
 export const Cards = () => {
+  const dispatch = useAppDispatch()
+
   const columns = [
     {
       key: 'question',
@@ -51,14 +57,27 @@ export const Cards = () => {
   ]
   const { id } = useParams<{ id: string }>()
 
-  const { data: cards, isError } = useGetCardsInDeckQuery({ id: id ?? '' })
+  const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
+  const currentPage = useAppSelector(state => state.cards.currentPage)
+  const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
+
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
+  const { data: cards, isError } = useGetCardsInDeckQuery({
+    currentPage,
+    id: id ?? '',
+    itemsPerPage,
+    question: searchQuestion,
+  })
   const [createCard] = useCreateCardMutation()
 
-  const addCardHandler = (data: AddCardsFormValues) => {
+  const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
+  const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
+  const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(cardsActions.setSearchQuestion(e.currentTarget.value))
+  const clearSearchHandler = () => dispatch(cardsActions.setSearchQuestion(''))
+  const addCardHandler = (data: AddCardsFormValues) =>
     createCard({ answer: data.answer, deckId: id, question: data.question })
-  }
 
   if (isError) {
     return <Navigate to={'/404'} />
@@ -99,7 +118,15 @@ export const Cards = () => {
       {deck?.cover && (
         <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
       )}
-      <TextField className={s.input} fullWidth placeholder={'Input search'} type={'search'} />
+      <TextField
+        className={s.input}
+        fullWidth
+        onChange={searchQuestionHandler}
+        onClearClick={clearSearchHandler}
+        placeholder={'Input search'}
+        type={'search'}
+        value={searchQuestion}
+      />
       <Table>
         <TableHeader className={s.tableHeader} columns={columns} />
         <Body>
@@ -116,6 +143,14 @@ export const Cards = () => {
           ))}
         </Body>
       </Table>
+      <Pagination
+        className={s.pagination}
+        currentPage={currentPage}
+        onChangePage={currentPageHandler}
+        onChangePageSize={itemsPerPageHandler}
+        pageSize={itemsPerPage}
+        totalCount={cards?.pagination.totalItems || 61}
+      />
     </>
   )
 }
