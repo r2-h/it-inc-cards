@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AvatarLarge } from '@/assets/avatar-large'
-
+import ava from '../../../assets/ava.jpg'
 import { FormValues } from './edit-mode-on'
 import { EditProfile } from './edit-profile'
 
@@ -16,7 +15,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    avatar: <AvatarLarge />,
+    avatar: ava,
     email: 'j&johnson@gmail.com',
     name: 'Ivan',
     onSubmit: (data: FormValues) => {

@@ -34,15 +34,17 @@ export const TableBody: FC<
                 </Typography>
               )}
             </Link>
+          </TD>
+          <TD>{item.cardsCount}</TD>
+          <TD>{new Date(item.updated).toLocaleString('en-GB')}</TD>
+          <TD>
+            {item.author.name}
             {item.isPrivate && (
               <Typography className={s.private} variant={'body2'}>
                 private
               </Typography>
             )}
           </TD>
-          <TD>{item.cardsCount}</TD>
-          <TD>{new Date(item.updated).toLocaleString('en-GB')}</TD>
-          <TD>{item.author.name}</TD>
           <TD>
             <EditButtons item={item} />
           </TD>

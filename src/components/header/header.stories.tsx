@@ -2,11 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { BrowserRouter } from 'react-router-dom'
 
-import { Avatar } from '@/assets/avatar'
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
 import { Header } from '@/components/header/header'
 import { DropDownItem } from '@/components/ui/drop-down'
+
+import ava from '../../assets/ava.jpg'
 
 const meta = {
   component: Header,
@@ -30,7 +31,8 @@ export const HeaderWithButton: Story = {
 
 export const HeaderWithAvatar: Story = {
   args: {
-    avatar: <Avatar />,
+    avatar: ava,
+
     dropDownChildren: (
       <>
         <DropDownItem icon={<MyProfileImg />} text={'My profile'}></DropDownItem>
