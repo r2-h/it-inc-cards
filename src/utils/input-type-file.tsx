@@ -33,12 +33,16 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ buttonImg, setImage }) =
       }
     }
   }
+  const errorHandler = () => {
+    alert('Кривая картинка')
+  }
 
   return (
     <div>
       <Button
         className={s.buttonAvatar}
         onClick={selectFileHandler}
+        onError={errorHandler}
         type={'button'}
         variant={'secondary'}
       >

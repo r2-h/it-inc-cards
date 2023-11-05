@@ -13,18 +13,16 @@ import { useMeQuery } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
 
-import ava from '../../assets/ava.jpg'
-
 export const Layout = () => {
   const auth = useMeQuery()
-  const avatar = useAppSelector(state => state.auth.avatar) || ava
+  const avatar = useAppSelector(state => state.auth.avatar)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [name, setName] = useState('Ivan')
 
   return (
     <>
       <Header
-        avatar={avatar}
+        avatar={avatar || auth.data?.avatar}
         dropDownChildren={
           <>
             <DropDownItem
@@ -42,12 +40,12 @@ export const Layout = () => {
         }
         email={auth.data?.email}
         isLoggedIn
-        name={name}
+        name={auth.data?.name}
       />
       {isModalOpen && (
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
-            avatar={avatar}
+            avatar={avatar || auth.data?.avatar}
             email={auth.data?.email}
             name={name}
             onSubmit={(data: FormValues) => {

@@ -1,7 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
+import ava from '../../assets/ava.jpg'
+
 const initialState: AuthStateType = {
-  avatar: '',
+  avatar: ava,
 }
 
 const slice = createSlice({
