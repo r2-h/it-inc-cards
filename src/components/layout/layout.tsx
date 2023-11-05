@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-import { Avatar } from '@/assets/avatar'
-import { AvatarLarge } from '@/assets/avatar-large'
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
 import { EditProfile } from '@/components/auth/edit-profile'
@@ -10,6 +8,7 @@ import { EditProfileFormValues } from '@/components/auth/edit-profile/edit-mode-
 import { Header } from '@/components/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
+import { useAppSelector } from '@/services'
 import { useMeQuery, useSignOutMutation, useUpdateUserMutation } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
@@ -17,7 +16,7 @@ import s from './layout.module.scss'
 export const Layout = () => {
   const { data: auth, isError } = useMeQuery()
   const isAuthenticated = !isError
-
+  const avatar = useAppSelector(state => state.auth.avatar)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [edit] = useUpdateUserMutation()
   const editProfileHandler = (args: EditProfileFormValues) => {
@@ -36,7 +35,7 @@ export const Layout = () => {
   return (
     <>
       <Header
-        avatar={<Avatar />}
+        avatar={avatar || auth?.avatar}
         dropDownChildren={
           <>
             <DropDownItem
@@ -59,7 +58,7 @@ export const Layout = () => {
       {isModalOpen && (
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
-            avatar={<AvatarLarge />}
+            avatar={avatar || auth?.avatar}
             email={auth?.email}
             name={auth?.name}
             onSubmit={editProfileHandler}
