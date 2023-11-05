@@ -10,5 +10,13 @@ export type AuthResponse = {
 export type LoginParams = {
   email: string
   password: string
-  rememberMe: boolean
+  rememberMe?: boolean
+}
+export type SignUpParams = {
+  email: string
+  html: string
+  name: string
+  password: string
+  sendConfirmationEmail: boolean
+  subject: string
 }

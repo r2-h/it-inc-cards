@@ -1,13 +1,13 @@
-import { AuthResponse, LoginParams } from '@/services/auth/types'
+import { AuthResponse, LoginParams, SignUpParams } from '@/services/auth/types'
 import { baseApi } from '@/services/base-api'
 
-const decksAPI = baseApi.injectEndpoints({
+const authAPI = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<void, LoginParams>({
-        invalidatesTags: ['Decks'],
-        query: params => ({
-          body: params,
+        invalidatesTags: ['Auth'],
+        query: body => ({
+          body,
           method: 'POST',
           url: `v1/auth/login`,
         }),
@@ -19,10 +19,10 @@ const decksAPI = baseApi.injectEndpoints({
           url: `v1/auth/me`,
         }),
       }),
-      signUp: builder.mutation<AuthResponse, void>({
-        invalidatesTags: ['Decks'],
-        query: params => ({
-          body: params,
+      signUp: builder.mutation<AuthResponse, SignUpParams>({
+        invalidatesTags: ['Auth'],
+        query: ({ email, password }) => ({
+          body: { email, password },
           method: 'POST',
           url: `v1/auth/sign-up`,
         }),
@@ -31,4 +31,4 @@ const decksAPI = baseApi.injectEndpoints({
   },
 })
 
-export const { useLoginMutation, useMeQuery, useSignUpMutation } = decksAPI
+export const { useLoginMutation, useMeQuery, useSignUpMutation } = authAPI
