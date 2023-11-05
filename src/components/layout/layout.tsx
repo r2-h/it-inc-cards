@@ -18,7 +18,7 @@ export const Layout = () => {
   const auth = useMeQuery()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [name, setName] = useState('Ivan')
+  const [name, setName] = useState(auth.data?.name)
 
   return (
     <>
@@ -41,7 +41,7 @@ export const Layout = () => {
         }
         email={auth.data?.email}
         isLoggedIn
-        name={name}
+        name={auth.data?.name}
       />
       {isModalOpen && (
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>

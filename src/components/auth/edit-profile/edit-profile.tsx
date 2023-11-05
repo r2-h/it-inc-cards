@@ -18,7 +18,7 @@ type EditProfileProps = {
 }
 
 export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmit }) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
+  const [editMode, setEditMode] = useState(false)
 
   return (
     <Card className={s.wrapper}>
@@ -27,11 +27,9 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
       </Typography>
       <div className={s.avatar}>
         {avatar}
-        {!editMode && (
-          <Button className={s.buttonAvatar} type={'button'} variant={'secondary'}>
-            <EditImg />
-          </Button>
-        )}
+        <Button className={s.buttonAvatar} type={'button'} variant={'secondary'}>
+          <EditImg />
+        </Button>
       </div>
       {editMode && <EditModeOn onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}
