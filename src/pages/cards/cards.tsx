@@ -71,7 +71,7 @@ export const Cards = () => {
   })
   const [createCard] = useCreateCardMutation()
 
-  const currenPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
+  const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
   const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(cardsActions.setSearchQuestion(e.currentTarget.value))
@@ -146,7 +146,7 @@ export const Cards = () => {
       <Pagination
         className={s.pagination}
         currentPage={currentPage}
-        onChangePage={currenPageHandler}
+        onChangePage={currentPageHandler}
         onChangePageSize={itemsPerPageHandler}
         pageSize={itemsPerPage}
         totalCount={cards?.pagination.totalItems || 61}

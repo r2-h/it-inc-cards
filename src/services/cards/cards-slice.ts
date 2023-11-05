@@ -8,7 +8,7 @@ const initialState: CardsStateType = {
 
 const slice = createSlice({
   initialState,
-  name: 'decksSlice',
+  name: 'cardsSlice',
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
