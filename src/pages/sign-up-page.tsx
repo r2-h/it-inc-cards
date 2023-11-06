@@ -11,7 +11,7 @@ export const SignUpPage = () => {
   const signUpHandler = async (args: SignUpParams) => {
     try {
       await signUp(args)
-      navigate('/edit-profile')
+      navigate('/login')
     } catch (e) {
       console.log(e)
     }

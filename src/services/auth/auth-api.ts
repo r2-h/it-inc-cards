@@ -12,19 +12,18 @@ const authAPI = baseApi.injectEndpoints({
           url: `v1/auth/login`,
         }),
       }),
+      logout: builder.mutation<void, void>({
+        invalidatesTags: ['Auth'],
+        query: () => ({
+          method: 'POST',
+          url: `v1/auth/logout`,
+        }),
+      }),
       me: builder.query<AuthResponse, void>({
         providesTags: ['Auth'],
         query: () => ({
           method: 'GET',
           url: `v1/auth/me`,
-        }),
-      }),
-      signOut: builder.mutation<void, void>({
-        invalidatesTags: ['Auth'],
-        query: body => ({
-          body,
-          method: 'POST',
-          url: `v1/auth/logout`,
         }),
       }),
       signUp: builder.mutation<AuthResponse, SignUpParams>({
@@ -49,8 +48,8 @@ const authAPI = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useLogoutMutation,
   useMeQuery,
-  useSignOutMutation,
   useSignUpMutation,
   useUpdateUserMutation,
 } = authAPI

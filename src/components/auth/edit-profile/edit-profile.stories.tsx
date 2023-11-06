@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+
+import { store } from '@/services'
+import { Dialog } from '@radix-ui/react-dialog'
+
 import ava from '../../../assets/ava.jpg'
-import { FormValues } from './edit-mode-on'
+import { EditProfileFormValues } from './edit-mode-on'
 import { EditProfile } from './edit-profile'
 
 const meta = {
@@ -18,8 +24,19 @@ export const Primary: Story = {
     avatar: ava,
     email: 'j&johnson@gmail.com',
     name: 'Ivan',
-    onSubmit: (data: FormValues) => {
+    onSubmit: (data: EditProfileFormValues) => {
       console.log(data)
     },
   },
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Dialog>
+            <Story />
+          </Dialog>
+        </BrowserRouter>
+      </Provider>
+    ),
+  ],
 }

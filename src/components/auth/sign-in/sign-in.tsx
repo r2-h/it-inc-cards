@@ -21,7 +21,7 @@ const loginSchema = z.object({
   rememberMe: rememberMeValidation,
 })
 
-export type FormValues = z.infer<typeof loginSchema>
+export type SignInFormValues = z.infer<typeof loginSchema>
 
 type SignInProps = {
   onSubmit?: any
@@ -32,7 +32,7 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<SignInFormValues>({
     resolver: zodResolver(loginSchema),
   })
   const navigate = useNavigate()

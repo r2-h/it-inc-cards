@@ -19,7 +19,7 @@ type EditProfileProps = {
 }
 
 export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmit }) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
+  const [editMode, setEditMode] = useState(false)
   const setAvatar = authActions.setAvatar
 
   return (

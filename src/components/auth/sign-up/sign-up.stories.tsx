@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { FormValues, SignUp } from './sign-up'
+import { BrowserRouter } from 'react-router-dom'
+
+import { SignUp, SignUpFormValues } from './sign-up'
 
 const meta = {
   component: SignUp,
@@ -13,8 +15,15 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    onSubmit: (data: FormValues) => {
+    onSubmit: (data: SignUpFormValues) => {
       console.log(data)
     },
   },
+  decorators: [
+    Story => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 }

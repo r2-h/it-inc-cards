@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
@@ -9,7 +9,7 @@ import { Header } from '@/components/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
 import { useAppSelector } from '@/services'
-import { useMeQuery, useSignOutMutation, useUpdateUserMutation } from '@/services/auth/auth-api'
+import { useLogoutMutation, useMeQuery, useUpdateUserMutation } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
 
@@ -23,12 +23,9 @@ export const Layout = () => {
     edit(args)
     setIsModalOpen(false)
   }
-  const [logOut] = useSignOutMutation()
-
-  const navigate = useNavigate()
+  const [logOut] = useLogoutMutation()
 
   const logOutHandler = () => {
-    navigate('/login')
     logOut()
   }
 

@@ -30,7 +30,7 @@ const loginSchema = z
     }
   })
 
-export type FormValues = z.infer<typeof loginSchema>
+export type SignUpFormValues = z.infer<typeof loginSchema>
 type SignOutProps = {
   onSubmit?: any
 }
@@ -40,7 +40,7 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<SignUpFormValues>({
     resolver: zodResolver(loginSchema),
   })
   const navigate = useNavigate()

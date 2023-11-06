@@ -1,11 +1,10 @@
 import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { EditImg } from '@/assets/edit-img'
 import LogoutImg from '@/assets/logout-img'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import { useSignOutMutation } from '@/services/auth/auth-api'
+import { useLogoutMutation } from '@/services/auth/auth-api'
 import { DialogClose } from '@radix-ui/react-dialog'
 
 import s from './edit-mode-off.module.scss'
@@ -17,14 +16,12 @@ type EditModeOffProps = {
 }
 
 export const EditModeOff: FC<EditModeOffProps> = ({ email, name, setEditMode }) => {
-  const [logOut] = useSignOutMutation()
+  const [logOut] = useLogoutMutation()
   const switchOnEditModeHandler = () => {
     setEditMode(true)
   }
-  const navigate = useNavigate()
 
   const logOutHandler = () => {
-    navigate('/login')
     logOut()
   }
 
