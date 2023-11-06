@@ -19,7 +19,7 @@ type EditProfileProps = {
 }
 
 export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmit }) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
+  const [editMode, setEditMode] = useState(false)
   const setAvatar = authActions.setAvatar
 
   return (
@@ -31,7 +31,7 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
         <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
         <InputTypeFile buttonImg={<EditImg />} setImage={setAvatar} />
       </div>
-      {editMode && <EditModeOn onSubmit={onSubmit} />}
+      {editMode && <EditModeOn defaultValue={name} onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}
     </Card>
   )

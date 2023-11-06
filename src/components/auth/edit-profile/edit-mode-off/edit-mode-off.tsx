@@ -4,6 +4,8 @@ import { EditImg } from '@/assets/edit-img'
 import LogoutImg from '@/assets/logout-img'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { useLogoutMutation } from '@/services/auth/auth-api'
+import { DialogClose } from '@radix-ui/react-dialog'
 
 import s from './edit-mode-off.module.scss'
 
@@ -14,8 +16,13 @@ type EditModeOffProps = {
 }
 
 export const EditModeOff: FC<EditModeOffProps> = ({ email, name, setEditMode }) => {
+  const [logOut] = useLogoutMutation()
   const switchOnEditModeHandler = () => {
     setEditMode(true)
+  }
+
+  const logOutHandler = () => {
+    logOut()
   }
 
   return (
@@ -31,9 +38,17 @@ export const EditModeOff: FC<EditModeOffProps> = ({ email, name, setEditMode }) 
       <Typography className={s.email} variant={'body2'}>
         {email}
       </Typography>
-      <Button className={s.buttonLogout} fullWidth={false} type={'button'} variant={'secondary'}>
-        <LogoutImg className={s.iconLogout} /> Logout
-      </Button>
+      <DialogClose>
+        <Button
+          className={s.buttonLogout}
+          fullWidth={false}
+          onClick={logOutHandler}
+          type={'button'}
+          variant={'secondary'}
+        >
+          <LogoutImg className={s.iconLogout} /> Logout
+        </Button>
+      </DialogClose>
     </>
   )
 }

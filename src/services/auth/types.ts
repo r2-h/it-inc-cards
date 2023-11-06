@@ -20,3 +20,9 @@ export type SignUpParams = {
   sendConfirmationEmail: boolean
   subject: string
 }
+
+export type UpdateUserParams = {
+  avatar?: string
+  email?: string
+  name?: string
+}

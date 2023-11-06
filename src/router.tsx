@@ -9,7 +9,6 @@ import {
 import { Layout } from '@/components/layout/layout'
 import { Cards } from '@/pages/cards'
 import { Decks } from '@/pages/decks/decks'
-import { EditProfilePage } from '@/pages/edit-profile-page'
 import { Error404 } from '@/pages/error404'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
@@ -24,11 +23,6 @@ const publicRoutes: RouteObject[] = [
     element: <SignUpPage />,
     path: '/sign-up',
   },
-  {
-    element: <EditProfilePage />,
-    path: '/edit-profile',
-  },
-
   {
     element: <Error404 />,
     path: '/404',
