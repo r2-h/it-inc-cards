@@ -22,7 +22,13 @@ export const CardsTableBody: FC<
         <Row key={card?.id}>
           <TD className={s.textCell}>{card?.question}</TD>
           <TD className={s.textCell}>{card?.answer}</TD>
-          <TD>{new Date(card.updated).toLocaleString('ru-RU')}</TD>
+          <TD>
+            {new Date(card.updated).toLocaleString('ru-RU', {
+              day: 'numeric',
+              month: 'numeric',
+              year: 'numeric',
+            })}
+          </TD>
           <TD>
             <Grade />
           </TD>
