@@ -1,0 +1,21 @@
+.wrapper {
+  cursor: pointer;
+
+  position: relative;
+
+  display: inline;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-light-100);
+
+  &.notSortable {
+    cursor: initial;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 2px;
+    right: -15px;
+  }
+}
