@@ -6,7 +6,7 @@ import { CardsTableHeader } from '@/pages/cards/cards-table/cards-table-header'
 import { CardsResponse } from '@/services'
 import { Direction } from '@/services/decks/types'
 
-export const CardsTable: FC<CardsTableProps> = ({ data }) => {
+export const CardsTable: FC<CardsTableProps> = ({ data, myDeck }) => {
   const columns: CardsColumn[] = [
     {
       key: 'question',
@@ -33,7 +33,7 @@ export const CardsTable: FC<CardsTableProps> = ({ data }) => {
   return (
     <Table>
       <CardsTableHeader columns={columns} />
-      <CardsTableBody data={data} />
+      <CardsTableBody data={data} myDeck={myDeck} />
     </Table>
   )
 }
@@ -41,7 +41,7 @@ export const CardsTable: FC<CardsTableProps> = ({ data }) => {
 // types
 type CardsTableProps = {
   data: CardsResponse[] | undefined
-  myDeck?: boolean
+  myDeck: boolean
   onSort?: (sort: CardsSort) => void
   sort?: CardsSort
 }
