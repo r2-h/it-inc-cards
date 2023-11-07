@@ -2,7 +2,7 @@ import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { RadioGroup, RadioGroupProps } from '@/components/ui/radio-group'
 
-export type ControlledCheckboxProps<TFieldValues extends FieldValues> =
+export type ControlledRadioGroupProps<TFieldValues extends FieldValues> =
   UseControllerProps<TFieldValues> & Omit<RadioGroupProps, 'id' | 'onChange' | 'value'>
 
 export const ControlledRadioGroup = <TFieldValues extends FieldValues>({
@@ -12,7 +12,7 @@ export const ControlledRadioGroup = <TFieldValues extends FieldValues>({
   rules,
   shouldUnregister,
   ...restProps
-}: ControlledCheckboxProps<TFieldValues>) => {
+}: ControlledRadioGroupProps<TFieldValues>) => {
   const {
     field: { onChange, value },
   } = useController({

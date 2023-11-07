@@ -4,10 +4,6 @@ import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
-import {
-  AddAndEditDeck,
-  CreateDeckFormValues,
-} from '@/components/modal-for-cards/add-and-edit-pack'
 import { Delete } from '@/components/modal-for-cards/delete'
 import { Modal } from '@/components/ui/modal'
 import { useMeQuery } from '@/services/auth/auth-api'
@@ -16,6 +12,8 @@ import { Deck } from '@/services/decks/types'
 import clsx from 'clsx'
 
 import s from './edit-buttons.module.scss'
+
+import { AddAndEditDeck, CreateDeckFormValues } from '../../../modal-for-cards/add-and-edit-deck'
 
 type EditButtonsProps = {
   item: Deck

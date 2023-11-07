@@ -17,7 +17,7 @@ const emailSchema = z.object({
   email: emailValidation,
 })
 
-export type FormValues = z.infer<typeof emailSchema>
+export type ForgotPasswordFormValues = z.infer<typeof emailSchema>
 
 type ForgotPasswordProps = {
   onSubmit?: any
@@ -28,7 +28,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({ resolver: zodResolver(emailSchema) })
+  } = useForm<ForgotPasswordFormValues>({ resolver: zodResolver(emailSchema) })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

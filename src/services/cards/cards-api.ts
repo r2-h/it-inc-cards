@@ -20,13 +20,6 @@ const cardsApi = baseApi.injectEndpoints({
           url: `v1/cards/${id}`,
         }),
       }),
-      getCard: builder.query<CardsResponse, { id?: string }>({
-        providesTags: ['Cards'],
-        query: ({ id }) => ({
-          method: 'GET',
-          url: `v1/cards/${id}`,
-        }),
-      }),
       getCardsInDeck: builder.query<GetCardInDeckResponse, GetCardsParams>({
         providesTags: ['Cards'],
         query: ({ id, ...params }) => ({
@@ -56,7 +49,6 @@ const cardsApi = baseApi.injectEndpoints({
 export const {
   useCreateCardMutation,
   useDeleteCardMutation,
-  useGetCardQuery,
   useGetCardsInDeckQuery,
   useGetDeckQuery,
   useUpdateCardMutation,

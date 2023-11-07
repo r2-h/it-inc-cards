@@ -8,22 +8,22 @@ import { EditProfileFormValues } from '@/components/auth/edit-profile/edit-mode-
 import { Header } from '@/components/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
-import { useAppSelector } from '@/services'
 import { useLogoutMutation, useMeQuery, useUpdateUserMutation } from '@/services/auth/auth-api'
 
 import s from './layout.module.scss'
 
 export const Layout = () => {
   const { data: auth, isError } = useMeQuery()
-  const isAuthenticated = !isError
-  const avatar = useAppSelector(state => state.auth.avatar)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [edit] = useUpdateUserMutation()
+  const [logOut] = useLogoutMutation()
+
+  const isAuthenticated = !isError
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const editProfileHandler = (args: EditProfileFormValues) => {
     edit(args)
     setIsModalOpen(false)
   }
-  const [logOut] = useLogoutMutation()
 
   const logOutHandler = () => {
     logOut()
@@ -32,7 +32,7 @@ export const Layout = () => {
   return (
     <>
       <Header
-        avatar={avatar || auth?.avatar}
+        avatar={auth?.avatar}
         dropDownChildren={
           <>
             <DropDownItem
@@ -55,7 +55,7 @@ export const Layout = () => {
       {isModalOpen && (
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <EditProfile
-            avatar={avatar || auth?.avatar}
+            avatar={auth?.avatar}
             email={auth?.email}
             name={auth?.name}
             onSubmit={editProfileHandler}
