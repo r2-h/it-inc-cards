@@ -14,35 +14,35 @@ const decksAPI = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<Deck, CreateDeckParams>({
         invalidatesTags: ['Decks'],
-        onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
-          const {
-            decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
-          } = getState() as RootState
-
-          try {
-            const result = await queryFulfilled
-
-            dispatch(
-              decksAPI.util.updateQueryData(
-                'getDecks',
-                {
-                  authorId: tabsValue,
-                  currentPage,
-                  itemsPerPage,
-                  maxCardsCount: `${sliderValue[1]}`,
-                  minCardsCount: `${sliderValue[0]}`,
-                  name: search,
-                  orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
-                },
-                draft => {
-                  draft?.items?.unshift(result.data)
-                }
-              )
-            )
-          } catch (e) {
-            console.log(e)
-          }
-        },
+        // onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
+        //   const {
+        //     decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
+        //   } = getState() as RootState
+        //
+        //   try {
+        //     const result = await queryFulfilled
+        //
+        //     dispatch(
+        //       decksAPI.util.updateQueryData(
+        //         'getDecks',
+        //         {
+        //           authorId: tabsValue,
+        //           currentPage,
+        //           itemsPerPage,
+        //           maxCardsCount: `${sliderValue[1]}`,
+        //           minCardsCount: `${sliderValue[0]}`,
+        //           name: search,
+        //           orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
+        //         },
+        //         draft => {
+        //           draft?.items?.unshift(result.data)
+        //         }
+        //       )
+        //     )
+        //   } catch (e) {
+        //     console.log(e)
+        //   }
+        // },
         query: body => ({
           body,
           method: 'POST',
