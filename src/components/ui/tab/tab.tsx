@@ -10,10 +10,10 @@ type TabProps = {
   disabled?: boolean
   label?: string
   onChange?: (value: string) => void
-  tabs: TabsType[]
+  options: OptionsType[]
   value?: string
 }
-export type TabsType = {
+export type OptionsType = {
   title: string
   value: string
 }
@@ -23,7 +23,7 @@ export const Tab: FC<TabProps> = ({
   disabled,
   label,
   onChange,
-  tabs,
+  options,
   value,
 }) => (
   <Tabs.Root
@@ -38,15 +38,15 @@ export const Tab: FC<TabProps> = ({
       </Typography>
     )}
     <Tabs.List className={s.tabsList}>
-      {tabs.map(tab => (
+      {options.map(option => (
         <Tabs.Trigger
           className={s.tabsTrigger}
           disabled={disabled}
-          key={tab.value}
-          value={tab.value}
+          key={option.value}
+          value={option.value}
         >
           <Typography className={s.title} variant={'body1'}>
-            {tab.title}
+            {option.title}
           </Typography>
         </Tabs.Trigger>
       ))}

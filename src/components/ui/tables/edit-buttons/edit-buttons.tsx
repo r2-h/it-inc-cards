@@ -21,10 +21,12 @@ type EditButtonsProps = {
 export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
   const { data: me } = useMeQuery()
+
   const isMy = me?.id === item.userId
-  const [isOpen, setIsOpen] = useState(false)
+
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
 
   const buttonCN = clsx(!isMy && s.disabled)
 
@@ -44,8 +46,10 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       </button>
 
       <Modal
+        onOpenChange={() => setIsOpenEdit(false)}
+        open={isOpenEdit}
         trigger={
-          <button className={buttonCN} disabled={false}>
+          <button className={buttonCN} onClick={() => setIsOpenDelete(isMy)}>
             <EditImg />
           </button>
         }
@@ -62,10 +66,10 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
           title={'Add new deck'}
         />
       </Modal>
-      <button className={buttonCN} onClick={() => setIsOpen(isMy)}>
+      <button className={buttonCN} onClick={() => setIsOpenDelete(isMy)}>
         <TrashImg />
       </button>
-      <Modal onOpenChange={() => setIsOpen(false)} open={isOpen}>
+      <Modal onOpenChange={() => setIsOpenDelete(false)} open={isOpenDelete}>
         <ModalForCards
           body={<Delete callback={deleteHandler} title={item.name} titleButton={'Delete Deck'} />}
           title={'Delete Deck'}

@@ -1,9 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import {
-  namePackSchema,
-  privateCheckboxSchema,
-} from '@/components/modal-for-cards/validationSchemas'
 import { Button } from '@/components/ui/button'
 import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
@@ -12,6 +8,8 @@ import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './add-and-edit-deck.module.scss'
+
+import { namePackSchema, privateCheckboxSchema } from '../validation-schemas'
 
 const addNewDeckSchema = z.object({
   isPrivate: privateCheckboxSchema,

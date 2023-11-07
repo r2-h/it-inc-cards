@@ -1,0 +1,34 @@
+import { ComponentPropsWithoutRef, FC } from 'react'
+
+import { Body, Row, TD } from '@/components/ui/tables'
+import { Grade } from '@/components/ui/tables/grade'
+import { EditCell } from '@/pages/cards/editCell'
+import { CardsResponse } from '@/services'
+
+import s from './cards-table-body.module.scss'
+
+export const CardsTableBody: FC<
+  Omit<
+    ComponentPropsWithoutRef<'tbody'> & {
+      data: CardsResponse[] | undefined
+      myDeck: boolean
+    },
+    'children'
+  >
+> = ({ data, myDeck, ...restProps }) => {
+  return (
+    <Body {...restProps}>
+      {data?.map(card => (
+        <Row key={card?.id}>
+          <TD className={s.textCell}>{card?.question}</TD>
+          <TD className={s.textCell}>{card?.answer}</TD>
+          <TD>{new Date(card.updated).toLocaleString('ru-RU')}</TD>
+          <TD>
+            <Grade />
+          </TD>
+          {myDeck && <EditCell card={card} />}
+        </Row>
+      ))}
+    </Body>
+  )
+}

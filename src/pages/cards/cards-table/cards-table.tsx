@@ -1,0 +1,57 @@
+import { FC } from 'react'
+
+import { Table } from '@/components/ui/tables'
+import { CardsTableBody } from '@/pages/cards/cards-table/cards-table-body'
+import { CardsTableHeader } from '@/pages/cards/cards-table/cards-table-header'
+import { CardsResponse } from '@/services'
+import { Direction } from '@/services/decks/types'
+
+export const CardsTable: FC<CardsTableProps> = ({ data }) => {
+  const columns: CardsColumn[] = [
+    {
+      key: 'question',
+      sortable: true,
+      title: 'Question',
+    },
+    {
+      key: 'answer',
+      sortable: true,
+      title: 'Answer',
+    },
+    {
+      key: 'updated',
+      sortable: true,
+      title: 'Last Updated',
+    },
+    {
+      key: 'grade',
+      sortable: true,
+      title: 'Grade',
+    },
+  ]
+
+  return (
+    <Table>
+      <CardsTableHeader columns={columns} />
+      <CardsTableBody data={data} />
+    </Table>
+  )
+}
+
+// types
+type CardsTableProps = {
+  data: CardsResponse[] | undefined
+  myDeck?: boolean
+  onSort?: (sort: CardsSort) => void
+  sort?: CardsSort
+}
+export type CardsSort = {
+  direction: Direction
+  key: CardsColumnField
+} | null
+export type CardsColumn = {
+  key: CardsColumnField
+  sortable: boolean
+  title: string
+}
+export type CardsColumnField = 'answer' | 'grade' | 'question' | 'updated'

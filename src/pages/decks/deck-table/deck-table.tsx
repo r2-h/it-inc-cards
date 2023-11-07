@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
 import { Table } from '@/components/ui/tables'
-import { TableBody, TableHeader } from '@/pages/decks'
 import { Deck, Direction, Field } from '@/services/decks/types'
+
+import { TableBody, TableHeader } from '.'
 
 export const DeckTable: FC<TableProps> = ({ data, onSort, sort }) => {
   const columns: Column[] = [
@@ -36,17 +37,16 @@ export const DeckTable: FC<TableProps> = ({ data, onSort, sort }) => {
   )
 }
 
+//types
 type TableProps = {
   data: Array<Deck> | undefined
   onSort: (sort: Sort) => void
   sort: Sort
 }
-
 export type Sort = {
   direction: Direction
   key: Field
 } | null
-
 export type Column = {
   key: Field
   sortable: boolean

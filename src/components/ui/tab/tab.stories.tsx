@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    tabs: [
+    options: [
       { title: 'My Cards', value: 'a' },
       { title: 'All Cards', value: 'c' },
     ],
@@ -23,7 +23,7 @@ export const Default: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    tabs: [
+    options: [
       { title: 'Switcher', value: 'a' },
       { title: 'Switcher', value: 'c' },
       { title: 'Switcher', value: 'v' },
