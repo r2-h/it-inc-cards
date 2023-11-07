@@ -2,10 +2,6 @@ import { ChangeEvent } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
-import {
-  AddAndEditDeck,
-  CreateDeckFormValues,
-} from '@/components/modal-for-cards/add-and-edit-pack'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
@@ -21,6 +17,11 @@ import { Direction, Field } from '@/services/decks/types'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './decks.module.scss'
+
+import {
+  AddAndEditDeck,
+  CreateDeckFormValues,
+} from '../../components/modal-for-cards/add-and-edit-deck'
 
 export const Decks = () => {
   const currentPage = useAppSelector(state => state.decks.currentPage)

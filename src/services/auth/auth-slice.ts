@@ -10,14 +10,14 @@ const slice = createSlice({
   initialState,
   name: 'authSlice',
   reducers: {
-    setAvatar: (state, action: PayloadAction<string>) => {
+    setAvatar: (state, action: PayloadAction<string | undefined>) => {
       state.avatar = action.payload
     },
   },
 })
 
 export type AuthStateType = {
-  avatar: string
+  avatar: string | undefined
 }
 
 export const authReducers = slice.reducer

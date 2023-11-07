@@ -14,6 +14,35 @@ const decksAPI = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<Deck, CreateDeckParams>({
         invalidatesTags: ['Decks'],
+        onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
+          const {
+            decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
+          } = getState() as RootState
+
+          try {
+            const result = await queryFulfilled
+
+            dispatch(
+              decksAPI.util.updateQueryData(
+                'getDecks',
+                {
+                  authorId: tabsValue,
+                  currentPage,
+                  itemsPerPage,
+                  maxCardsCount: `${sliderValue[1]}`,
+                  minCardsCount: `${sliderValue[0]}`,
+                  name: search,
+                  orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
+                },
+                draft => {
+                  draft?.items?.unshift(result.data)
+                }
+              )
+            )
+          } catch (e) {
+            console.log(e)
+          }
+        },
         query: body => ({
           body,
           method: 'POST',
@@ -22,6 +51,34 @@ const decksAPI = baseApi.injectEndpoints({
       }),
       deleteDeck: builder.mutation<DeleteResponse, { id: Deck['id'] }>({
         invalidatesTags: ['Decks'],
+        onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
+          const {
+            decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
+          } = getState() as RootState
+          const patchResult = dispatch(
+            decksAPI.util.updateQueryData(
+              'getDecks',
+              {
+                authorId: tabsValue,
+                currentPage,
+                itemsPerPage,
+                maxCardsCount: `${sliderValue[1]}`,
+                minCardsCount: `${sliderValue[0]}`,
+                name: search,
+                orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
+              },
+              draft => {
+                draft?.items?.splice(draft?.items?.findIndex(deck => deck.id === id), 1)
+              }
+            )
+          )
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResult.undo()
+          }
+        },
         query: ({ id }) => ({
           method: 'DELETE',
           url: `v1/decks/${id}`,
@@ -54,7 +111,7 @@ const decksAPI = baseApi.injectEndpoints({
                 orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
               },
               draft => {
-                const deck = draft?.items?.find(d => d.id === id)
+                const deck = draft.items.find(d => d.id === id)
 
                 if (deck) {
                   if (name) {
@@ -74,19 +131,19 @@ const decksAPI = baseApi.injectEndpoints({
             patchResult.undo()
           }
         },
-        query: patch => {
-          const formData = new FormData()
-
-          patch.name && formData.append('name', patch.name)
-          patch.cover && formData.append('cover', patch.cover)
-          typeof patch.isPrivate === 'boolean' &&
-            formData.append('isPrivate', patch.isPrivate.toString())
+        query: ({ id, ...body }) => {
+          // const formData = new FormData()
+          //
+          // patch.name && formData.append('name', patch.name)
+          // patch.cover && formData.append('cover', patch.cover)
+          // typeof patch.isPrivate === 'boolean' &&
+          //   formData.append('isPrivate', patch.isPrivate.toString())
 
           return {
-            body: formData,
+            body,
             formData: true,
             method: 'PATCH',
-            url: `v1/decks/${patch.id}`,
+            url: `v1/decks/${id}`,
           }
         },
       }),
