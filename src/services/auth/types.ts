@@ -26,3 +26,12 @@ export type UpdateUserParams = {
   email?: string
   name?: string
 }
+export type RecoverPasswordParams = {
+  email: string
+  html: string
+  subject?: string
+}
+export type ResetPasswordParams = {
+  password: string
+  token: string
+}

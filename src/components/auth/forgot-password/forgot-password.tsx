@@ -55,7 +55,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
         <Typography className={s.rememberPassword} variant={'body2'}>
           Did you remember your password?
         </Typography>
-        <Button as={'a'} className={s.link} type={'button'} variant={'link'}>
+        <Button as={'a'} className={s.link} href={'/login'} type={'button'} variant={'link'}>
           Try logging in
         </Button>
       </Card>

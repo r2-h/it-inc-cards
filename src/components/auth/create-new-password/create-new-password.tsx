@@ -17,7 +17,7 @@ const passwordSchema = z.object({
   password: passwordValidation,
 })
 
-export type FormValues = z.infer<typeof passwordSchema>
+export type CreatePasswordFormValues = z.infer<typeof passwordSchema>
 
 type CreateNewPasswordProps = {
   onSubmit?: any
@@ -28,7 +28,7 @@ export const CreateNewPassword: FC<CreateNewPasswordProps> = ({ onSubmit }) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<CreatePasswordFormValues>({
     resolver: zodResolver(passwordSchema),
   })
 
