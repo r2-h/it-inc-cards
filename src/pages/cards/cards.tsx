@@ -1,11 +1,11 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
-import { ModalForCards } from '@/components/modal-for-cards'
+import { AddAndEditDeck, ModalForCards } from '@/components/modal-for-cards'
 import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
@@ -34,6 +34,7 @@ export const Cards = () => {
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
 
+  const [createCard] = useCreateCardMutation()
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
   const { data: cards, isError } = useGetCardsInDeckQuery({
@@ -42,7 +43,8 @@ export const Cards = () => {
     itemsPerPage,
     question: searchQuestion,
   })
-  const [createCard] = useCreateCardMutation()
+
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
@@ -73,7 +75,30 @@ export const Cards = () => {
           </Typography>
           <DropDown trigger={<TriggerMore />}>
             <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
-            <DropDownItem icon={<EditImg />} text={'Edit'} />
+
+            <DropDownItem
+              icon={
+                <Modal
+                  onOpenChange={() => setIsOpenEdit(false)}
+                  open={isOpenEdit}
+                  trigger={<EditImg />}
+                >
+                  <ModalForCards
+                    body={
+                      <AddAndEditDeck
+                        // isPrivate={item.isPrivate}
+                        // name={item.name}
+                        // onSubmit={updateDeckHandler}
+                        variant={'edit'}
+                      />
+                    }
+                    title={'Add new deck'}
+                  />
+                </Modal>
+              }
+              // onSelect={() => setIsModalOpen(true)}
+              text={'Edit'}
+            />
             <DropDownItem icon={<TrashImg />} lastItem text={'Delete'} />
           </DropDown>
         </div>

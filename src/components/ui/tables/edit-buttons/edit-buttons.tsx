@@ -49,7 +49,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
         onOpenChange={() => setIsOpenEdit(false)}
         open={isOpenEdit}
         trigger={
-          <button className={buttonCN} onClick={() => setIsOpenDelete(isMy)}>
+          <button className={buttonCN} onClick={() => setIsOpenEdit(isMy)}>
             <EditImg />
           </button>
         }
