@@ -9,14 +9,17 @@ import { Modal } from '@/components/ui/modal'
 import { TD } from '@/components/ui/tables'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api'
 import { CardsResponse } from '@/services/cards/types'
+import clsx from 'clsx'
 
 import s from './editCell.module.scss'
 
 type EditCellProps = {
   card: CardsResponse
+  disabled?: boolean
+  isOpen?: boolean
 }
 
-export const EditCell: FC<EditCellProps> = ({ card }) => {
+export const EditCell: FC<EditCellProps> = ({ card, disabled, isOpen }) => {
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
   const editCardHandler = (id: string, data: AddCardsFormValues) => {
@@ -26,11 +29,12 @@ export const EditCell: FC<EditCellProps> = ({ card }) => {
   const deleteCardHandler = (id: string) => {
     deleteCard({ id })
   }
+  const iconCN = clsx(s.icon, disabled && s.disabled)
 
   return (
     <TD>
       <div className={s.buttons}>
-        <Modal trigger={<EditImg className={s.icon} />}>
+        <Modal open={isOpen} trigger={<EditImg className={iconCN} />}>
           <ModalForCards
             body={
               <AddAndEditCard
@@ -44,7 +48,7 @@ export const EditCell: FC<EditCellProps> = ({ card }) => {
             title={'Edit Card'}
           />
         </Modal>
-        <Modal trigger={<TrashImg className={s.icon} />}>
+        <Modal open={isOpen} trigger={<TrashImg className={iconCN} />}>
           <ModalForCards
             body={
               <Delete

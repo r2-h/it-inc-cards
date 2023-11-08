@@ -17,7 +17,7 @@ type DropDownProps = {
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Root>
 
 export const DropDown: FC<DropDownProps> = ({
-  align = 'end',
+  align = 'center',
   avatar,
   children,
   className,
@@ -31,17 +31,10 @@ export const DropDown: FC<DropDownProps> = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className={s.trigger}>
         {trigger ?? <button className={s.buttonTrigger}></button>}
-        {/*если trigger кнопка, в кнопку
-        нужен forwardRef*/}
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          align={align}
-          className={contentCN}
-          // onClick={e => e.stopPropagation()}
-          sideOffset={5}
-        >
+        <DropdownMenu.Content align={align} className={contentCN} sideOffset={5}>
           {name && (
             <>
               <DropDownLabel avatar={avatar} email={email} name={name} />
