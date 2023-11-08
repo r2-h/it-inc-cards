@@ -72,7 +72,12 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
           label={'Remember me'}
           name={'rememberMe'}
         />
-        <Typography className={s.forgotPassword} variant={'body2'}>
+        <Typography
+          as={'a'}
+          className={s.forgotPassword}
+          href={'/forgot-password'}
+          variant={'body2'}
+        >
           Forgot Password?
         </Typography>
         <Button className={s.button} fullWidth type={'submit'}>

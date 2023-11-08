@@ -17,7 +17,7 @@ const emailSchema = z.object({
   email: emailValidation,
 })
 
-export type FormValues = z.infer<typeof emailSchema>
+export type ForgotPasswordFormValues = z.infer<typeof emailSchema>
 
 type ForgotPasswordProps = {
   onSubmit?: any
@@ -28,7 +28,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({ resolver: zodResolver(emailSchema) })
+  } = useForm<ForgotPasswordFormValues>({ resolver: zodResolver(emailSchema) })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +55,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
         <Typography className={s.rememberPassword} variant={'body2'}>
           Did you remember your password?
         </Typography>
-        <Button as={'a'} className={s.link} type={'button'} variant={'link'}>
+        <Button as={'a'} className={s.link} href={'/login'} type={'button'} variant={'link'}>
           Try logging in
         </Button>
       </Card>
