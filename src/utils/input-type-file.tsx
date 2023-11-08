@@ -1,18 +1,14 @@
 import { ChangeEvent, FC, ReactNode, useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { useAppDispatch } from '@/services'
-import { convertFileToBase64 } from '@/utils/convert-file-to-base64'
 
 import s from '@/components/auth/edit-profile/edit-profile.module.scss'
 
 type InputTypeFileProps = {
-  buttonImg: ReactNode
   setImage: any
+  trigger: ReactNode
 }
-export const InputTypeFile: FC<InputTypeFileProps> = ({ buttonImg, setImage }) => {
-  const dispatch = useAppDispatch()
-
+export const InputTypeFile: FC<InputTypeFileProps> = ({ setImage, trigger }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const selectFileHandler = () => {
@@ -22,19 +18,18 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ buttonImg, setImage }) =
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
-      console.log('file: ', file)
+      const formData = new FormData()
+
       if (file.size < 4000000) {
-        convertFileToBase64(file, (file64: string) => {
-          console.log('file64: ', file64)
-          dispatch(setImage(file64))
-        })
+        formData.append('avatar', file)
+        setImage(formData)
       } else {
-        console.error('Error: ', 'Файл слишком большого размера')
+        alert('Файл слишком большого размера')
       }
     }
   }
   const errorHandler = () => {
-    alert('Кривая картинка')
+    alert('Picture error')
   }
 
   return (
@@ -46,7 +41,7 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ buttonImg, setImage }) =
         type={'button'}
         variant={'secondary'}
       >
-        {buttonImg}
+        {trigger}
       </Button>
       <input onChange={uploadHandler} ref={inputRef} style={{ display: 'none' }} type={'file'} />
     </div>

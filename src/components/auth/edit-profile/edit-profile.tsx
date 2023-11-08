@@ -1,10 +1,10 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { EditImg } from '@/assets/edit-img'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
-import { authActions } from '@/services'
-import { InputTypeFile } from '@/utils'
+import { useUpdateUserMutation } from '@/services'
+import { InputTypeFile } from '@/utils/input-type-file'
 
 import s from './edit-profile.module.scss'
 
@@ -12,7 +12,7 @@ import { EditModeOff } from './edit-mode-off'
 import { EditModeOn } from './edit-mode-on'
 
 type EditProfileProps = {
-  avatar?: ReactNode
+  avatar?: string | undefined
   email?: string
   name?: string
   onSubmit?: any
@@ -20,7 +20,7 @@ type EditProfileProps = {
 
 export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmit }) => {
   const [editMode, setEditMode] = useState(false)
-  const setAvatar = authActions.setAvatar
+  const [updateProfile] = useUpdateUserMutation()
 
   return (
     <Card className={s.wrapper}>
@@ -29,7 +29,7 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
       </Typography>
       <div className={s.avatar}>
         <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
-        <InputTypeFile buttonImg={<EditImg />} setImage={setAvatar} />
+        <InputTypeFile setImage={updateProfile} trigger={<EditImg />} />
       </div>
       {editMode && <EditModeOn defaultValue={name} onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}

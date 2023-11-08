@@ -1,16 +1,16 @@
 import { ChangeEvent } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
+import { Button } from '@/components'
 import { ModalForCards } from '@/components/modal-for-cards'
 import {
   AddAndEditDeck,
   CreateDeckFormValues,
-} from '@/components/modal-for-cards/add-and-edit-pack'
-import { Button } from '@/components/ui/button'
+} from '@/components/modal-for-cards/add-and-edit-deck'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
-import { Tab, TabsType } from '@/components/ui/tab'
+import { OptionsType, Tab } from '@/components/ui/tab'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 import { DeckTable, Sort } from '@/pages/decks/deck-table'
@@ -63,7 +63,7 @@ export const Decks = () => {
   const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
   const sortHandler = (sort: Sort) => dispatch(decksActions.setSort(sort))
 
-  const tabs: TabsType[] = [
+  const options: OptionsType[] = [
     { title: 'My Cards', value: me?.id ?? 'My Cards' },
     { title: 'All Cards', value: '' },
   ]
@@ -100,7 +100,7 @@ export const Decks = () => {
           value={search}
         />
 
-        <Tab label={'Show decks'} onChange={setTabsHandler} tabs={tabs} value={tabsValue} />
+        <Tab label={'Show decks'} onChange={setTabsHandler} options={options} value={tabsValue} />
 
         <Slider
           label={'Number of cards'}

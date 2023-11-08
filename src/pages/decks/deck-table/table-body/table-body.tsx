@@ -36,7 +36,15 @@ export const TableBody: FC<
             </Link>
           </TD>
           <TD>{item.cardsCount}</TD>
-          <TD>{new Date(item.updated).toLocaleString('en-GB')}</TD>
+          <TD>
+            {new Date(item.updated).toLocaleString('ru-RU', {
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              month: 'numeric',
+              year: 'numeric',
+            })}
+          </TD>
           <TD>
             {item.author.name}
             {item.isPrivate && (

@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import { answerAndQuestionSchema } from '@/components/modal-for-cards/validationSchemas'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
@@ -9,6 +8,8 @@ import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './add-and-edit-card.module.scss'
+
+import { answerAndQuestionSchema } from '../validation-schemas'
 
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,

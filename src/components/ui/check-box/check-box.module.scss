@@ -4,6 +4,8 @@
   align-items: center;
 
   .wrapper {
+    cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +83,7 @@
   }
 
   .checkboxLabel {
+    cursor: pointer;
     margin-left: 2px;
     color: var(--color-light-100);
   }

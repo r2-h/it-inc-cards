@@ -11,12 +11,10 @@ import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
-import { Body, Row, TD, Table } from '@/components/ui/tables'
-import { Grade } from '@/components/ui/tables/grade'
-import { TableHeader } from '@/components/ui/tables/table-header'
 import { TextField } from '@/components/ui/text-field'
 import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
+import { CardsTable } from '@/pages/cards/cards-table'
 import { useMeQuery } from '@/services/auth/auth-api'
 import {
   useCreateCardMutation,
@@ -28,33 +26,8 @@ import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
 
-import { EditCell } from './editCell'
-
 export const Cards = () => {
   const dispatch = useAppDispatch()
-
-  const columns = [
-    {
-      key: 'question',
-      sortable: false,
-      title: 'Question',
-    },
-    {
-      key: 'answer',
-      sortable: false,
-      title: 'Answer',
-    },
-    {
-      key: 'updated',
-      sortable: true,
-      title: 'Last Updated',
-    },
-    {
-      key: 'grade',
-      sortable: false,
-      title: 'Grade',
-    },
-  ]
   const { id } = useParams<{ id: string }>()
 
   const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
@@ -115,9 +88,11 @@ export const Cards = () => {
         )}
         {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
+
       {deck?.cover && (
         <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
       )}
+
       <TextField
         className={s.input}
         fullWidth
@@ -127,30 +102,19 @@ export const Cards = () => {
         type={'search'}
         value={searchQuestion}
       />
-      <Table>
-        <TableHeader className={s.tableHeader} columns={columns} />
-        <Body>
-          {cards?.items.map(card => (
-            <Row key={card?.id}>
-              <TD className={s.textCell}>{card?.question}</TD>
-              <TD className={s.textCell}>{card?.answer}</TD>
-              <TD>{new Date(card?.updated).toLocaleDateString()}</TD>
-              <TD>
-                <Grade />
-              </TD>
-              {myDeck && <EditCell card={card} />}
-            </Row>
-          ))}
-        </Body>
-      </Table>
-      <Pagination
-        className={s.pagination}
-        currentPage={currentPage}
-        onChangePage={currentPageHandler}
-        onChangePageSize={itemsPerPageHandler}
-        pageSize={itemsPerPage}
-        totalCount={cards?.pagination.totalItems || 61}
-      />
+
+      <CardsTable data={cards?.items} myDeck={myDeck} />
+
+      {cards?.pagination.totalItems !== 0 && (
+        <Pagination
+          className={s.pagination}
+          currentPage={currentPage}
+          onChangePage={currentPageHandler}
+          onChangePageSize={itemsPerPageHandler}
+          pageSize={itemsPerPage}
+          totalCount={cards?.pagination.totalItems || 61}
+        />
+      )}
     </>
   )
 }

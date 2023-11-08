@@ -19,7 +19,7 @@ export const ModalForCards = ({ body, title }: ModalForCardsProps) => {
         <Typography className={s.header} variant={'h2'}>
           {title}
         </Typography>
-        <DialogClose>
+        <DialogClose className={s.dialogClose}>
           <CloseImg />
         </DialogClose>
       </div>
