@@ -1,5 +1,4 @@
 export * from './decks'
 export * from './cards'
 export * from './error404'
-export * from './sign-in-page'
-export * from './sign-up-page'
+export * from './auth'

@@ -8,13 +8,15 @@ import {
 
 import { CheckEmail } from '@/components/auth/check-email'
 import { Layout } from '@/components/layout/layout'
-import { Cards } from '@/pages/cards'
-import { CreatePasswordPage } from '@/pages/create-password-page'
-import { Decks } from '@/pages/decks/decks'
-import { Error404 } from '@/pages/error404'
-import { ForgotPasswordPage } from '@/pages/forgot-password-page'
-import { SignInPage } from '@/pages/sign-in-page'
-import { SignUpPage } from '@/pages/sign-up-page'
+import {
+  Cards,
+  CreatePasswordPage,
+  Decks,
+  Error404,
+  ForgotPasswordPage,
+  SignInPage,
+  SignUpPage,
+} from '@/pages'
 import { useMeQuery } from '@/services/auth/auth-api'
 
 const publicRoutes: RouteObject[] = [
