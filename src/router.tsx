@@ -6,12 +6,17 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { CheckEmail } from '@/components/auth/check-email'
 import { Layout } from '@/components/layout/layout'
-import { Cards } from '@/pages/cards'
-import { Decks } from '@/pages/decks/decks'
-import { Error404 } from '@/pages/error404'
-import { SignInPage } from '@/pages/sign-in-page'
-import { SignUpPage } from '@/pages/sign-up-page'
+import {
+  Cards,
+  CreatePasswordPage,
+  Decks,
+  Error404,
+  ForgotPasswordPage,
+  SignInPage,
+  SignUpPage,
+} from '@/pages'
 import { useMeQuery } from '@/services/auth/auth-api'
 
 const publicRoutes: RouteObject[] = [
@@ -22,6 +27,18 @@ const publicRoutes: RouteObject[] = [
   {
     element: <SignUpPage />,
     path: '/sign-up',
+  },
+  {
+    element: <ForgotPasswordPage />,
+    path: '/forgot-password',
+  },
+  {
+    element: <CreatePasswordPage />,
+    path: '/create-password/:token',
+  },
+  {
+    element: <CheckEmail />,
+    path: '/check-email',
   },
   {
     element: <Error404 />,
