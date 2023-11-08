@@ -32,7 +32,7 @@ export const CardsTableBody: FC<
           <TD>
             <Grade />
           </TD>
-          {myDeck && <EditCell card={card} />}
+          {myDeck ? <EditCell card={card} /> : <EditCell card={card} disabled isOpen={false} />}
         </Row>
       ))}
     </Body>

@@ -5,5 +5,13 @@
 
   .icon {
     cursor: pointer;
+
+    &.disabled {
+      cursor: initial;
+
+      path {
+        fill: var(--color-dark-100);
+      }
+    }
   }
 }
