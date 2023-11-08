@@ -1,11 +1,11 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
-import { ModalForCards } from '@/components/modal-for-cards'
+import { AddAndEditDeck, CreateDeckFormValues, ModalForCards } from '@/components/modal-for-cards'
 import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
@@ -15,6 +15,7 @@ import { TextField } from '@/components/ui/text-field'
 import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
 import { CardsTable } from '@/pages/cards/cards-table'
+import { useUpdateDeckMutation } from '@/services'
 import { useMeQuery } from '@/services/auth/auth-api'
 import {
   useCreateCardMutation,
@@ -33,7 +34,9 @@ export const Cards = () => {
   const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
+  const [updateDeck] = useUpdateDeckMutation()
 
+  const [createCard] = useCreateCardMutation()
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
   const { data: cards, isError } = useGetCardsInDeckQuery({
@@ -42,7 +45,8 @@ export const Cards = () => {
     itemsPerPage,
     question: searchQuestion,
   })
-  const [createCard] = useCreateCardMutation()
+
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
@@ -51,6 +55,11 @@ export const Cards = () => {
   const clearSearchHandler = () => dispatch(cardsActions.setSearchQuestion(''))
   const addCardHandler = (data: AddCardsFormValues) =>
     createCard({ answer: data.answer, deckId: id, question: data.question })
+  const updateDeckHandler = (data: CreateDeckFormValues) => {
+    if (deck?.id) {
+      updateDeck({ id: deck.id, isPrivate: data.isPrivate, name: data.name })
+    }
+  }
 
   if (isError) {
     return <Navigate to={'/404'} />
@@ -71,11 +80,14 @@ export const Cards = () => {
           <Typography className={s.title} variant={'large'}>
             {deck?.name}
           </Typography>
-          <DropDown trigger={<TriggerMore />}>
-            <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
-            <DropDownItem icon={<EditImg />} text={'Edit'} />
-            <DropDownItem icon={<TrashImg />} lastItem text={'Delete'} />
-          </DropDown>
+
+          {myDeck && (
+            <DropDown trigger={<TriggerMore />}>
+              <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
+              <DropDownItem icon={<EditImg />} onSelect={() => setIsOpenEdit(true)} text={'Edit'} />
+              <DropDownItem icon={<TrashImg />} lastItem text={'Delete'} />
+            </DropDown>
+          )}
         </div>
 
         {myDeck && (
@@ -114,6 +126,21 @@ export const Cards = () => {
           pageSize={itemsPerPage}
           totalCount={cards?.pagination.totalItems || 61}
         />
+      )}
+      {isOpenEdit && (
+        <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
+          <ModalForCards
+            body={
+              <AddAndEditDeck
+                isPrivate={deck?.isPrivate}
+                name={deck?.name}
+                onSubmit={updateDeckHandler}
+                variant={'edit'}
+              />
+            }
+            title={'Edit Deck'}
+          />
+        </Modal>
       )}
     </>
   )

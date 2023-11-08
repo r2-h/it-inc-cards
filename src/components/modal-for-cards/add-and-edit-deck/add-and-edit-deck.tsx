@@ -23,7 +23,7 @@ type AddNewDeckProps = {
   isPrivate?: boolean
   name?: string
   onSubmit?: any
-  variant: 'add' | 'edit'
+  variant?: 'add' | 'edit'
 }
 
 export const AddAndEditDeck = ({

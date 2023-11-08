@@ -23,18 +23,18 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [updateDeck] = useUpdateDeckMutation()
   const { data: me } = useMeQuery()
 
-  const isMy = me?.id === item.userId
+  const isMyDeck = me?.id === item.userId
 
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   const [isOpenEdit, setIsOpenEdit] = useState(false)
 
-  const buttonCN = clsx(!isMy && s.disabled)
+  const buttonCN = clsx(!isMyDeck && s.disabled)
 
   const updateDeckHandler = (data: CreateDeckFormValues) =>
     updateDeck({ id: item.id, isPrivate: data.isPrivate, name: data.name })
 
   const deleteHandler = () => {
-    if (isMy) {
+    if (isMyDeck) {
       deleteDeck({ id: item.id })
     }
   }
@@ -45,15 +45,10 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
         <PlayCircleImg />
       </button>
 
-      <Modal
-        onOpenChange={() => setIsOpenEdit(false)}
-        open={isOpenEdit}
-        trigger={
-          <button className={buttonCN} onClick={() => setIsOpenDelete(isMy)}>
-            <EditImg />
-          </button>
-        }
-      >
+      <button className={buttonCN} onClick={() => setIsOpenEdit(isMyDeck)}>
+        <EditImg />
+      </button>
+      <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
         <ModalForCards
           body={
             <AddAndEditDeck
@@ -63,10 +58,11 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
               variant={'edit'}
             />
           }
-          title={'Add new deck'}
+          title={'Edit Deck'}
         />
       </Modal>
-      <button className={buttonCN} onClick={() => setIsOpenDelete(isMy)}>
+
+      <button className={buttonCN} onClick={() => setIsOpenDelete(isMyDeck)}>
         <TrashImg />
       </button>
       <Modal onOpenChange={() => setIsOpenDelete(false)} open={isOpenDelete}>
