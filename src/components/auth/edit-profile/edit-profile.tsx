@@ -12,7 +12,7 @@ import { EditModeOff } from './edit-mode-off'
 import { EditModeOn } from './edit-mode-on'
 
 type EditProfileProps = {
-  avatar?: string | undefined
+  avatar?: File | undefined
   email?: string
   name?: string
   onSubmit?: any
@@ -29,7 +29,7 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
       </Typography>
       <div className={s.avatar}>
         <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
-        <InputTypeFile setImage={updateProfile} trigger={<EditImg />} />
+        <InputTypeFile className={s.buttonAvatar} setImage={updateProfile} trigger={<EditImg />} />
       </div>
       {editMode && <EditModeOn defaultValue={name} onSubmit={onSubmit} />}
       {!editMode && <EditModeOff email={email} name={name} setEditMode={setEditMode} />}

@@ -1,5 +1,5 @@
 export type AuthResponse = {
-  avatar: string
+  avatar?: File | undefined
   created: string
   email: string
   id: string

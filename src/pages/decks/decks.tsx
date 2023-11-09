@@ -44,7 +44,6 @@ export const Decks = () => {
     minCardsCount: `${sliderValue[0]}`,
     name: search,
     orderBy: orderByValue,
-    //debounce
   })
   const { data: me } = useMeQuery()
   const [createDeck, { isLoading }] = useCreateDeckMutation()
@@ -58,8 +57,17 @@ export const Decks = () => {
     dispatch(decksActions.setSliderValue(newValue))
   const clearSliderHandler = () =>
     dispatch(decksActions.setSliderValue([0, decks.data?.maxCardsCount || 61]))
-  const createDeckHandler = (data: CreateDeckFormValues) =>
-    createDeck({ isPrivate: data.isPrivate, name: data.name })
+  const createDeckHandler = (data: CreateDeckFormValues) => {
+    const formData = new FormData()
+
+    if (data.image) {
+      formData.append('cover', data.image[0])
+    }
+    formData.append('name', data.name)
+    formData.append('isPrivate', `${data.isPrivate}`)
+    createDeck(formData)
+  }
+
   const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
   const sortHandler = (sort: Sort) => dispatch(decksActions.setSort(sort))
 

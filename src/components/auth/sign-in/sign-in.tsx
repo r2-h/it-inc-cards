@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+import { Button } from '@/components'
 import { Card } from '@/components/ui/card'
 import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
@@ -12,7 +13,6 @@ import { z } from 'zod'
 
 import s from './sign-in.module.scss'
 
-import { Button } from '../../ui/button'
 import { emailValidation, passwordValidation, rememberMeValidation } from '../validation-schemas'
 
 const loginSchema = z.object({

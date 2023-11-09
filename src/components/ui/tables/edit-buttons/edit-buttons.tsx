@@ -3,6 +3,7 @@ import { FC, useState } from 'react'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
+import { AddAndEditDeck, CreateDeckFormValues } from '@/components'
 import { ModalForCards } from '@/components/modal-for-cards'
 import { Delete } from '@/components/modal-for-cards/delete'
 import { Modal } from '@/components/ui/modal'
@@ -13,13 +14,12 @@ import clsx from 'clsx'
 
 import s from './edit-buttons.module.scss'
 
-import { AddAndEditDeck, CreateDeckFormValues } from '../../../modal-for-cards/add-and-edit-deck'
-
 type EditButtonsProps = {
   item: Deck
 }
 export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [deleteDeck] = useDeleteDeckMutation()
+
   const [updateDeck] = useUpdateDeckMutation()
   const { data: me } = useMeQuery()
 
@@ -30,8 +30,23 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
 
   const buttonCN = clsx(!isMyDeck && s.disabled)
 
-  const updateDeckHandler = (data: CreateDeckFormValues) =>
-    updateDeck({ id: item.id, isPrivate: data.isPrivate, name: data.name })
+  const updateDeckHandler = (data: CreateDeckFormValues) => {
+    const formData = new FormData()
+
+    formData.append('id', item.id)
+    if (data.image) {
+      formData.append('cover', data.image[0])
+    }
+    formData.append('name', data.name)
+    formData.append('isPrivate', `${data.isPrivate}`)
+    updateDeck(formData)
+
+    // updateDeck({
+    //   id: item.id,
+    //   isPrivate: data.isPrivate,
+    //   name: data.name,
+    // })
+  }
 
   const deleteHandler = () => {
     if (isMyDeck) {
@@ -52,6 +67,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
         <ModalForCards
           body={
             <AddAndEditDeck
+              cover={item.cover}
               isPrivate={item.isPrivate}
               name={item.name}
               onSubmit={updateDeckHandler}

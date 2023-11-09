@@ -132,13 +132,6 @@ const decksAPI = baseApi.injectEndpoints({
           }
         },
         query: ({ id, ...body }) => {
-          // const formData = new FormData()
-          //
-          // patch.name && formData.append('name', patch.name)
-          // patch.cover && formData.append('cover', patch.cover)
-          // typeof patch.isPrivate === 'boolean' &&
-          //   formData.append('isPrivate', patch.isPrivate.toString())
-
           return {
             body,
             formData: true,

@@ -11,7 +11,7 @@ import { Typography } from '@/components/ui/typography'
 import s from './header.module.scss'
 
 type HeaderProps = {
-  avatar?: string | undefined
+  avatar?: File | undefined
   dropDownChildren?: ReactNode
   email?: string
   isLoggedIn: boolean

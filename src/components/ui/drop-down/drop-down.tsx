@@ -8,7 +8,7 @@ import s from './drop-down.module.scss'
 
 type DropDownProps = {
   align?: 'center' | 'end' | 'start' | undefined
-  avatar?: string | undefined
+  avatar?: File | undefined
   children?: ReactNode
   className?: string
   email?: string
@@ -73,7 +73,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({ icon, lastItem, onSelect, 
 }
 
 type DropDownLabelProps = {
-  avatar?: string | undefined
+  avatar?: File | undefined
   email?: string
   name?: string
 }

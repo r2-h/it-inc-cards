@@ -6,7 +6,6 @@ import { SignUpParams } from '@/services/auth/types'
 
 export const SignInPage = () => {
   const [logIn] = useLoginMutation()
-
   const { isError, isLoading } = useMeQuery()
   const logInHandler = async (args: SignUpParams) => {
     await logIn(args)
