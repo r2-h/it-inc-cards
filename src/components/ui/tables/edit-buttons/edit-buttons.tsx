@@ -31,21 +31,14 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const buttonCN = clsx(!isMyDeck && s.disabled)
 
   const updateDeckHandler = (data: CreateDeckFormValues) => {
-    const formData = new FormData()
+    setIsOpenEdit(false)
 
-    formData.append('id', item.id)
-    if (data.image) {
-      formData.append('cover', data.image[0])
-    }
-    formData.append('name', data.name)
-    formData.append('isPrivate', `${data.isPrivate}`)
-    updateDeck(formData)
-
-    // updateDeck({
-    //   id: item.id,
-    //   isPrivate: data.isPrivate,
-    //   name: data.name,
-    // })
+    updateDeck({
+      cover: data.image?.[0],
+      id: item.id,
+      isPrivate: data.isPrivate,
+      name: data.name,
+    })
   }
 
   const deleteHandler = () => {

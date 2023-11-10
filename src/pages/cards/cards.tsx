@@ -46,7 +46,8 @@ export const Cards = () => {
     question: searchQuestion,
   })
 
-  const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isLearnModalOpen, setIsLearnModalOpen] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
@@ -84,7 +85,11 @@ export const Cards = () => {
           {myDeck && (
             <DropDown trigger={<TriggerMore />}>
               <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
-              <DropDownItem icon={<EditImg />} onSelect={() => setIsOpenEdit(true)} text={'Edit'} />
+              <DropDownItem
+                icon={<EditImg />}
+                onSelect={() => setIsEditModalOpen(true)}
+                text={'Edit'}
+              />
               <DropDownItem icon={<TrashImg />} lastItem text={'Delete'} />
             </DropDown>
           )}
@@ -98,7 +103,11 @@ export const Cards = () => {
             />
           </Modal>
         )}
-        {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
+        {!myDeck && (
+          <Button onClick={() => setIsLearnModalOpen(true)} variant={'primary'}>
+            Learn to Deck
+          </Button>
+        )}
       </div>
 
       {deck?.cover && (
@@ -127,8 +136,8 @@ export const Cards = () => {
           totalCount={cards?.pagination.totalItems || 61}
         />
       )}
-      {isOpenEdit && (
-        <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
+      {isEditModalOpen && (
+        <Modal onOpenChange={() => setIsEditModalOpen(false)} open={isEditModalOpen}>
           <ModalForCards
             body={
               <AddAndEditDeck

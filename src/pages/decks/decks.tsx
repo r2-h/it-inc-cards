@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
 import { Button } from '@/components'
@@ -48,6 +48,8 @@ export const Decks = () => {
   const { data: me } = useMeQuery()
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const currenPageHandler = (number: number) => dispatch(decksActions.setCurrentPage(number))
   const itemsPerPageHandler = (size: string) => dispatch(decksActions.setItemsPerPage(+size))
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) =>
@@ -58,14 +60,9 @@ export const Decks = () => {
   const clearSliderHandler = () =>
     dispatch(decksActions.setSliderValue([0, decks.data?.maxCardsCount || 61]))
   const createDeckHandler = (data: CreateDeckFormValues) => {
-    const formData = new FormData()
+    setIsModalOpen(false)
 
-    if (data.image) {
-      formData.append('cover', data.image[0])
-    }
-    formData.append('name', data.name)
-    formData.append('isPrivate', `${data.isPrivate}`)
-    createDeck(formData)
+    createDeck({ cover: data.image?.[0], isPrivate: data.isPrivate, name: data.name })
   }
 
   const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
@@ -91,7 +88,10 @@ export const Decks = () => {
           Decks list
         </Typography>
 
-        <Modal trigger={<Button disabled={isLoading}>Create Deck</Button>}>
+        <Button disabled={isLoading} onClick={() => setIsModalOpen(true)}>
+          Create Deck
+        </Button>
+        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <ModalForCards
             body={<AddAndEditDeck onSubmit={createDeckHandler} variant={'add'} />}
             title={'Add new deck'}

@@ -6,7 +6,7 @@ import { StarEmpty } from '@/assets/star-img'
 import s from './grade.module.scss'
 
 type GradeProps = {
-  stars?: 0 | 1 | 2 | 3 | 4 | 5
+  stars?: number
 }
 
 export const Grade: FC<GradeProps> = ({ stars = 0 }) => {

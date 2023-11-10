@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 
 type InputTypeFileProps = {
   className?: string
-  setImage: any
+  setImage?: any
   trigger: ReactNode
 }
 export const InputTypeFile: FC<InputTypeFileProps> = ({ className, setImage, trigger }) => {

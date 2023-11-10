@@ -43,11 +43,17 @@ const decksAPI = baseApi.injectEndpoints({
         //     console.log(e)
         //   }
         // },
-        query: body => ({
-          body,
-          method: 'POST',
-          url: `v1/decks`,
-        }),
+        query: body => {
+          const formData = new FormData()
+
+          if (body.cover) {
+            formData.append('cover', body.cover)
+          }
+          formData.append('name', `${body.name}`)
+          formData.append('isPrivate', `${body.isPrivate}`)
+
+          return { body: formData, formData, method: 'POST', url: `v1/decks` }
+        },
       }),
       deleteDeck: builder.mutation<DeleteResponse, { id: Deck['id'] }>({
         invalidatesTags: ['Decks'],
@@ -98,6 +104,7 @@ const decksAPI = baseApi.injectEndpoints({
           const {
             decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
           } = getState() as RootState
+
           const patchResult = dispatch(
             decksAPI.util.updateQueryData(
               'getDecks',
@@ -131,12 +138,21 @@ const decksAPI = baseApi.injectEndpoints({
             patchResult.undo()
           }
         },
-        query: ({ id, ...body }) => {
+
+        query: data => {
+          const formData = new FormData()
+
+          if (data.cover) {
+            formData.append('cover', data.cover)
+          }
+          formData.append('name', `${data.name}`)
+          formData.append('isPrivate', `${data.isPrivate}`)
+
           return {
-            body,
-            formData: true,
+            body: formData,
+            formData,
             method: 'PATCH',
-            url: `v1/decks/${id}`,
+            url: `v1/decks/${data.id}`,
           }
         },
       }),
