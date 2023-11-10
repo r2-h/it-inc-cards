@@ -1,18 +1,21 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { Typography } from '@/components/ui/typography'
+import {
+  Button,
+  Card,
+  ControlledTextField,
+  Typography,
+  emailValidation,
+  passwordValidation,
+} from '@/components'
+import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './sign-up.module.scss'
-
-import { emailValidation, passwordValidation } from '../validation-schemas'
 
 const loginSchema = z
   .object({
@@ -32,7 +35,7 @@ const loginSchema = z
 
 export type SignUpFormValues = z.infer<typeof loginSchema>
 type SignOutProps = {
-  onSubmit?: any
+  onSubmit: SubmitHandler<SignUpFormValues>
 }
 
 export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
@@ -44,6 +47,7 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
     resolver: zodResolver(loginSchema),
   })
   const navigate = useNavigate()
+  const error = useAppSelector(state => state.auth.error)
 
   const signInHandler = () => {
     navigate('/login')
@@ -57,33 +61,32 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
           Sign Up
         </Typography>
 
-        <ControlledTextField
-          className={s.input}
-          control={control}
-          errorMessage={errors.email?.message}
-          fullWidth
-          label={'Email'}
-          name={'email'}
-        />
-        <ControlledTextField
-          className={s.input}
-          control={control}
-          errorMessage={errors.password?.message}
-          fullWidth
-          label={'Password'}
-          name={'password'}
-          type={'password'}
-        />
+        <div className={s.inputs}>
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.email?.message ?? error}
+            fullWidth
+            label={'Email'}
+            name={'email'}
+          />
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.password?.message ?? error}
+            fullWidth
+            label={'Password'}
+            name={'password'}
+            type={'password'}
+          />
 
-        <ControlledTextField
-          className={s.input}
-          control={control}
-          errorMessage={errors.confirmPassword?.message}
-          fullWidth
-          label={'Confirm Password'}
-          name={'confirmPassword'}
-          type={'password'}
-        />
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.confirmPassword?.message ?? error}
+            fullWidth
+            label={'Confirm Password'}
+            name={'confirmPassword'}
+            type={'password'}
+          />
+        </div>
 
         <Button className={s.button} fullWidth type={'submit'}>
           Sign Up

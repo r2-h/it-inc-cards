@@ -9,11 +9,10 @@
     color: var(--color-light-100);
   }
 
-  .email {
-    margin-bottom: 24px;
-  }
-
-  .password {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
     margin-bottom: 12px;
   }
 

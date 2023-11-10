@@ -10,8 +10,10 @@
     text-align: center;
   }
 
-  .input {
-    margin-bottom: 24px;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
   }
 
   .button {

@@ -1,19 +1,23 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Card } from '@/components/ui/card'
-import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { Typography } from '@/components/ui/typography'
+import {
+  Button,
+  Card,
+  ControlledCheckBox,
+  ControlledTextField,
+  Typography,
+  emailValidation,
+  passwordValidation,
+  rememberMeValidation,
+} from '@/components'
+import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './sign-in.module.scss'
-
-import { Button } from '../../ui/button'
-import { emailValidation, passwordValidation, rememberMeValidation } from '../validation-schemas'
 
 const loginSchema = z.object({
   email: emailValidation,
@@ -24,7 +28,7 @@ const loginSchema = z.object({
 export type SignInFormValues = z.infer<typeof loginSchema>
 
 type SignInProps = {
-  onSubmit?: any
+  onSubmit: SubmitHandler<SignInFormValues>
 }
 
 export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
@@ -36,6 +40,8 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
     resolver: zodResolver(loginSchema),
   })
   const navigate = useNavigate()
+
+  const error = useAppSelector(state => state.auth.error)
 
   const signUpHandler = () => {
     navigate('/sign-up')
@@ -49,23 +55,23 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
           Sign In
         </Typography>
 
-        <ControlledTextField
-          className={s.email}
-          control={control}
-          errorMessage={errors.email?.message}
-          fullWidth
-          label={'Email'}
-          name={'email'}
-        />
-        <ControlledTextField
-          className={s.password}
-          control={control}
-          errorMessage={errors.password?.message}
-          fullWidth
-          label={'Password'}
-          name={'password'}
-          type={'password'}
-        />
+        <div className={s.wrapper}>
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.email?.message ?? error}
+            fullWidth
+            label={'Email'}
+            name={'email'}
+          />
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.password?.message ?? error}
+            fullWidth
+            label={'Password'}
+            name={'password'}
+            type={'password'}
+          />
+        </div>
         <ControlledCheckBox
           className={s.checkBox}
           control={control}

@@ -14,11 +14,11 @@ export type LoginParams = {
 }
 export type SignUpParams = {
   email: string
-  html: string
-  name: string
+  html?: string
+  name?: string
   password: string
-  sendConfirmationEmail: boolean
-  subject: string
+  sendConfirmationEmail?: boolean
+  subject?: string
 }
 
 export type UpdateUserParams = {
@@ -34,4 +34,14 @@ export type RecoverPasswordParams = {
 export type ResetPasswordParams = {
   password: string
   token: string
+}
+
+export type ErrorType = {
+  data: {
+    message: string
+    path: string
+    statusCode: number
+    timestamp: string
+  }
+  status: number | string
 }

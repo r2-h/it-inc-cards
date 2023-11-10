@@ -2,10 +2,8 @@ import { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ItIncubatorImg } from '@/assets/it-incubator'
-import { SignIn } from '@/components/auth/sign-in'
 import { Button } from '@/components/ui/button'
 import { DropDown } from '@/components/ui/drop-down'
-import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 
 import s from './header.module.scss'
@@ -45,9 +43,9 @@ export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLog
             </DropDown>
           </div>
         ) : (
-          <Modal trigger={<Button>Sign in</Button>}>
-            <SignIn />
-          </Modal>
+          <Button as={'a'} href={'/login'}>
+            Sign In
+          </Button>
         )}
       </div>
     </div>
