@@ -36,12 +36,14 @@ export const AddAndEditDeck = ({
   onSubmit,
   variant,
 }: AddNewDeckProps) => {
+  const textButton = variant === 'add' ? 'Add New Deck' : 'Edit Deck'
   const [ava, setAva] = useState<string | undefined>(cover)
   const {
     control,
     formState: { errors },
     handleSubmit,
     register,
+    setValue,
   } = useForm<CreateDeckFormValues>({
     resolver: zodResolver(addNewDeckSchema),
     values: {
@@ -51,17 +53,17 @@ export const AddAndEditDeck = ({
     },
   })
 
-  const textButton = variant === 'add' ? 'Add New Deck' : 'Edit Deck'
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
       setAva(URL.createObjectURL(file))
+      setValue('image', file)
     }
   }
-  const inputRef = useRef<HTMLInputElement>(null)
   const selectFileHandler = () => {
-    inputRef && inputRef.current?.click()
+    fileInputRef && fileInputRef.current?.click()
   }
 
   return (
@@ -69,22 +71,22 @@ export const AddAndEditDeck = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.image} style={{ backgroundImage: `url(${ava})` }}>
           <input
-            {...register('image')}
+            {...register('image', { required: 'Image is required' })}
+            id={'edit'}
             onChange={uploadHandler}
-            ref={inputRef}
+            ref={fileInputRef}
             style={{ display: 'none' }}
             type={'file'}
           />
         </div>
         <div className={s.chooseFileContainer}>
           <div className={s.editWrapper} tabIndex={0}>
-            <EditImg className={s.editIcon} id={'edit'} onClick={selectFileHandler} />
+            <EditImg className={s.editIcon} onClick={selectFileHandler} />
           </div>
           <Typography as={'label'} className={s.editLabel} htmlFor={'edit'} variant={'body2'}>
             Choose file
           </Typography>
         </div>
-
         <div className={s.wrapperForm}>
           <ControlledTextField
             control={control}

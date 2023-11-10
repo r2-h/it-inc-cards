@@ -32,9 +32,8 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
 
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     setIsOpenEdit(false)
-
     updateDeck({
-      cover: data.image?.[0],
+      cover: data.image,
       id: item.id,
       isPrivate: data.isPrivate,
       name: data.name,

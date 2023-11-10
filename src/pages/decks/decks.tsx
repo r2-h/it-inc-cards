@@ -62,7 +62,7 @@ export const Decks = () => {
   const createDeckHandler = (data: CreateDeckFormValues) => {
     setIsModalOpen(false)
 
-    createDeck({ cover: data.image?.[0], isPrivate: data.isPrivate, name: data.name })
+    createDeck({ cover: data.image, isPrivate: data.isPrivate, name: data.name })
   }
 
   const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
