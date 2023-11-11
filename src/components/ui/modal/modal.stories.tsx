@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    children: <SignIn />,
+    children: <SignIn onSubmit={() => {}} />,
     trigger: <Button>Sign In</Button>,
   },
 }
