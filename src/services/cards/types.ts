@@ -22,6 +22,7 @@ export type CreateCardArg = {
 
 export type UpdateCardArg = {
   answer: string
+  answerImg: string
   id: string
   question: string
   questionImg?: string

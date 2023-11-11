@@ -44,6 +44,9 @@ const cardsApi = baseApi.injectEndpoints({
           if (body.questionImg) {
             formData.append('questionImg', body.questionImg)
           }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
           formData.append('answer', body.answer)
           formData.append('question', body.question)
 

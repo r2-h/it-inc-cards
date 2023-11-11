@@ -23,9 +23,15 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
   const [deleteCard] = useDeleteCardMutation()
 
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  const editCardHandler = (id: string, data: AddCardsFormValues) => {
+  const editCardHandler = (data: AddCardsFormValues) => {
     setIsOpenEdit(false)
-    updateCard({ answer: data.answer, id, question: data.question, questionImg: data?.questionImg })
+    updateCard({
+      answer: data.answer,
+      answerImg: data?.answerImg,
+      id: card.id,
+      question: data.question,
+      questionImg: data?.questionImg,
+    })
   }
 
   const deleteCardHandler = (id: string) => {
@@ -42,11 +48,10 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
         <ModalForCards
           body={
             <AddAndEditCard
-              onSubmit={(data: AddCardsFormValues) => {
-                editCardHandler(card.id, data)
-              }}
+              onSubmit={editCardHandler}
               values={{
                 answer: card.answer,
+                answerImg: card.answerImg,
                 question: card.question,
                 questionImg: card.questionImg,
               }}
