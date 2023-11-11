@@ -15,14 +15,16 @@ export type CardsResponse = {
 }
 
 export type CreateCardArg = {
-  answer?: string
-  deckId?: string
-  question?: string
+  answer: string
+  answerImg?: string
+  id: string
+  question: string
+  questionImg?: string
 }
 
 export type UpdateCardArg = {
   answer: string
-  answerImg: string
+  answerImg?: string
   id: string
   question: string
   questionImg?: string

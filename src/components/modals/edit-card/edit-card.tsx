@@ -54,25 +54,30 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {selectValue === 'Image' && (
-        <>
-          <ImageUploader
-            imageKey={'questionImg'}
-            initialImageURL={values?.questionImg}
-            label={'Choose question image'}
-            register={register}
-            setValue={setValue}
-          />
-          <ImageUploader
-            imageKey={'answerImg'}
-            initialImageURL={values?.answerImg}
-            label={'Choose answer image'}
-            register={register}
-            setValue={setValue}
-          />
-          <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
-            back
-          </Button>
-        </>
+        <div className={s.uploaderContainer}>
+          <div className={s.wrapper}>
+            <ImageUploader
+              imageKey={'questionImg'}
+              initialImageURL={values?.questionImg}
+              label={'Choose question image'}
+              register={register}
+              setValue={setValue}
+            />
+            <ImageUploader
+              imageKey={'answerImg'}
+              initialImageURL={values?.answerImg}
+              label={'Choose answer image'}
+              register={register}
+              setValue={setValue}
+            />
+          </div>
+
+          <div className={s.backButton}>
+            <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
+              back
+            </Button>
+          </div>
+        </div>
       )}
 
       {selectValue === 'Text' && (
@@ -80,6 +85,7 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
           <div className={s.wrapperForm}>
             <Select
               className={s.select}
+              classNameViewport={s.viewport}
               defaultValue={'Text'}
               fullWidth
               label={'Choose a question format'}

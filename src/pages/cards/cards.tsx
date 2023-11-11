@@ -52,17 +52,29 @@ export const Cards = () => {
   })
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
   const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(cardsActions.setSearchQuestion(e.currentTarget.value))
   const clearSearchHandler = () => dispatch(cardsActions.setSearchQuestion(''))
-  const addCardHandler = (data: AddCardsFormValues) =>
-    createCard({ answer: data.answer, deckId: id, question: data.question })
+  const addCardHandler = (data: AddCardsFormValues) => {
+    if (id) {
+      setIsCreateModalOpen(false)
+      createCard({
+        answer: data.answer,
+        answerImg: data?.answerImg,
+        id,
+        question: data.question,
+        questionImg: data?.questionImg,
+      })
+    }
+  }
+
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     if (deck?.id) {
-      updateDeck({ id: deck.id, isPrivate: data.isPrivate, name: data.name })
+      updateDeck({ cover: data.image, id: deck.id, isPrivate: data.isPrivate, name: data.name })
     }
   }
 
@@ -100,12 +112,17 @@ export const Cards = () => {
         </div>
 
         {myDeck && (
-          <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
-            <ModalWrapper
-              body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
-              title={'Add New Card'}
-            />
-          </Modal>
+          <>
+            <Button onClick={() => setIsCreateModalOpen(true)} variant={'primary'}>
+              Add New Card
+            </Button>
+            <Modal onOpenChange={() => setIsCreateModalOpen(false)} open={isCreateModalOpen}>
+              <ModalWrapper
+                body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
+                title={'Add New Card'}
+              />
+            </Modal>
+          </>
         )}
         {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
@@ -141,6 +158,7 @@ export const Cards = () => {
           <ModalWrapper
             body={
               <EditDeck
+                cover={deck?.cover}
                 isPrivate={deck?.isPrivate}
                 name={deck?.name}
                 onSubmit={updateDeckHandler}
