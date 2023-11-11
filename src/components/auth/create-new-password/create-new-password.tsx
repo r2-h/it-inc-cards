@@ -1,17 +1,13 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { Typography } from '@/components/ui/typography'
+import { Button, Card, ControlledTextField, Typography, passwordValidation } from '@/components'
+import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './create-new-password.module.scss'
-
-import { passwordValidation } from '../validation-schemas'
 
 const passwordSchema = z.object({
   password: passwordValidation,
@@ -20,7 +16,7 @@ const passwordSchema = z.object({
 export type CreatePasswordFormValues = z.infer<typeof passwordSchema>
 
 type CreateNewPasswordProps = {
-  onSubmit?: any
+  onSubmit: SubmitHandler<CreatePasswordFormValues>
 }
 
 export const CreateNewPassword: FC<CreateNewPasswordProps> = ({ onSubmit }) => {
@@ -31,6 +27,7 @@ export const CreateNewPassword: FC<CreateNewPasswordProps> = ({ onSubmit }) => {
   } = useForm<CreatePasswordFormValues>({
     resolver: zodResolver(passwordSchema),
   })
+  const error = useAppSelector(state => state.auth.error)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +39,7 @@ export const CreateNewPassword: FC<CreateNewPasswordProps> = ({ onSubmit }) => {
         </Typography>
         <ControlledTextField
           control={control}
-          errorMessage={errors.password?.message}
+          errorMessage={errors.password?.message ?? error}
           fullWidth
           label={'Password'}
           name={'password'}

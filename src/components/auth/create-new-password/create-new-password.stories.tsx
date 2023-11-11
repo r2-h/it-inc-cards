@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CreateNewPassword, CreatePasswordFormValues } from './create-new-password'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+
+import { CreateNewPassword, CreatePasswordFormValues } from '@/components'
+import { store } from '@/services'
 
 const meta = {
   component: CreateNewPassword,
@@ -17,4 +21,13 @@ export const Primary: Story = {
       console.log(data)
     },
   },
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Provider>
+    ),
+  ],
 }

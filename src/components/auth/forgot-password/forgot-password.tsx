@@ -1,17 +1,13 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { Typography } from '@/components/ui/typography'
+import { Button, Card, ControlledTextField, Typography, emailValidation } from '@/components'
+import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
-
-import { emailValidation } from '../validation-schemas'
 
 const emailSchema = z.object({
   email: emailValidation,
@@ -20,7 +16,7 @@ const emailSchema = z.object({
 export type ForgotPasswordFormValues = z.infer<typeof emailSchema>
 
 type ForgotPasswordProps = {
-  onSubmit?: any
+  onSubmit: SubmitHandler<ForgotPasswordFormValues>
 }
 
 export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
@@ -29,6 +25,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
     formState: { errors },
     handleSubmit,
   } = useForm<ForgotPasswordFormValues>({ resolver: zodResolver(emailSchema) })
+  const error = useAppSelector(state => state.auth.error)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,9 +36,8 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onSubmit }) => {
           Forgot your password?
         </Typography>
         <ControlledTextField
-          className={s.input}
           control={control}
-          errorMessage={errors.email?.message}
+          errorMessage={errors.email?.message ?? error}
           fullWidth
           label={'Email'}
           name={'email'}
