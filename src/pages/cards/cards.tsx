@@ -47,7 +47,6 @@ export const Cards = () => {
   })
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isLearnModalOpen, setIsLearnModalOpen] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
@@ -103,11 +102,7 @@ export const Cards = () => {
             />
           </Modal>
         )}
-        {!myDeck && (
-          <Button onClick={() => setIsLearnModalOpen(true)} variant={'primary'}>
-            Learn to Deck
-          </Button>
-        )}
+        {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
 
       {deck?.cover && (

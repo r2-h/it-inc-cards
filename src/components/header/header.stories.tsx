@@ -7,8 +7,6 @@ import { SignOutImg } from '@/assets/sign-out-img'
 import { Header } from '@/components/header/header'
 import { DropDownItem } from '@/components/ui/drop-down'
 
-import ava from '../../assets/ava.jpg'
-
 const meta = {
   component: Header,
   tags: ['autodocs'],
@@ -31,7 +29,7 @@ export const HeaderWithButton: Story = {
 
 export const HeaderWithAvatar: Story = {
   args: {
-    avatar: ava,
+    avatar: undefined,
 
     dropDownChildren: (
       <>
