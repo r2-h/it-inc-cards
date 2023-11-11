@@ -37,7 +37,7 @@ export const AddAndEditDeck = ({
   variant,
 }: AddNewDeckProps) => {
   const textButton = variant === 'add' ? 'Add New Deck' : 'Edit Deck'
-  const [ava, setAva] = useState<string | undefined>(cover)
+  const [imageURL, setImageURL] = useState<string | undefined>(cover)
   const {
     control,
     formState: { errors },
@@ -58,7 +58,7 @@ export const AddAndEditDeck = ({
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
-      setAva(URL.createObjectURL(file))
+      setImageURL(URL.createObjectURL(file))
       setValue('image', file)
     }
   }
@@ -69,9 +69,9 @@ export const AddAndEditDeck = ({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.image} style={{ backgroundImage: `url(${ava})` }}>
+        <div className={s.image} style={{ backgroundImage: `url(${imageURL})` }}>
           <input
-            {...register('image', { required: 'Image is required' })}
+            {...register('image')}
             id={'edit'}
             onChange={uploadHandler}
             ref={fileInputRef}

@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
+import { Typography } from '@/components'
 import { Body, Row, TD } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
 import { EditCell } from '@/pages/cards/editCell'
@@ -20,8 +21,34 @@ export const CardsTableBody: FC<
     <Body {...restProps}>
       {data?.map(card => (
         <Row key={card?.id}>
-          <TD className={s.textCell}>{card?.question}</TD>
-          <TD className={s.textCell}>{card?.answer}</TD>
+          <TD className={s.textCell}>
+            {card?.questionImg ? (
+              <div className={s.wrapper}>
+                <div className={s.image} style={{ backgroundImage: `url(${card.questionImg})` }} />
+                <Typography className={s.title} variant={'body2'}>
+                  {card.question}
+                </Typography>
+              </div>
+            ) : (
+              <Typography className={s.title} variant={'body2'}>
+                {card.question}
+              </Typography>
+            )}
+          </TD>
+          <TD className={s.textCell}>
+            {card?.answerImg ? (
+              <div className={s.wrapper}>
+                <div className={s.image} style={{ backgroundImage: `url(${card.answerImg})` }} />
+                <Typography className={s.title} variant={'body2'}>
+                  {card.answer}
+                </Typography>
+              </div>
+            ) : (
+              <Typography className={s.title} variant={'body2'}>
+                {card.answer}
+              </Typography>
+            )}
+          </TD>
           <TD>
             {new Date(card.updated).toLocaleString('ru-RU', {
               day: 'numeric',

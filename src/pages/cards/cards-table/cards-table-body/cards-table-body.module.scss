@@ -1,14 +1,16 @@
-.link {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  text-decoration: none;
+.title {
+  color: var(--color-light-100);
+}
 
-  .deckImage {
+.wrapper {
+  display: flex;
+  gap: 8px;
+
+  .image {
     display: inline-flex;
     align-items: center;
 
-    width: 110px;
+    width: 75px;
     height: 40px;
 
     background-position: center;
@@ -21,14 +23,4 @@
       margin-left: 118px;
     }
   }
-}
-
-.private {
-  margin-left: 10px;
-  font-size: var(--font-size-xs);
-  color: var(--color-info-300);
-}
-
-.title {
-  color: var(--color-light-100);
 }
