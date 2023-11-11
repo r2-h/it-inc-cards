@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import { EditImg } from '@/assets/edit-img'
 import { TrashImg } from '@/assets/trash-img'
 import { ModalForCards } from '@/components/modal-for-cards'
-import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
 import { Delete } from '@/components/modal-for-cards/delete'
 import { Modal } from '@/components/ui/modal'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api'
@@ -11,6 +10,8 @@ import { CardsResponse } from '@/services/cards/types'
 import clsx from 'clsx'
 
 import s from './editCell.module.scss'
+
+import { AddCardsFormValues, EditCard } from '../../../components/modal-for-cards/edit-card'
 
 type EditCellProps = {
   card: CardsResponse
@@ -34,20 +35,20 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
     })
   }
 
-  const deleteCardHandler = (id: string) => {
-    deleteCard({ id })
+  const deleteCardHandler = () => {
+    deleteCard({ id: card.id })
   }
   const iconCN = clsx(s.icon, disabled && s.disabled)
 
   return (
     <div className={s.buttons}>
-      <button onClick={() => setIsOpenEdit(isEditable ?? true)}>
+      <button className={s.button} onClick={() => setIsOpenEdit(isEditable ?? true)}>
         <EditImg className={iconCN} />
       </button>
       <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
         <ModalForCards
           body={
-            <AddAndEditCard
+            <EditCard
               onSubmit={editCardHandler}
               values={{
                 answer: card.answer,
@@ -62,13 +63,18 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
         />
       </Modal>
 
-      <Modal open={isEditable} trigger={<TrashImg className={iconCN} />}>
+      <Modal
+        open={isEditable}
+        trigger={
+          <button className={s.button}>
+            <TrashImg className={iconCN} />
+          </button>
+        }
+      >
         <ModalForCards
           body={
             <Delete
-              callback={() => {
-                deleteCardHandler(card.id)
-              }}
+              callback={deleteCardHandler}
               title={card?.question}
               titleButton={'Delete Card'}
             />

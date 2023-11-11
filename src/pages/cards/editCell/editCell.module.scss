@@ -1,16 +1,22 @@
 .buttons {
   display: flex;
   gap: 10px;
+  align-items: center;
   justify-content: end;
 
-  .icon {
-    cursor: pointer;
+  .button {
+    display: flex;
+    align-items: center;
 
-    &.disabled {
-      cursor: initial;
+    .icon {
+      cursor: pointer;
 
-      path {
-        fill: var(--color-dark-100);
+      &.disabled {
+        cursor: initial;
+
+        path {
+          fill: var(--color-dark-100);
+        }
       }
     }
   }

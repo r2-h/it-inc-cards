@@ -23,7 +23,7 @@ export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 type AddNewDeckProps = {
   cover?: string | undefined
   isPrivate?: boolean
-  name: string
+  name?: string
   onSubmit: SubmitHandler<{ image?: any; isPrivate: boolean; name: string }>
   variant?: 'add' | 'edit'
 }

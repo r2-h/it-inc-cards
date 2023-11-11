@@ -6,7 +6,6 @@ import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
 import { AddAndEditDeck, CreateDeckFormValues, ModalForCards } from '@/components/modal-for-cards'
-import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
@@ -26,6 +25,8 @@ import { cardsActions } from '@/services/cards/cards-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
+
+import { AddCardsFormValues, EditCard } from '../../components/modal-for-cards/edit-card'
 
 export const Cards = () => {
   const dispatch = useAppDispatch()
@@ -97,7 +98,7 @@ export const Cards = () => {
         {myDeck && (
           <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
             <ModalForCards
-              body={<AddAndEditCard onSubmit={addCardHandler} variant={'add'} />}
+              body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
               title={'Add New Card'}
             />
           </Modal>
