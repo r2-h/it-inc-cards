@@ -7,11 +7,26 @@ const cardsApi = baseApi.injectEndpoints({
     return {
       createCard: builder.mutation<CardsResponse, CreateCardArg>({
         invalidatesTags: ['Cards'],
-        query: ({ deckId, ...body }) => ({
-          body,
-          method: 'POST',
-          url: `v1/decks/${deckId}/cards`,
-        }),
+        query: args => {
+          const { id, ...body } = args
+          const formData = new FormData()
+
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
+          formData.append('answer', body.answer)
+          formData.append('question', body.question)
+
+          return {
+            body: formData,
+            formData,
+            method: 'POST',
+            url: `v1/decks/${id}/cards`,
+          }
+        },
       }),
       deleteCard: builder.mutation<void, { id: string }>({
         invalidatesTags: ['Cards'],
@@ -67,11 +82,21 @@ const cardsApi = baseApi.injectEndpoints({
       }),
       updateCard: builder.mutation<CardsResponse, UpdateCardArg>({
         invalidatesTags: ['Cards'],
-        query: ({ id, ...body }) => ({
-          body,
-          method: 'PATCH',
-          url: `v1/cards/${id}`,
-        }),
+        query: args => {
+          const { id, ...body } = args
+          const formData = new FormData()
+
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
+          formData.append('answer', body.answer)
+          formData.append('question', body.question)
+
+          return { body: formData, formData, method: 'PATCH', url: `v1/cards/${id}` }
+        },
       }),
     }
   },

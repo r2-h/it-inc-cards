@@ -1,0 +1,36 @@
+.uploaderContainer {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .backButton {
+    text-align: end;
+  }
+}
+
+.wrapperForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  margin-top: 20px;
+
+  .select {
+    button,
+    .viewport {
+      background-color: var(--color-dark-700);
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0;
+}
+
+.viewport {
+  background-color: var(--color-dark-700);
+}

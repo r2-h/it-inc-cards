@@ -5,8 +5,13 @@ import ArrowBackImg from '@/assets/arrow-back-img'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
-import { AddAndEditDeck, CreateDeckFormValues, ModalForCards } from '@/components/modal-for-cards'
-import { AddAndEditCard, AddCardsFormValues } from '@/components/modal-for-cards/add-and-edit-card'
+import {
+  AddCardsFormValues,
+  CreateDeckFormValues,
+  EditCard,
+  EditDeck,
+  ModalWrapper,
+} from '@/components'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
@@ -47,18 +52,30 @@ export const Cards = () => {
   })
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
   const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(cardsActions.setSearchQuestion(e.currentTarget.value))
   const clearSearchHandler = () => dispatch(cardsActions.setSearchQuestion(''))
-  const addCardHandler = (data: AddCardsFormValues) =>
-    createCard({ answer: data.answer, deckId: id, question: data.question })
+  const addCardHandler = (data: AddCardsFormValues) => {
+    if (id) {
+      setIsCreateModalOpen(false)
+      createCard({
+        answer: data.answer,
+        answerImg: data?.answerImg,
+        id,
+        question: data.question,
+        questionImg: data?.questionImg,
+      })
+    }
+  }
+
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     if (deck?.id) {
-      updateDeck({ id: deck.id, isPrivate: data.isPrivate, name: data.name })
-      setIsEditModalOpen(false)
+    setIsEditModalOpen(false)
+      updateDeck({ cover: data.image, id: deck.id, isPrivate: data.isPrivate, name: data.name })
     }
   }
 
@@ -96,12 +113,17 @@ export const Cards = () => {
         </div>
 
         {myDeck && (
-          <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
-            <ModalForCards
-              body={<AddAndEditCard onSubmit={addCardHandler} variant={'add'} />}
-              title={'Add New Card'}
-            />
-          </Modal>
+          <>
+            <Button onClick={() => setIsCreateModalOpen(true)} variant={'primary'}>
+              Add New Card
+            </Button>
+            <Modal onOpenChange={() => setIsCreateModalOpen(false)} open={isCreateModalOpen}>
+              <ModalWrapper
+                body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
+                title={'Add New Card'}
+              />
+            </Modal>
+          </>
         )}
         {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
@@ -134,9 +156,10 @@ export const Cards = () => {
       )}
       {isEditModalOpen && (
         <Modal onOpenChange={() => setIsEditModalOpen(false)} open={isEditModalOpen}>
-          <ModalForCards
+          <ModalWrapper
             body={
-              <AddAndEditDeck
+              <EditDeck
+                cover={deck?.cover}
                 isPrivate={deck?.isPrivate}
                 name={deck?.name}
                 onSubmit={updateDeckHandler}

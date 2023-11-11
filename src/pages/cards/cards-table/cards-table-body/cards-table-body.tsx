@@ -59,7 +59,13 @@ export const CardsTableBody: FC<
           <TD>
             <Grade stars={card.rating} />
           </TD>
-          {myDeck ? <EditCell card={card} /> : <EditCell card={card} disabled isOpen={false} />}
+          <TD>
+            {myDeck ? (
+              <EditCell card={card} />
+            ) : (
+              <EditCell card={card} disabled isEditable={false} />
+            )}
+          </TD>
         </Row>
       ))}
     </Body>
