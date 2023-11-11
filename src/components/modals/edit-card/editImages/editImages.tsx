@@ -2,8 +2,7 @@ import { ChangeEvent, FC, useRef, useState } from 'react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import { EditImg } from '@/assets/edit-img'
-import { Button, Typography } from '@/components'
-import { AddCardsFormValues } from '@/components/modal-for-cards'
+import { AddCardsFormValues, Button, Typography } from '@/components'
 
 import s from './editImages.module.scss'
 
