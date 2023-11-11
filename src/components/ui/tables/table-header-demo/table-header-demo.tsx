@@ -4,9 +4,9 @@ import { ArrowDown } from '@/assets/arrow-down'
 import { ArrowUp } from '@/assets/arrow-up'
 import { Head, Row, TH } from '@/components/ui/tables'
 
-import s from './table-header.module.scss'
+import s from './table-header-demo.module.scss'
 
-export const TableHeader: FC<
+export const TableHeaderDemo: FC<
   Omit<
     ComponentPropsWithoutRef<'thead'> & {
       columns: Column[]

@@ -2,13 +2,12 @@ import { ChangeEvent, FC, ReactNode, useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 
-import s from '@/components/auth/edit-profile/edit-profile.module.scss'
-
 type InputTypeFileProps = {
-  setImage: any
+  className?: string
+  setImage?: any
   trigger: ReactNode
 }
-export const InputTypeFile: FC<InputTypeFileProps> = ({ setImage, trigger }) => {
+export const InputTypeFile: FC<InputTypeFileProps> = ({ className, setImage, trigger }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const selectFileHandler = () => {
@@ -22,6 +21,7 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ setImage, trigger }) => 
 
       if (file.size < 4000000) {
         formData.append('avatar', file)
+
         setImage(formData)
       } else {
         alert('Файл слишком большого размера')
@@ -33,9 +33,9 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ setImage, trigger }) => 
   }
 
   return (
-    <div>
+    <>
       <Button
-        className={s.buttonAvatar}
+        className={className}
         onClick={selectFileHandler}
         onError={errorHandler}
         type={'button'}
@@ -44,6 +44,6 @@ export const InputTypeFile: FC<InputTypeFileProps> = ({ setImage, trigger }) => 
         {trigger}
       </Button>
       <input onChange={uploadHandler} ref={inputRef} style={{ display: 'none' }} type={'file'} />
-    </div>
+    </>
   )
 }

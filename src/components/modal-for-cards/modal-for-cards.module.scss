@@ -1,17 +1,21 @@
 .wrapper {
   width: 542px;
+  padding: 18px 24px;
 
   .headerWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 18px 24px;
-
     border-bottom: 1px solid var(--color-dark-500);
 
     .dialogClose {
       cursor: pointer;
+      display: flex;
+
+      &:focus-visible {
+        outline: 2px solid var(--color-info-700);
+        outline-offset: 0;
+      }
     }
 
     .header {
