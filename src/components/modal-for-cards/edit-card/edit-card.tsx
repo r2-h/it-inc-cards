@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { answerAndQuestionSchema } from '@/components'
-import { EditImages } from '@/components/modal-for-cards/edit-card/editImages'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
+import { ImageUploader } from '@/utils/imageUploader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
@@ -53,12 +53,25 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {selectValue === 'Image' && (
-        <EditImages
-          register={register}
-          setSelectValue={setSelectValue}
-          setValue={setValue}
-          values={values}
-        />
+        <>
+          <ImageUploader
+            imageKey={'questionImg'}
+            initialImageURL={values.questionImg}
+            label={'Choose question image'}
+            register={register}
+            setValue={setValue}
+          />
+          <ImageUploader
+            imageKey={'answerImg'}
+            initialImageURL={values.answerImg}
+            label={'Choose answer image'}
+            register={register}
+            setValue={setValue}
+          />
+          <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
+            back
+          </Button>
+        </>
       )}
 
       {selectValue === 'Text' && (
