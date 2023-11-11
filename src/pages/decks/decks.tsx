@@ -1,12 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
-import { Button } from '@/components'
-import { ModalForCards } from '@/components/modal-for-cards'
-import {
-  AddAndEditDeck,
-  CreateDeckFormValues,
-} from '@/components/modal-for-cards/add-and-edit-deck'
+import { Button, CreateDeckFormValues, EditDeck, ModalWrapper } from '@/components'
 import { Modal } from '@/components/ui/modal'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
@@ -92,8 +87,8 @@ export const Decks = () => {
           Create Deck
         </Button>
         <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
-          <ModalForCards
-            body={<AddAndEditDeck onSubmit={createDeckHandler} variant={'add'} />}
+          <ModalWrapper
+            body={<EditDeck onSubmit={createDeckHandler} variant={'add'} />}
             title={'Add new deck'}
           />
         </Modal>

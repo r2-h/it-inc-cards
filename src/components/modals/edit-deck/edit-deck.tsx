@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EditImg } from '@/assets/edit-img'
 import { Typography, namePackSchema, privateCheckboxSchema } from '@/components'
@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
-import s from './add-and-edit-deck.module.scss'
+import s from './edit-deck.module.scss'
 
 const addNewDeckSchema = z.object({
   image: z.any(),
@@ -22,16 +22,15 @@ export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
 type AddNewDeckProps = {
   cover?: string | undefined
-  createDeck?: any
   isPrivate?: boolean
   name?: string
-  onSubmit?: any
+  onSubmit: SubmitHandler<{ image?: any; isPrivate: boolean; name: string }>
   variant?: 'add' | 'edit'
 }
 
-export const AddAndEditDeck = ({
+export const EditDeck = ({
   cover,
-  isPrivate = false,
+  isPrivate = true,
   name = '',
   onSubmit,
   variant,

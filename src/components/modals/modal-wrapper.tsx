@@ -5,14 +5,14 @@ import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { DialogClose } from '@radix-ui/react-dialog'
 
-import s from './modal-for-cards.module.scss'
+import s from './modal-wrapper.module.scss'
 
 type ModalForCardsProps = {
   body: ReactNode
   title: string
 }
 
-export const ModalForCards = ({ body, title }: ModalForCardsProps) => {
+export const ModalWrapper = ({ body, title }: ModalForCardsProps) => {
   return (
     <Card className={s.wrapper}>
       <div className={s.headerWrapper}>

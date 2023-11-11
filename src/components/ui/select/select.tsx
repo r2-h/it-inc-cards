@@ -15,6 +15,7 @@ export type Options = {
 
 type SelectDemoProps = {
   className?: string
+  classNameViewport?: string
   defaultValue?: string
   disabled?: boolean
   fullWidth?: boolean
@@ -27,6 +28,7 @@ type SelectDemoProps = {
 
 export const Select: FC<SelectDemoProps> = ({
   className,
+  classNameViewport,
   defaultValue,
   disabled = false,
   fullWidth,
@@ -47,6 +49,7 @@ export const Select: FC<SelectDemoProps> = ({
 
   const cNames = {
     root: clsx(s.root, fullWidth && s.fullWidth, className),
+    viewport: clsx(s.viewport, classNameViewport),
   }
 
   return (
@@ -69,7 +72,7 @@ export const Select: FC<SelectDemoProps> = ({
         </SelectRadix.Trigger>
         <SelectRadix.Portal>
           <SelectRadix.Content collisionPadding={0} position={'popper'}>
-            <SelectRadix.Viewport className={s.viewport}>
+            <SelectRadix.Viewport className={cNames.viewport}>
               <SelectRadix.Group>
                 {options.map(option => (
                   <SelectRadix.Item className={s.item} key={option.id} value={option.value}>
