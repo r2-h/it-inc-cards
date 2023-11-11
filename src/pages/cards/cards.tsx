@@ -15,7 +15,7 @@ import { TextField } from '@/components/ui/text-field'
 import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
 import { CardsTable } from '@/pages/cards/cards-table'
-import { useUpdateDeckMutation } from '@/services'
+import { usePatchDeckMutation } from '@/services'
 import { useMeQuery } from '@/services/auth/auth-api'
 import {
   useCreateCardMutation,
@@ -34,7 +34,7 @@ export const Cards = () => {
   const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
-  const [updateDeck] = useUpdateDeckMutation()
+  const [updateDeck] = usePatchDeckMutation()
 
   const [createCard] = useCreateCardMutation()
   const { data: me } = useMeQuery()
@@ -58,6 +58,7 @@ export const Cards = () => {
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     if (deck?.id) {
       updateDeck({ id: deck.id, isPrivate: data.isPrivate, name: data.name })
+      setIsEditModalOpen(false)
     }
   }
 
