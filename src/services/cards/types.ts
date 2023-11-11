@@ -21,9 +21,10 @@ export type CreateCardArg = {
 }
 
 export type UpdateCardArg = {
-  answer?: string
-  id?: string
-  question?: string
+  answer: string
+  id: string
+  question: string
+  questionImg?: string
 }
 
 export type GetCardsParams = {

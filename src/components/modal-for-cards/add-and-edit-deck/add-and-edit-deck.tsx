@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EditImg } from '@/assets/edit-img'
 import { Typography, namePackSchema, privateCheckboxSchema } from '@/components'
@@ -22,16 +22,15 @@ export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
 type AddNewDeckProps = {
   cover?: string | undefined
-  createDeck?: any
   isPrivate?: boolean
-  name?: string
-  onSubmit?: any
+  name: string
+  onSubmit: SubmitHandler<{ image?: any; isPrivate: boolean; name: string }>
   variant?: 'add' | 'edit'
 }
 
 export const AddAndEditDeck = ({
   cover,
-  isPrivate = false,
+  isPrivate = true,
   name = '',
   onSubmit,
   variant,

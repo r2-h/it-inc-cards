@@ -36,11 +36,19 @@ const cardsApi = baseApi.injectEndpoints({
       }),
       updateCard: builder.mutation<CardsResponse, UpdateCardArg>({
         invalidatesTags: ['Cards'],
-        query: ({ id, ...body }) => ({
-          body,
-          method: 'PATCH',
-          url: `v1/cards/${id}`,
-        }),
+        query: args => {
+          console.log(2, args)
+          const { id, ...body } = args
+          const formData = new FormData()
+
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          formData.append('answer', body.answer)
+          formData.append('question', body.question)
+
+          return { body: formData, formData, method: 'PATCH', url: `v1/cards/${id}` }
+        },
       }),
     }
   },
