@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { Body, Row, TD } from '@/components/ui/tables'
 import { Deck } from '@/services/decks/types'
 
-import s from './table-body.module.scss'
+import s from './table-body-demo.module.scss'
 
-export const TableBody: FC<
+export const TableBodyDemo: FC<
   Omit<
     ComponentPropsWithoutRef<'tbody'> & {
       data: Deck[] | undefined

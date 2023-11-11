@@ -1,9 +1,9 @@
 import { FC, useState } from 'react'
 
-import { TableHeader } from '@/components/ui/tables/table-header'
 import { Deck } from '@/services/decks/types'
 
-import { TableBody } from '../table-body/table-body'
+import { TableBodyDemo } from '..'
+import { TableHeaderDemo } from '../table-header-demo'
 import { Table } from '../tables'
 
 export const TableDemo: FC<TableProps> = ({ columns, data }) => {
@@ -11,8 +11,8 @@ export const TableDemo: FC<TableProps> = ({ columns, data }) => {
 
   return (
     <Table>
-      <TableHeader columns={columns} onSort={setSort} sort={sort} />
-      <TableBody data={data} />
+      <TableHeaderDemo columns={columns} onSort={setSort} sort={sort} />
+      <TableBodyDemo data={data} />
     </Table>
   )
 }

@@ -15,7 +15,7 @@ export type Author = {
 export type Deck = {
   author: Author
   cardsCount: number
-  cover?: null | string
+  cover?: string | undefined
   created: string
   id: string
   isBlocked: boolean | null
@@ -40,8 +40,8 @@ export type DeleteResponse = {
   userId: string
 }
 
-export type CreateDeckParams = Pick<Deck, 'cover' | 'isPrivate' | 'name'>
-export type UpdateDeckParams = CreateDeckParams & Pick<Deck, 'id'>
+export type CreateDeckParams = Partial<Pick<Deck, 'cover' | 'isPrivate' | 'name'>>
+export type UpdateDeckParams = Partial<CreateDeckParams & Pick<Deck, 'id'>>
 export type DecksResponse = {
   items: Array<Deck>
   maxCardsCount: number

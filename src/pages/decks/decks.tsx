@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
 import { Button } from '@/components'
@@ -44,10 +44,11 @@ export const Decks = () => {
     minCardsCount: `${sliderValue[0]}`,
     name: search,
     orderBy: orderByValue,
-    //debounce
   })
   const { data: me } = useMeQuery()
   const [createDeck, { isLoading }] = useCreateDeckMutation()
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const currenPageHandler = (number: number) => dispatch(decksActions.setCurrentPage(number))
   const itemsPerPageHandler = (size: string) => dispatch(decksActions.setItemsPerPage(+size))
@@ -58,8 +59,12 @@ export const Decks = () => {
     dispatch(decksActions.setSliderValue(newValue))
   const clearSliderHandler = () =>
     dispatch(decksActions.setSliderValue([0, decks.data?.maxCardsCount || 61]))
-  const createDeckHandler = (data: CreateDeckFormValues) =>
-    createDeck({ isPrivate: data.isPrivate, name: data.name })
+  const createDeckHandler = (data: CreateDeckFormValues) => {
+    setIsModalOpen(false)
+
+    createDeck({ cover: data.image, isPrivate: data.isPrivate, name: data.name })
+  }
+
   const setTabsHandler = (value: string) => dispatch(decksActions.setTabsValue(value))
   const sortHandler = (sort: Sort) => dispatch(decksActions.setSort(sort))
 
@@ -83,7 +88,10 @@ export const Decks = () => {
           Decks list
         </Typography>
 
-        <Modal trigger={<Button disabled={isLoading}>Create Deck</Button>}>
+        <Button disabled={isLoading} onClick={() => setIsModalOpen(true)}>
+          Create Deck
+        </Button>
+        <Modal onOpenChange={() => setIsModalOpen(false)} open={isModalOpen}>
           <ModalForCards
             body={<AddAndEditDeck onSubmit={createDeckHandler} variant={'add'} />}
             title={'Add new deck'}

@@ -30,7 +30,7 @@ export const CardsTableBody: FC<
             })}
           </TD>
           <TD>
-            <Grade />
+            <Grade stars={card.rating} />
           </TD>
           {myDeck ? <EditCell card={card} /> : <EditCell card={card} disabled isOpen={false} />}
         </Row>

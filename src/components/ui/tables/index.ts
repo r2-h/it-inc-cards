@@ -1,1 +1,6 @@
 export * from './tables'
+export * from './table-header-demo'
+export * from './table-body-demo'
+export * from './table-demo'
+export * from './edit-buttons'
+export * from './grade'

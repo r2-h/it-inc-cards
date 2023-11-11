@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: DecksStateType = {
   currentPage: 1,
+  image: undefined,
   itemsPerPage: 10,
   search: '',
   sliderValue: [0, 61],
@@ -17,6 +18,9 @@ const slice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
     },
+    setImage: (state, action: PayloadAction<Blob | undefined>) => {
+      state.image = action.payload
+    },
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.itemsPerPage = action.payload
       state.currentPage = 1
@@ -28,10 +32,10 @@ const slice = createSlice({
     setSliderValue: (state, action: PayloadAction<[number, number]>) => {
       state.sliderValue = action.payload
     },
+
     setSort: (state, action: PayloadAction<Sort>) => {
       state.sort = action.payload
     },
-
     setTabsValue: (state, action: PayloadAction<string>) => {
       state.tabsValue = action.payload
     },
@@ -40,6 +44,7 @@ const slice = createSlice({
 
 type DecksStateType = {
   currentPage: number
+  image: Blob | undefined
   itemsPerPage: number
   search: string
   sliderValue: [number, number]

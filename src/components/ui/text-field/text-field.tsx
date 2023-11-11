@@ -10,12 +10,10 @@ import { clsx } from 'clsx'
 import s from './text-field.module.scss'
 
 export type TextFieldProps = {
-  disabled?: boolean
   errorMessage?: string
   fullWidth?: boolean
   label?: string
   name?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onClearClick?: () => void
   value?: string
 } & ComponentPropsWithoutRef<'input'>
@@ -28,9 +26,9 @@ export const TextField: FC<TextFieldProps> = ({
   label,
   onChange,
   onClearClick,
-  placeholder,
   type,
   value,
+  ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const finalType = getFinalType(type, showPassword)
@@ -60,14 +58,7 @@ export const TextField: FC<TextFieldProps> = ({
       )}
       <div className={inputWrapperCN}>
         {type === 'search' && <SearchImg className={searchImgCN} />}
-        <input
-          className={inputCN}
-          disabled={disabled}
-          onChange={onChange}
-          placeholder={placeholder}
-          type={finalType}
-          value={value}
-        />
+        <input className={inputCN} onChange={onChange} type={finalType} value={value} {...rest} />
         {type === 'search' && (
           <button className={deleteIconCN} onClick={onClearClick} type={'button'}>
             <DeleteIcon />
