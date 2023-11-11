@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { answerAndQuestionSchema } from '@/components'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
@@ -11,6 +10,8 @@ import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './edit-card.module.scss'
+
+import { answerAndQuestionSchema } from '..'
 
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,
@@ -23,7 +24,7 @@ export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
 type AddNewCardProps = {
   onSubmit?: any
-  values: AddCardsFormValues
+  values?: AddCardsFormValues
   variant: 'add' | 'edit'
 }
 
@@ -38,8 +39,8 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
   } = useForm<AddCardsFormValues>({
     resolver: zodResolver(addNewCardSchema),
     values: {
-      answer: values.answer,
-      question: values.question,
+      answer: values?.answer || '',
+      question: values?.question || '',
     },
   })
 
@@ -56,14 +57,14 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
         <>
           <ImageUploader
             imageKey={'questionImg'}
-            initialImageURL={values.questionImg}
+            initialImageURL={values?.questionImg}
             label={'Choose question image'}
             register={register}
             setValue={setValue}
           />
           <ImageUploader
             imageKey={'answerImg'}
-            initialImageURL={values.answerImg}
+            initialImageURL={values?.answerImg}
             label={'Choose answer image'}
             register={register}
             setValue={setValue}

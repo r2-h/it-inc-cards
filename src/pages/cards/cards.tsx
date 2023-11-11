@@ -5,7 +5,13 @@ import ArrowBackImg from '@/assets/arrow-back-img'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
-import { AddAndEditDeck, CreateDeckFormValues, ModalForCards } from '@/components/modal-for-cards'
+import {
+  AddCardsFormValues,
+  CreateDeckFormValues,
+  EditCard,
+  EditDeck,
+  ModalWrapper,
+} from '@/components'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
@@ -25,8 +31,6 @@ import { cardsActions } from '@/services/cards/cards-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
-
-import { AddCardsFormValues, EditCard } from '../../components/modal-for-cards/edit-card'
 
 export const Cards = () => {
   const dispatch = useAppDispatch()
@@ -97,7 +101,7 @@ export const Cards = () => {
 
         {myDeck && (
           <Modal trigger={<Button variant={'primary'}>Add New Card</Button>}>
-            <ModalForCards
+            <ModalWrapper
               body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
               title={'Add New Card'}
             />
@@ -134,9 +138,9 @@ export const Cards = () => {
       )}
       {isEditModalOpen && (
         <Modal onOpenChange={() => setIsEditModalOpen(false)} open={isEditModalOpen}>
-          <ModalForCards
+          <ModalWrapper
             body={
-              <AddAndEditDeck
+              <EditDeck
                 isPrivate={deck?.isPrivate}
                 name={deck?.name}
                 onSubmit={updateDeckHandler}

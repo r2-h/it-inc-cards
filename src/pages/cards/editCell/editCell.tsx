@@ -2,16 +2,12 @@ import { FC, useState } from 'react'
 
 import { EditImg } from '@/assets/edit-img'
 import { TrashImg } from '@/assets/trash-img'
-import { ModalForCards } from '@/components/modal-for-cards'
-import { Delete } from '@/components/modal-for-cards/delete'
-import { Modal } from '@/components/ui/modal'
+import { AddCardsFormValues, Delete, EditCard, Modal, ModalWrapper } from '@/components'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api'
 import { CardsResponse } from '@/services/cards/types'
 import clsx from 'clsx'
 
 import s from './editCell.module.scss'
-
-import { AddCardsFormValues, EditCard } from '../../../components/modal-for-cards/edit-card'
 
 type EditCellProps = {
   card: CardsResponse
@@ -46,7 +42,7 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
         <EditImg className={iconCN} />
       </button>
       <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
-        <ModalForCards
+        <ModalWrapper
           body={
             <EditCard
               onSubmit={editCardHandler}
@@ -71,7 +67,7 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
           </button>
         }
       >
-        <ModalForCards
+        <ModalWrapper
           body={
             <Delete
               callback={deleteCardHandler}

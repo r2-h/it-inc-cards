@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
-import s from './add-and-edit-deck.module.scss'
+import s from './edit-deck.module.scss'
 
 const addNewDeckSchema = z.object({
   image: z.any(),
@@ -28,7 +28,7 @@ type AddNewDeckProps = {
   variant?: 'add' | 'edit'
 }
 
-export const AddAndEditDeck = ({
+export const EditDeck = ({
   cover,
   isPrivate = true,
   name = '',
