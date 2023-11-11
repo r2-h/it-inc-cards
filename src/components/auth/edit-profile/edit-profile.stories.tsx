@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from '@/services'
 import { Dialog } from '@radix-ui/react-dialog'
 
-import ava from '../../../assets/ava.jpg'
 import { EditProfileFormValues } from './edit-mode-on'
 import { EditProfile } from './edit-profile'
 
@@ -21,7 +20,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    avatar: ava,
+    avatar: undefined,
     email: 'j&johnson@gmail.com',
     name: 'Ivan',
     onSubmit: (data: EditProfileFormValues) => {
