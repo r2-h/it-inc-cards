@@ -15,7 +15,7 @@ export type Author = {
 export type Deck = {
   author: Author
   cardsCount: number
-  cover?: string | undefined
+  cover?: Blob | string | undefined
   created: string
   id: string
   isBlocked: boolean | null

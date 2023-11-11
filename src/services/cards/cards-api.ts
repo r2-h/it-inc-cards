@@ -50,11 +50,19 @@ const cardsApi = baseApi.injectEndpoints({
         }),
       }),
       patchDeck: builder.mutation<Deck, UpdateDeckParams>({
-        async onQueryStarted({ id, name }, { dispatch, queryFulfilled }) {
+        async onQueryStarted({ cover, id, isPrivate, name }, { dispatch, queryFulfilled }) {
           const patchResult = dispatch(
             cardsApi.util.updateQueryData('getDeck', { id: id! }, draft => {
-              if (draft && name) {
-                draft.name = name
+              if (draft) {
+                if (name) {
+                  draft.name = name
+                }
+                if (typeof isPrivate === 'boolean') {
+                  draft.isPrivate = isPrivate
+                }
+                if (cover) {
+                  draft.cover = URL.createObjectURL(cover as Blob)
+                }
               }
             })
           )

@@ -74,8 +74,8 @@ export const Cards = () => {
 
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     if (deck?.id) {
-    setIsEditModalOpen(false)
       updateDeck({ cover: data.image, id: deck.id, isPrivate: data.isPrivate, name: data.name })
+      setIsEditModalOpen(false)
     }
   }
 
