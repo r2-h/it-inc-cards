@@ -8,7 +8,7 @@ import s from './imageUploader.module.scss'
 
 type ImageUploaderProps = {
   imageKey: string
-  initialImageURL?: string
+  initialImageURL?: Blob | string | undefined
   label: string
   register: UseFormRegister<any>
   setValue: UseFormSetValue<any>
@@ -21,7 +21,7 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
   register,
   setValue,
 }) => {
-  const [imageURL, setImageURL] = useState<string | undefined>(initialImageURL)
+  const [imageURL, setImageURL] = useState<Blob | string | undefined>(initialImageURL)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const uploadHandler = useCallback(

@@ -50,6 +50,7 @@ const cardsApi = baseApi.injectEndpoints({
         }),
       }),
       patchDeck: builder.mutation<Deck, UpdateDeckParams>({
+        invalidatesTags: ['Decks'],
         async onQueryStarted({ cover, id, isPrivate, name }, { dispatch, queryFulfilled }) {
           const patchResult = dispatch(
             cardsApi.util.updateQueryData('getDeck', { id: id! }, draft => {

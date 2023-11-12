@@ -20,7 +20,7 @@ const addNewDeckSchema = z.object({
 export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
 type AddNewDeckProps = {
-  cover?: string | undefined
+  cover?: Blob | string | undefined
   isPrivate?: boolean
   name?: string
   onSubmit: SubmitHandler<{ image?: any; isPrivate: boolean; name: string }>
