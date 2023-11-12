@@ -6,7 +6,7 @@ const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       createCard: builder.mutation<CardsResponse, CreateCardArg>({
-        invalidatesTags: ['Decks', 'Cards'],
+        invalidatesTags: ['Cards', 'Decks'],
         query: args => {
           const { id, ...body } = args
           const formData = new FormData()
