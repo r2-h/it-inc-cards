@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 import { Typography } from '@/components'
 import { Body, Row, TD } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
-import { EditCell } from '@/pages/cards/editCell'
+import { EditCell } from '@/pages'
 import { CardsResponse } from '@/services'
 
 import s from './cards-table-body.module.scss'

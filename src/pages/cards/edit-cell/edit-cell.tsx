@@ -7,7 +7,7 @@ import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/c
 import { CardsResponse } from '@/services/cards/types'
 import clsx from 'clsx'
 
-import s from './editCell.module.scss'
+import s from './edit-cell.module.scss'
 
 type EditCellProps = {
   card: CardsResponse
@@ -68,13 +68,7 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
         }
       >
         <ModalWrapper
-          body={
-            <Delete
-              callback={deleteCardHandler}
-              title={card?.question}
-              titleButton={'Delete Card'}
-            />
-          }
+          body={<Delete callback={deleteCardHandler} title={card?.question} variant={'Card'} />}
           title={'Delete Card'}
         />
       </Modal>

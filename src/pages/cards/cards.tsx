@@ -1,17 +1,11 @@
 import { ChangeEvent, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { TrashImg } from '@/assets/trash-img'
-import {
-  AddCardsFormValues,
-  CreateDeckFormValues,
-  EditCard,
-  EditDeck,
-  ModalWrapper,
-} from '@/components'
+import { CreateDeckFormValues, Delete, EditDeck, ModalWrapper } from '@/components'
 import { Button } from '@/components/ui/button'
 import { DropDown, DropDownItem } from '@/components/ui/drop-down'
 import { Modal } from '@/components/ui/modal'
@@ -19,29 +13,29 @@ import { Pagination } from '@/components/ui/pagination'
 import { TextField } from '@/components/ui/text-field'
 import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
+import { AddNewCard } from '@/pages/cards/add-new-card'
 import { CardsTable } from '@/pages/cards/cards-table'
-import { usePatchDeckMutation } from '@/services'
+import { useDeleteDeckMutation, usePatchDeckMutation } from '@/services'
 import { useMeQuery } from '@/services/auth/auth-api'
-import {
-  useCreateCardMutation,
-  useGetCardsInDeckQuery,
-  useGetDeckQuery,
-} from '@/services/cards/cards-api'
+import { useGetCardsInDeckQuery, useGetDeckQuery } from '@/services/cards/cards-api'
 import { cardsActions } from '@/services/cards/cards-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
 import s from './cards.module.scss'
 
+import { EmptyDeck } from './empty-deck'
+
 export const Cards = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>()
 
   const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
-  const [updateDeck] = usePatchDeckMutation()
 
-  const [createCard] = useCreateCardMutation()
+  const [updateDeck] = usePatchDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
   const { data: cards, isError } = useGetCardsInDeckQuery({
@@ -52,30 +46,23 @@ export const Cards = () => {
   })
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
   const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(cardsActions.setSearchQuestion(e.currentTarget.value))
   const clearSearchHandler = () => dispatch(cardsActions.setSearchQuestion(''))
-  const addCardHandler = (data: AddCardsFormValues) => {
-    if (id) {
-      setIsCreateModalOpen(false)
-      createCard({
-        answer: data.answer,
-        answerImg: data?.answerImg,
-        id,
-        question: data.question,
-        questionImg: data?.questionImg,
-      })
-    }
-  }
-
   const updateDeckHandler = (data: CreateDeckFormValues) => {
+    setIsEditModalOpen(false)
     if (deck?.id) {
       updateDeck({ cover: data.image, id: deck.id, isPrivate: data.isPrivate, name: data.name })
-      setIsEditModalOpen(false)
+    }
+  }
+  const deleteDeckHandler = () => {
+    if (deck?.id) {
+      deleteDeck({ id: deck.id })
+      navigate('/')
     }
   }
 
@@ -107,44 +94,42 @@ export const Cards = () => {
                 onSelect={() => setIsEditModalOpen(true)}
                 text={'Edit'}
               />
-              <DropDownItem icon={<TrashImg />} lastItem text={'Delete'} />
+              <DropDownItem
+                icon={<TrashImg />}
+                lastItem
+                onSelect={() => setIsDeleteModalOpen(true)}
+                text={'Delete'}
+              />
             </DropDown>
           )}
         </div>
 
-        {myDeck && (
-          <>
-            <Button onClick={() => setIsCreateModalOpen(true)} variant={'primary'}>
-              Add New Card
-            </Button>
-            <Modal onOpenChange={() => setIsCreateModalOpen(false)} open={isCreateModalOpen}>
-              <ModalWrapper
-                body={<EditCard onSubmit={addCardHandler} variant={'add'} />}
-                title={'Add New Card'}
-              />
-            </Modal>
-          </>
-        )}
+        {myDeck && !!deck?.cardsCount && <AddNewCard />}
         {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
       </div>
 
       {deck?.cover && (
         <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
       )}
-
-      <TextField
-        className={s.input}
-        fullWidth
-        onChange={searchQuestionHandler}
-        onClearClick={clearSearchHandler}
-        placeholder={'Input search'}
-        type={'search'}
-        value={searchQuestion}
-      />
-
-      <CardsTable data={cards?.items} myDeck={myDeck} />
+      {myDeck && !deck?.cardsCount && <EmptyDeck />}
 
       {cards?.pagination.totalItems !== 0 && (
+        <>
+          <TextField
+            className={s.input}
+            fullWidth
+            onChange={searchQuestionHandler}
+            onClearClick={clearSearchHandler}
+            placeholder={'Input search'}
+            type={'search'}
+            value={searchQuestion}
+          />
+
+          <CardsTable data={cards?.items} myDeck={myDeck} />
+        </>
+      )}
+
+      {!!cards?.pagination.totalItems && (
         <Pagination
           className={s.pagination}
           currentPage={currentPage}
@@ -154,6 +139,7 @@ export const Cards = () => {
           totalCount={cards?.pagination.totalItems || 61}
         />
       )}
+
       {isEditModalOpen && (
         <Modal onOpenChange={() => setIsEditModalOpen(false)} open={isEditModalOpen}>
           <ModalWrapper
@@ -167,6 +153,14 @@ export const Cards = () => {
               />
             }
             title={'Edit Deck'}
+          />
+        </Modal>
+      )}
+      {isDeleteModalOpen && (
+        <Modal onOpenChange={() => setIsDeleteModalOpen(false)} open={isDeleteModalOpen}>
+          <ModalWrapper
+            body={<Delete callback={deleteDeckHandler} title={deck!.name} variant={'Deck'} />}
+            title={'Delete Deck'}
           />
         </Modal>
       )}

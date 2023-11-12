@@ -73,7 +73,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
       </button>
       <Modal onOpenChange={() => setIsOpenDelete(false)} open={isOpenDelete}>
         <ModalWrapper
-          body={<Delete callback={deleteHandler} title={item.name} titleButton={'Delete Deck'} />}
+          body={<Delete callback={deleteHandler} title={item.name} variant={'Deck'} />}
           title={'Delete Deck'}
         />
       </Modal>

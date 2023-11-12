@@ -100,10 +100,7 @@ const decksAPI = baseApi.injectEndpoints({
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckParams>({
         invalidatesTags: ['Decks'],
-        async onQueryStarted(
-          { cover, id, isPrivate, name },
-          { dispatch, getState, queryFulfilled }
-        ) {
+        async onQueryStarted({ id, isPrivate, name }, { dispatch, getState, queryFulfilled }) {
           const {
             decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
           } = getState() as RootState
@@ -129,9 +126,6 @@ const decksAPI = baseApi.injectEndpoints({
                   }
                   if (typeof isPrivate === 'boolean') {
                     deck.isPrivate = isPrivate
-                  }
-                  if (cover) {
-                    deck.cover = URL.createObjectURL(cover as Blob)
                   }
                 }
               }
