@@ -41,7 +41,7 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
   }, [])
 
   return (
-    <div>
+    <div className={s.wrapper}>
       <div className={s.image} style={{ backgroundImage: `url(${imageURL})` }}>
         <input
           {...register(imageKey)}

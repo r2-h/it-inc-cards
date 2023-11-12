@@ -99,7 +99,7 @@ const decksAPI = baseApi.injectEndpoints({
         }),
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckParams>({
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Cards'],
         async onQueryStarted({ id, isPrivate, name }, { dispatch, getState, queryFulfilled }) {
           const {
             decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
