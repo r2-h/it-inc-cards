@@ -11,6 +11,12 @@ const cardsApi = baseApi.injectEndpoints({
           const { id, ...body } = args
           const formData = new FormData()
 
+          if (body.questionVideo) {
+            formData.append('questionVideo', body.questionVideo)
+          }
+          if (body.answerVideo) {
+            formData.append('answerVideo', body.answerVideo)
+          }
           if (body.questionImg) {
             formData.append('questionImg', body.questionImg)
           }
@@ -90,11 +96,17 @@ const cardsApi = baseApi.injectEndpoints({
         },
       }),
       updateCard: builder.mutation<CardsResponse, UpdateCardArg>({
-        invalidatesTags: ['Cards'],
+        invalidatesTags: ['Cards', 'Decks'],
         query: args => {
           const { id, ...body } = args
           const formData = new FormData()
 
+          if (body.questionVideo) {
+            formData.append('questionVideo', body.questionVideo)
+          }
+          if (body.answerVideo) {
+            formData.append('answerVideo', body.answerVideo)
+          }
           if (body.questionImg) {
             formData.append('questionImg', body.questionImg)
           }

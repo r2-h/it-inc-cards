@@ -5,6 +5,7 @@ import { Body, Row, TD } from '@/components/ui/tables'
 import { Grade } from '@/components/ui/tables/grade'
 import { EditCell } from '@/pages'
 import { CardsResponse } from '@/services'
+import clsx from 'clsx'
 
 import s from './cards-table-body.module.scss'
 
@@ -25,12 +26,22 @@ export const CardsTableBody: FC<
             {card?.questionImg ? (
               <div className={s.wrapper}>
                 <div className={s.image} style={{ backgroundImage: `url(${card.questionImg})` }} />
-                <Typography className={s.title} variant={'body2'}>
+                <Typography
+                  as={'a'}
+                  className={clsx(s.title, card.questionVideo ?? s.disabled)}
+                  href={card.questionVideo ?? ''}
+                  variant={'body2'}
+                >
                   {card.question}
                 </Typography>
               </div>
             ) : (
-              <Typography className={s.title} variant={'body2'}>
+              <Typography
+                as={'a'}
+                className={clsx(s.title, card.questionVideo ?? s.disabled)}
+                href={card.questionVideo ?? ''}
+                variant={'body2'}
+              >
                 {card.question}
               </Typography>
             )}
@@ -39,12 +50,22 @@ export const CardsTableBody: FC<
             {card?.answerImg ? (
               <div className={s.wrapper}>
                 <div className={s.image} style={{ backgroundImage: `url(${card.answerImg})` }} />
-                <Typography className={s.title} variant={'body2'}>
+                <Typography
+                  as={'a'}
+                  className={clsx(s.title, card.answerVideo ?? s.disabled)}
+                  href={card.answerVideo ?? ''}
+                  variant={'body2'}
+                >
                   {card.answer}
                 </Typography>
               </div>
             ) : (
-              <Typography className={s.title} variant={'body2'}>
+              <Typography
+                as={'a'}
+                className={clsx(s.title, card.answerVideo ?? s.disabled)}
+                href={card.answerVideo ?? ''}
+                variant={'body2'}
+              >
                 {card.answer}
               </Typography>
             )}

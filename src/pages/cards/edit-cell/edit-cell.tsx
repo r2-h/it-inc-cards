@@ -25,9 +25,11 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
     updateCard({
       answer: data.answer,
       answerImg: data?.answerImg,
+      answerVideo: data.answerVideo,
       id: card.id,
       question: data.question,
       questionImg: data?.questionImg,
+      questionVideo: data.questionVideo,
     })
   }
 
@@ -43,18 +45,7 @@ export const EditCell: FC<EditCellProps> = ({ card, disabled, isEditable }) => {
       </button>
       <Modal onOpenChange={() => setIsOpenEdit(false)} open={isOpenEdit}>
         <ModalWrapper
-          body={
-            <EditCard
-              onSubmit={editCardHandler}
-              values={{
-                answer: card.answer,
-                answerImg: card.answerImg,
-                question: card.question,
-                questionImg: card.questionImg,
-              }}
-              variant={'edit'}
-            />
-          }
+          body={<EditCard card={card} onSubmit={editCardHandler} variant={'edit'} />}
           title={'Edit Card'}
         />
       </Modal>

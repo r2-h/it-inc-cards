@@ -111,9 +111,10 @@ export const Cards = () => {
       {deck?.cover && (
         <div className={s.deckImage} style={{ backgroundImage: `url(${deck.cover})` }}></div>
       )}
+
       {myDeck && !deck?.cardsCount && <EmptyDeck />}
 
-      {cards?.pagination.totalItems !== 0 && (
+      {!!cards?.pagination.totalItems && (
         <>
           <TextField
             className={s.input}

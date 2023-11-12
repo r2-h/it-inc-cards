@@ -17,17 +17,21 @@ export type CardsResponse = {
 export type CreateCardArg = {
   answer: string
   answerImg?: string
+  answerVideo?: string
   id: string
   question: string
   questionImg?: string
+  questionVideo?: string
 }
 
 export type UpdateCardArg = {
   answer: string
   answerImg?: string
+  answerVideo?: string
   id: string
   question: string
   questionImg?: string
+  questionVideo?: string
 }
 
 export type GetCardsParams = {

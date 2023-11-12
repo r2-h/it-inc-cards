@@ -1,12 +1,6 @@
 .uploaderContainer {
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 20px;
-  }
-
   .backButton {
+    width: 400px;
     text-align: end;
   }
 }
