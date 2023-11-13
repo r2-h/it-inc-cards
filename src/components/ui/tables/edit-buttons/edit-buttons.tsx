@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { EditImg } from '@/assets/edit-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
@@ -46,9 +47,9 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
 
   return (
     <div className={s.wrapper}>
-      <button>
+      <Link to={`/learn-deck/${item.id}`}>
         <PlayCircleImg />
-      </button>
+      </Link>
 
       <button className={buttonCN} onClick={() => setIsOpenEdit(isMyDeck)}>
         <EditImg />

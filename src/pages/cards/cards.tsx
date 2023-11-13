@@ -15,9 +15,9 @@ import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
 import { AddNewCard } from '@/pages/cards/add-new-card'
 import { CardsTable } from '@/pages/cards/cards-table'
-import { useDeleteDeckMutation, usePatchDeckMutation } from '@/services'
+import { useDeleteDeckMutation, useGetDeckQuery, useUpdateDeckMutation } from '@/services'
 import { useMeQuery } from '@/services/auth/auth-api'
-import { useGetCardsInDeckQuery, useGetDeckQuery } from '@/services/cards/cards-api'
+import { useGetCardsInDeckQuery } from '@/services/cards/cards-api'
 import { cardsActions } from '@/services/cards/cards-slice'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 
@@ -34,7 +34,7 @@ export const Cards = () => {
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
 
-  const [updateDeck] = usePatchDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: me } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
@@ -88,7 +88,13 @@ export const Cards = () => {
 
           {myDeck && (
             <DropDown trigger={<TriggerMore />}>
-              <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
+              <DropDownItem
+                icon={<PlayCircleImg />}
+                onSelect={() => {
+                  navigate(`/learn-deck/${deck?.id}`)
+                }}
+                text={'Learn'}
+              />
               <DropDownItem
                 icon={<EditImg />}
                 onSelect={() => setIsEditModalOpen(true)}

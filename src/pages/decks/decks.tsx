@@ -118,7 +118,7 @@ export const Decks = () => {
         </Button>
       </div>
 
-      <DeckTable data={decks.data?.items} onSort={sortHandler} sort={sort} />
+      <DeckTable data={decks.currentData?.items} onSort={sortHandler} sort={sort} />
 
       <Pagination
         className={s.pagination}

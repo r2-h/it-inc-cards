@@ -10,17 +10,17 @@ export const CardsTable: FC<CardsTableProps> = ({ data, myDeck }) => {
   const columns: CardsColumn[] = [
     {
       key: 'question',
-      sortable: true,
+      sortable: false,
       title: 'Question',
     },
     {
       key: 'answer',
-      sortable: true,
+      sortable: false,
       title: 'Answer',
     },
     {
       key: 'updated',
-      sortable: true,
+      sortable: false,
       title: 'Last Updated',
     },
     {
