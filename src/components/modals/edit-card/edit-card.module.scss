@@ -29,3 +29,11 @@
 .viewport {
   background-color: var(--color-dark-700);
 }
+
+.error {
+  margin-top: 10px;
+
+  span {
+    color: var(--color-danger-300);
+  }
+}
