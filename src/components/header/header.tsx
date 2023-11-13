@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
+import ava from '@/assets/ava.jpg'
 import { ItIncubatorImg } from '@/assets/it-incubator'
 import { Button } from '@/components/ui/button'
 import { DropDown } from '@/components/ui/drop-down'
@@ -25,23 +26,23 @@ export const Header: FC<HeaderProps> = ({ avatar, dropDownChildren, email, isLog
         </Link>
 
         {isLoggedIn ? (
-          <div className={s.avatarBlock}>
-            <Typography className={s.name} variant={'subtitle1'}>
-              {name}
-            </Typography>
-            <DropDown
-              avatar={avatar}
-              email={email}
-              name={name}
-              trigger={
+          <DropDown
+            avatar={avatar}
+            email={email}
+            name={name}
+            trigger={
+              <div className={s.avatarBlock}>
+                <Typography className={s.name} variant={'subtitle1'}>
+                  {name}
+                </Typography>
                 <button>
-                  <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
+                  <div className={s.img} style={{ backgroundImage: `url(${avatar ?? ava})` }} />
                 </button>
-              }
-            >
-              {dropDownChildren}
-            </DropDown>
-          </div>
+              </div>
+            }
+          >
+            {dropDownChildren}
+          </DropDown>
         ) : (
           <Button as={'a'} href={'/login'}>
             Sign In

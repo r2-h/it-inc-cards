@@ -1,0 +1,26 @@
+.linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  text-decoration: none;
+
+  .back {
+    color: var(--color-light-100);
+  }
+}
+
+.wrapper {
+  margin: 36px auto;
+  padding: 0 36px;
+
+  .title {
+    display: block;
+    margin: 33px 0;
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+  .button {
+    margin: 20px 0 48px;
+  }
+}

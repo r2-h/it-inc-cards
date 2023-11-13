@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 
+import ava from '@/assets/ava.jpg'
 import { Typography } from '@/components/ui/typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
@@ -81,7 +82,7 @@ type DropDownLabelProps = {
 export const DropDownLabel: FC<DropDownLabelProps> = ({ avatar, email, name }) => {
   return (
     <div className={s.labelWrapper}>
-      <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
+      <div className={s.img} style={{ backgroundImage: `url(${avatar ?? ava})` }} />
       <DropdownMenu.Label className={s.label}>
         <Typography as={'label'} className={s.name} variant={'subtitle2'}>
           {name}

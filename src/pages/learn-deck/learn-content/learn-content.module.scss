@@ -1,0 +1,33 @@
+.image {
+  display: block;
+  align-items: center;
+
+  width: 350px;
+  height: 120px;
+  margin: 18px 0;
+
+  background-position: center;
+  background-size: cover;
+  border-radius: 2px;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 12px;
+  color: var(--color-light-100);
+}
+
+.text {
+  color: var(--color-light-100);
+  word-break: break-all;
+}
+
+.description {
+  display: block;
+  margin-bottom: 23px;
+  color: var(--color-dark-100);
+}
+
+.button {
+  margin: 20px 0 48px;
+}

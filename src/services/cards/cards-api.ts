@@ -1,6 +1,6 @@
 import { baseApi } from '@/services/base-api'
 import { CardsResponse, CreateCardArg, GetCardsParams, UpdateCardArg } from '@/services/cards/types'
-import { GetCardInDeckResponse } from '@/services/decks/types'
+import { GetCardInDeckResponse, } from '@/services/decks/types'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -47,6 +47,12 @@ const cardsApi = baseApi.injectEndpoints({
           method: 'GET',
           params: params || {},
           url: `v1/decks/${id}/cards`,
+        }),
+      }),
+      learnCards: builder.query<CardsResponse, { id: string }>({
+        query: ({ id }) => ({
+          method: 'GET',
+          url: `v1/decks/${id}/learn`,
         }),
       }),
       // patchDeck: builder.mutation<Deck, UpdateDeckParams>({
