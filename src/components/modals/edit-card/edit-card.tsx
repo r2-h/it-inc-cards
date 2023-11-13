@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { Typography } from '@/components'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
@@ -50,9 +51,9 @@ export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
     resolver: zodResolver(addNewCardSchema),
     values: {
       answer: card?.answer || '',
-      answerVideo: card?.answerVideo || '',
+      answerVideo: card?.answerVideo,
       question: card?.question || '',
-      questionVideo: card?.questionVideo || '',
+      questionVideo: card?.questionVideo,
     },
   })
 
@@ -119,6 +120,18 @@ export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
               name={'answer'}
             />
           </div>
+
+          {errors.questionVideo && (
+            <div className={s.error}>
+              <Typography variant={'caption'}>Invalid question url</Typography>
+            </div>
+          )}
+          {errors.answerVideo && (
+            <div className={s.error}>
+              <Typography variant={'caption'}>Invalid answer url</Typography>
+            </div>
+          )}
+
           <div className={s.buttons}>
             <Button type={'button'} variant={'secondary'}>
               <DialogClose>Cancel</DialogClose>
