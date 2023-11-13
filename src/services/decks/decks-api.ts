@@ -14,35 +14,36 @@ const decksAPI = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<Deck, CreateDeckParams>({
         invalidatesTags: ['Decks'],
-        // onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
-        //   const {
-        //     decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
-        //   } = getState() as RootState
-        //
-        //   try {
-        //     const result = await queryFulfilled
-        //
-        //     dispatch(
-        //       decksAPI.util.updateQueryData(
-        //         'getDecks',
-        //         {
-        //           authorId: tabsValue,
-        //           currentPage,
-        //           itemsPerPage,
-        //           maxCardsCount: `${sliderValue[1]}`,
-        //           minCardsCount: `${sliderValue[0]}`,
-        //           name: search,
-        //           orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
-        //         },
-        //         draft => {
-        //           draft?.items?.unshift(result.data)
-        //         }
-        //       )
-        //     )
-        //   } catch (e) {
-        //     console.log(e)
-        //   }
-        // },
+        onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
+          const {
+            decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
+          } = getState() as RootState
+
+          try {
+            const result = await queryFulfilled
+
+            dispatch(
+              decksAPI.util.updateQueryData(
+                'getDecks',
+                {
+                  authorId: tabsValue,
+                  currentPage,
+                  itemsPerPage,
+                  maxCardsCount: `${sliderValue[1]}`,
+                  minCardsCount: `${sliderValue[0]}`,
+                  name: search,
+                  orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
+                },
+                draft => {
+                  draft?.items?.unshift(result.data)
+                }
+              )
+            )
+          } catch (e) {
+            console.log(e)
+          }
+        },
+
         query: body => {
           const formData = new FormData()
 
@@ -55,7 +56,7 @@ const decksAPI = baseApi.injectEndpoints({
           return { body: formData, formData, method: 'POST', url: `v1/decks` }
         },
       }),
-      deleteDeck: builder.mutation<DeleteResponse, { id: Deck['id'] }>({
+      deleteDeck: builder.mutation<DeleteResponse, { id: string }>({
         invalidatesTags: ['Decks'],
         onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
           const {
@@ -90,6 +91,12 @@ const decksAPI = baseApi.injectEndpoints({
           url: `v1/decks/${id}`,
         }),
       }),
+      getDeck: builder.query<Deck, { id: string }>({
+        providesTags: ['Decks'],
+        query: ({ id }) => ({
+          url: `v1/decks/${id}`,
+        }),
+      }),
       getDecks: builder.query<DecksResponse, DecksParams>({
         providesTags: ['Decks'],
         query: params => ({
@@ -108,7 +115,8 @@ const decksAPI = baseApi.injectEndpoints({
             decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
           } = getState() as RootState
 
-          const patchResult = dispatch(
+          /* update Decks*/
+          const decksResult = dispatch(
             decksAPI.util.updateQueryData(
               'getDecks',
               {
@@ -138,10 +146,28 @@ const decksAPI = baseApi.injectEndpoints({
             )
           )
 
+          // /* update deck*/
+          const deckResult = dispatch(
+            decksAPI.util.updateQueryData('getDeck', { id: id! }, draft => {
+              if (draft) {
+                if (name) {
+                  draft.name = name
+                }
+                if (typeof isPrivate === 'boolean') {
+                  draft.isPrivate = isPrivate
+                }
+                if (cover) {
+                  draft.cover = URL.createObjectURL(cover as Blob)
+                }
+              }
+            })
+          )
+
           try {
             await queryFulfilled
           } catch {
-            patchResult.undo()
+            decksResult.undo()
+            deckResult.undo()
           }
         },
 
@@ -169,6 +195,56 @@ const decksAPI = baseApi.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } = decksAPI
+
+// createDeck optimistic update
+//invalidatesTags: [{ id: 'LIST', type: 'Decks' }],
+//         onQueryStarted: async (_, { dispatch, getState, queryFulfilled }) => {
+//           const {
+//             decks: { currentPage, itemsPerPage, search, sliderValue, sort, tabsValue },
+//           } = getState() as RootState
+//
+//           try {
+//             const result = await queryFulfilled
+//
+//             dispatch(
+//               decksAPI.util.updateQueryData(
+//                 'getDecks',
+//                 {
+//                   authorId: tabsValue,
+//                   currentPage,
+//                   itemsPerPage,
+//                   maxCardsCount: `${sliderValue[1]}`,
+//                   minCardsCount: `${sliderValue[0]}`,
+//                   name: search,
+//                   orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
+//                 },
+//                 draft => {
+//                   draft?.items?.unshift(result.data)
+//                 }
+//               )
+//             )
+//
+//             dispatch(decksAPI.util.upsertQueryData('getDeck', { id: result.data.id }, result.data))
+//           } catch (e) {
+//             console.log(e)
+//           }
+//         },
+
+//       getDecks: builder.query<DecksResponse, DecksParams>({
+//         providesTags: (result, _error, _arg) =>
+//           result
+//             ? [
+//                 { id: 'LIST', type: 'Decks' },
+//                 ...result.items.map(({ id }) => ({ id, type: 'Decks' as const })),
+//               ]
+//             : [{ id: 'LIST', type: 'Decks' }],
+//         query: params => ({
+//           method: 'GET',
+//           params: params || {},
+//           url: 'v1/decks',
+//         }),
+//       }),

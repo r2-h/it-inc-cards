@@ -1,6 +1,6 @@
 import { baseApi } from '@/services/base-api'
 import { CardsResponse, CreateCardArg, GetCardsParams, UpdateCardArg } from '@/services/cards/types'
-import { Deck, GetCardInDeckResponse, UpdateDeckParams } from '@/services/decks/types'
+import { GetCardInDeckResponse } from '@/services/decks/types'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -49,52 +49,46 @@ const cardsApi = baseApi.injectEndpoints({
           url: `v1/decks/${id}/cards`,
         }),
       }),
-      getDeck: builder.query<Deck, { id: string }>({
-        providesTags: ['Decks'],
-        query: ({ id }) => ({
-          url: `v1/decks/${id}`,
-        }),
-      }),
-      patchDeck: builder.mutation<Deck, UpdateDeckParams>({
-        invalidatesTags: ['Decks'],
-        async onQueryStarted({ cover, id, isPrivate, name }, { dispatch, queryFulfilled }) {
-          const patchResult = dispatch(
-            cardsApi.util.updateQueryData('getDeck', { id: id! }, draft => {
-              if (draft) {
-                if (name) {
-                  draft.name = name
-                }
-                if (typeof isPrivate === 'boolean') {
-                  draft.isPrivate = isPrivate
-                }
-                if (cover) {
-                  draft.cover = URL.createObjectURL(cover as Blob)
-                }
-              }
-            })
-          )
-
-          try {
-            await queryFulfilled
-          } catch {
-            patchResult.undo()
-          }
-        },
-        query: patch => {
-          const formData = new FormData()
-
-          patch.name && formData.append('name', patch.name)
-          patch.cover && formData.append('cover', patch.cover)
-          typeof patch.isPrivate === 'boolean' && formData.append('isPrivate', `${patch.isPrivate}`)
-
-          return {
-            body: formData,
-            formData: true,
-            method: 'PATCH',
-            url: `v1/decks/${patch.id}`,
-          }
-        },
-      }),
+      // patchDeck: builder.mutation<Deck, UpdateDeckParams>({
+      //   invalidatesTags: ['Decks'],
+      //   async onQueryStarted({ cover, id, isPrivate, name }, { dispatch, queryFulfilled }) {
+      //     const patchResult = dispatch(
+      //       cardsApi.util.updateQueryData('getDeck', { id: id! }, draft => {
+      //         if (draft) {
+      //           if (name) {
+      //             draft.name = name
+      //           }
+      //           if (typeof isPrivate === 'boolean') {
+      //             draft.isPrivate = isPrivate
+      //           }
+      //           if (cover) {
+      //             draft.cover = URL.createObjectURL(cover as Blob)
+      //           }
+      //         }
+      //       })
+      //     )
+      //
+      //     try {
+      //       await queryFulfilled
+      //     } catch {
+      //       patchResult.undo()
+      //     }
+      //   },
+      //   query: patch => {
+      //     const formData = new FormData()
+      //
+      //     patch.name && formData.append('name', patch.name)
+      //     patch.cover && formData.append('cover', patch.cover)
+      //     typeof patch.isPrivate === 'boolean' && formData.append('isPrivate', `${patch.isPrivate}`)
+      //
+      //     return {
+      //       body: formData,
+      //       formData: true,
+      //       method: 'PATCH',
+      //       url: `v1/decks/${patch.id}`,
+      //     }
+      //   },
+      // }),
       updateCard: builder.mutation<CardsResponse, UpdateCardArg>({
         invalidatesTags: ['Cards', 'Decks'],
         query: args => {
@@ -127,7 +121,5 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useGetCardsInDeckQuery,
-  useGetDeckQuery,
-  usePatchDeckMutation,
   useUpdateCardMutation,
 } = cardsApi
