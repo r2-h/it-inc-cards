@@ -17,10 +17,10 @@ import { SelectVideo, answerAndQuestionSchema } from '..'
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,
   answerImg: z.any(),
-  answerVideo: z.string().url(),
+  answerVideo: z.string().url().optional(),
   question: answerAndQuestionSchema,
   questionImg: z.any(),
-  questionVideo: z.string().url(),
+  questionVideo: z.string().url().optional(),
 })
 
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
@@ -30,10 +30,10 @@ type EditCardProps = {
   onSubmit: SubmitHandler<{
     answer: string
     answerImg?: any
-    answerVideo: string
+    answerVideo?: string | undefined
     question: string
     questionImg?: any
-    questionVideo: string
+    questionVideo?: string | undefined
   }>
   variant: 'add' | 'edit'
 }
