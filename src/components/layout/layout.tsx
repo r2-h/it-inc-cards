@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 import { MyProfileImg } from '@/assets/my-profile-img'
 import { SignOutImg } from '@/assets/sign-out-img'
@@ -16,6 +16,7 @@ export const Layout = () => {
   const { data: auth, isError } = useMeQuery()
   const [edit] = useUpdateUserMutation()
   const [logOut] = useLogoutMutation()
+  const navigate = useNavigate()
 
   const isAuthenticated = !isError
 
@@ -27,6 +28,7 @@ export const Layout = () => {
 
   const logOutHandler = () => {
     logOut()
+    navigate('/login')
   }
 
   return (

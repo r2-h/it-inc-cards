@@ -55,6 +55,12 @@ const cardsApi = baseApi.injectEndpoints({
           url: `v1/decks/${id}`,
         }),
       }),
+      learnCards: builder.query<CardsResponse, { id: string }>({
+        query: ({ id }) => ({
+          method: 'GET',
+          url: `v1/decks/${id}/learn`,
+        }),
+      }),
       patchDeck: builder.mutation<Deck, UpdateDeckParams>({
         invalidatesTags: ['Decks'],
         async onQueryStarted({ cover, id, isPrivate, name }, { dispatch, queryFulfilled }) {
@@ -128,6 +134,7 @@ export const {
   useDeleteCardMutation,
   useGetCardsInDeckQuery,
   useGetDeckQuery,
+  useLearnCardsQuery,
   usePatchDeckMutation,
   useUpdateCardMutation,
 } = cardsApi

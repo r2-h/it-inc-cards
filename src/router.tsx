@@ -17,6 +17,7 @@ import {
   SignInPage,
   SignUpPage,
 } from '@/pages'
+import { LearnDeck } from '@/pages/learn-deck/learn-deck'
 import { useMeQuery } from '@/services/auth/auth-api'
 
 const publicRoutes: RouteObject[] = [
@@ -55,6 +56,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <Cards />,
     path: '/cards/:id',
+  },
+  {
+    element: <LearnDeck />,
+    path: '/learn-deck/:id',
   },
 ]
 

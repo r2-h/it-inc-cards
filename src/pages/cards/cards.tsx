@@ -88,7 +88,13 @@ export const Cards = () => {
 
           {myDeck && (
             <DropDown trigger={<TriggerMore />}>
-              <DropDownItem icon={<PlayCircleImg />} text={'Learn'} />
+              <DropDownItem
+                icon={<PlayCircleImg />}
+                onSelect={() => {
+                  navigate(`/learn-deck/${deck?.id}`)
+                }}
+                text={'Learn'}
+              />
               <DropDownItem
                 icon={<EditImg />}
                 onSelect={() => setIsEditModalOpen(true)}

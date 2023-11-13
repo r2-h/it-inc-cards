@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { EditImg } from '@/assets/edit-img'
 import LogoutImg from '@/assets/logout-img'
@@ -17,12 +18,14 @@ type EditModeOffProps = {
 
 export const EditModeOff: FC<EditModeOffProps> = ({ email, name, setEditMode }) => {
   const [logOut] = useLogoutMutation()
+  const navigate = useNavigate()
   const switchOnEditModeHandler = () => {
     setEditMode(true)
   }
 
   const logOutHandler = () => {
     logOut()
+    navigate('/login')
   }
 
   return (

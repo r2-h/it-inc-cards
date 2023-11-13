@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+import ava from '@/assets/ava.jpg'
 import { EditImg } from '@/assets/edit-img'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
@@ -28,7 +29,7 @@ export const EditProfile: FC<EditProfileProps> = ({ avatar, email, name, onSubmi
         Personal Information
       </Typography>
       <div className={s.avatar}>
-        <div className={s.img} style={{ backgroundImage: `url(${avatar})` }} />
+        <div className={s.img} style={{ backgroundImage: `url(${avatar ?? ava})` }} />
         <InputTypeFile className={s.buttonAvatar} setImage={updateProfile} trigger={<EditImg />} />
       </div>
       {editMode && <EditModeOn defaultValue={name} onSubmit={onSubmit} />}
