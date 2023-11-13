@@ -42,3 +42,5 @@ export type GetCardsParams = {
   orderBy?: string
   question?: string
 }
+
+export type SaveGradeArgs = { cardId: string; grade: number; id: string }

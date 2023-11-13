@@ -1,6 +1,7 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
+import CloseImg from '@/assets/close-img'
 import { Card, Typography } from '@/components'
 import { LearnContent } from '@/pages/learn-deck/learn-content'
 import { useGetDeckQuery } from '@/services'
@@ -10,6 +11,12 @@ import s from './learn-deck.module.scss'
 export const LearnDeck = () => {
   const { id } = useParams<{ id: string }>()
   const { data: deck } = useGetDeckQuery({ id: id ?? '' })
+  const navigate = useNavigate()
+  const closeHandler = (e: React.KeyboardEvent<SVGSVGElement>) => {
+    if (e.key === 'Enter') {
+      navigate(`/cards/${id}`)
+    }
+  }
 
   return (
     <>
@@ -23,6 +30,12 @@ export const LearnDeck = () => {
         <Typography className={s.title} variant={'large'}>
           Learn {deck?.name}
         </Typography>
+        <CloseImg
+          className={s.close}
+          onClick={() => navigate(`/cards/${id}`)}
+          onKeyDown={closeHandler}
+          tabIndex={0}
+        />
         <LearnContent />
       </Card>
     </>

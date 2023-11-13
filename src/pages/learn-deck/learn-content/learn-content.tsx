@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { Button, Typography } from '@/components'
 import { LearnForm } from '@/pages/learn-deck/learn-form'
-import { useLearnCardsQuery } from '@/services'
+import { useLearnCardsQuery, useSaveGradeMutation } from '@/services'
 
 import s from './learn-content.module.scss'
 
@@ -11,16 +11,18 @@ export const LearnContent = () => {
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { id } = useParams<{ id: string }>()
   const { data: card, refetch } = useLearnCardsQuery({ id: id ?? '' })
+  const [saveGrade] = useSaveGradeMutation()
 
   const onSubmit = () => {
     refetch()
+    saveGrade({ cardId: card?.id ?? '', grade: card?.rating ?? 1, id: id ?? '' })
     setIsShowAnswer(false)
   }
 
   return (
     <>
       <Typography className={s.subtitle} variant={'subtitle1'}>
-        Question:{' '}
+        Question:
       </Typography>
       {card?.questionImg && (
         <div
@@ -37,7 +39,7 @@ export const LearnContent = () => {
       )}
 
       <Typography className={s.description} variant={'body2'}>
-        Количество попыток ответов на вопрос: 10
+        Количество попыток ответов на вопрос: {card?.shots}
       </Typography>
 
       {!isShowAnswer && (
@@ -48,7 +50,7 @@ export const LearnContent = () => {
       {isShowAnswer && (
         <>
           <Typography className={s.subtitle} variant={'subtitle1'}>
-            Answer:{' '}
+            Answer:
           </Typography>
           {card?.answerImg && (
             <div

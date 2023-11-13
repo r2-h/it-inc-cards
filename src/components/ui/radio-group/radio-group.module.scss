@@ -3,7 +3,6 @@ button {
 }
 
 .radioGroupRoot {
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -13,6 +12,8 @@ button {
     align-items: center;
 
     .radioGroupItem {
+      cursor: pointer;
+
       box-sizing: border-box;
       width: 16px;
       height: 16px;
@@ -84,7 +85,10 @@ button {
     }
 
     .label {
+      cursor: pointer;
+
       padding-left: 12px;
+
       font-size: var(--font-size-s);
       line-height: var(--line-height-m);
       color: var(--color-light-100);

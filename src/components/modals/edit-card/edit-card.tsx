@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Typography } from '@/components'
+import { Typography, videoSchema } from '@/components'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
@@ -18,10 +18,10 @@ import { SelectVideo, answerAndQuestionSchema } from '..'
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,
   answerImg: z.any(),
-  answerVideo: z.string().url().optional(),
+  answerVideo: videoSchema,
   question: answerAndQuestionSchema,
   questionImg: z.any(),
-  questionVideo: z.string().url().optional(),
+  questionVideo: videoSchema,
 })
 
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
@@ -31,10 +31,10 @@ type EditCardProps = {
   onSubmit: SubmitHandler<{
     answer: string
     answerImg?: any
-    answerVideo?: string | undefined
+    answerVideo?: string
     question: string
     questionImg?: any
-    questionVideo?: string | undefined
+    questionVideo?: string
   }>
   variant: 'add' | 'edit'
 }
@@ -51,9 +51,9 @@ export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
     resolver: zodResolver(addNewCardSchema),
     values: {
       answer: card?.answer || '',
-      answerVideo: card?.answerVideo,
+      answerVideo: card?.answerVideo || '',
       question: card?.question || '',
-      questionVideo: card?.questionVideo,
+      questionVideo: card?.questionVideo || '',
     },
   })
 
