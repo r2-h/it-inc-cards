@@ -1,24 +1,36 @@
-.link {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  text-decoration: none;
+.cellWrapper {
+  &:hover {
+    background-color: var(--color-dark-700);
+  }
 
-  .deckImage {
-    display: inline-flex;
+  .link {
+    display: flex;
+    gap: 10px;
     align-items: center;
+    text-decoration: none;
 
-    width: 110px;
-    height: 40px;
+    .wrapper {
+      display: flex;
+      gap: 8px;
+      align-items: center;
 
-    background-position: center;
-    background-size: cover;
-    border-radius: 2px;
+      .deckImage {
+        display: inline-flex;
+        align-items: center;
 
-    .title {
-      display: inline-flex;
-      flex-shrink: 0;
-      margin-left: 118px;
+        width: 110px;
+        height: 40px;
+
+        background-position: center;
+        background-size: cover;
+        border-radius: 2px;
+
+        .title {
+          display: inline-flex;
+          flex-shrink: 0;
+          margin-left: 118px;
+        }
+      }
     }
   }
 }

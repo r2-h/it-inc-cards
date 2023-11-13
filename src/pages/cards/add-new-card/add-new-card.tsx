@@ -14,10 +14,12 @@ export const AddNewCard = () => {
       setIsCreateModalOpen(false)
       createCard({
         answer: data.answer,
-        answerImg: data?.answerImg,
+        answerImg: data.answerImg,
+        answerVideo: data.answerVideo,
         id,
         question: data.question,
-        questionImg: data?.questionImg,
+        questionImg: data.questionImg,
+        questionVideo: data.questionVideo,
       })
     }
   }

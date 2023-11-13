@@ -29,3 +29,8 @@
 .textCell {
   word-break: break-all;
 }
+
+.disabled {
+  pointer-events: none;
+  text-decoration: none;
+}

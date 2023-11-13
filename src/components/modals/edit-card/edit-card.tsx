@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
+import { CardsResponse } from '@/services'
 import { ImageUploader } from '@/utils/imageUploader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
@@ -11,25 +12,34 @@ import { z } from 'zod'
 
 import s from './edit-card.module.scss'
 
-import { answerAndQuestionSchema } from '..'
+import { SelectVideo, answerAndQuestionSchema } from '..'
 
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,
   answerImg: z.any(),
+  answerVideo: z.string().url(),
   question: answerAndQuestionSchema,
   questionImg: z.any(),
+  questionVideo: z.string().url(),
 })
 
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
-type AddNewCardProps = {
-  onSubmit?: any
-  values?: AddCardsFormValues
+type EditCardProps = {
+  card?: CardsResponse
+  onSubmit: SubmitHandler<{
+    answer: string
+    answerImg?: any
+    answerVideo: string
+    question: string
+    questionImg?: any
+    questionVideo: string
+  }>
   variant: 'add' | 'edit'
 }
 
-export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
-  const [selectValue, setSelectValue] = useState('Text')
+export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
+  const [selectValue, setSelectValue] = useState<string>('Text')
   const {
     control,
     formState: { errors },
@@ -39,8 +49,10 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
   } = useForm<AddCardsFormValues>({
     resolver: zodResolver(addNewCardSchema),
     values: {
-      answer: values?.answer || '',
-      question: values?.question || '',
+      answer: card?.answer || '',
+      answerVideo: card?.answerVideo || '',
+      question: card?.question || '',
+      questionVideo: card?.questionVideo || '',
     },
   })
 
@@ -55,23 +67,20 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {selectValue === 'Image' && (
         <div className={s.uploaderContainer}>
-          <div className={s.wrapper}>
-            <ImageUploader
-              imageKey={'questionImg'}
-              initialImageURL={values?.questionImg}
-              label={'Choose question image'}
-              register={register}
-              setValue={setValue}
-            />
-            <ImageUploader
-              imageKey={'answerImg'}
-              initialImageURL={values?.answerImg}
-              label={'Choose answer image'}
-              register={register}
-              setValue={setValue}
-            />
-          </div>
-
+          <ImageUploader
+            imageKey={'questionImg'}
+            initialImageURL={card?.questionImg}
+            label={'Choose question image'}
+            register={register}
+            setValue={setValue}
+          />
+          <ImageUploader
+            imageKey={'answerImg'}
+            initialImageURL={card?.answerImg}
+            label={'Choose answer image'}
+            register={register}
+            setValue={setValue}
+          />
           <div className={s.backButton}>
             <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
               back
@@ -119,6 +128,9 @@ export const EditCard = ({ onSubmit, values, variant }: AddNewCardProps) => {
             </Button>
           </div>
         </>
+      )}
+      {selectValue === 'Video' && (
+        <SelectVideo control={control} errors={errors} setSelectValue={setSelectValue} />
       )}
     </form>
   )
