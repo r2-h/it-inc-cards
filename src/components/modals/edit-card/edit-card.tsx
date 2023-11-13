@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
@@ -25,13 +25,20 @@ const addNewCardSchema = z.object({
 
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
-type AddNewCardProps = {
+type EditCardProps = {
   card?: CardsResponse
-  onSubmit?: any
+  onSubmit: SubmitHandler<{
+    answer: string
+    answerImg?: any
+    answerVideo: string
+    question: string
+    questionImg?: any
+    questionVideo: string
+  }>
   variant: 'add' | 'edit'
 }
 
-export const EditCard = ({ card, onSubmit, variant }: AddNewCardProps) => {
+export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
   const [selectValue, setSelectValue] = useState<string>('Text')
   const {
     control,
@@ -74,13 +81,11 @@ export const EditCard = ({ card, onSubmit, variant }: AddNewCardProps) => {
             register={register}
             setValue={setValue}
           />
-          <Button
-            className={s.backButton}
-            onClick={() => setSelectValue('Text')}
-            variant={'secondary'}
-          >
-            back
-          </Button>
+          <div className={s.backButton}>
+            <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
+              back
+            </Button>
+          </div>
         </div>
       )}
 
