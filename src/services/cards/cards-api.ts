@@ -1,6 +1,6 @@
 import { baseApi } from '@/services/base-api'
 import { CardsResponse, CreateCardArg, GetCardsParams, UpdateCardArg } from '@/services/cards/types'
-import { GetCardInDeckResponse, } from '@/services/decks/types'
+import { GetCardInDeckResponse } from '@/services/decks/types'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -127,5 +127,6 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useGetCardsInDeckQuery,
+  useLearnCardsQuery,
   useUpdateCardMutation,
 } = cardsApi
