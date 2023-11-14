@@ -42,7 +42,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
           <RadioGroupRadix.Item className={s.radioGroupItem} id={option.value} value={option.value}>
             <RadioGroupRadix.Indicator className={s.radioGroupIndicator} />
           </RadioGroupRadix.Item>
-          <Typography as={'label'} className={labelCN} htmlFor={option.title} variant={'body2'}>
+          <Typography as={'label'} className={labelCN} htmlFor={option.value} variant={'body2'}>
             {option.title}
           </Typography>
         </div>
