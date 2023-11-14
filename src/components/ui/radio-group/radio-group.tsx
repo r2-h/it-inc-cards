@@ -11,7 +11,6 @@ export type RadioGroupProps = {
   onChange?: () => void
   options: RadioOptionsType[]
 } & ComponentPropsWithoutRef<typeof RadioGroupRadix.Root>
-
 export type RadioOptionsType = {
   title: string
   value: string
