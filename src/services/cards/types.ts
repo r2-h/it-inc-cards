@@ -4,11 +4,11 @@ export type CardsResponse = {
   answerVideo: string
   created: string
   deckId: string
+  grade: number
   id: string
   question: string
   questionImg: string
   questionVideo: string
-  rating: number
   shots: number
   updated: string
   userId: string

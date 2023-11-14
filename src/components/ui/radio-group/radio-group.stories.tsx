@@ -1,6 +1,5 @@
+import { RadioGroup } from '@/components'
 import { Meta, StoryObj } from '@storybook/react'
-
-import { RadioGroup } from './radio-group'
 
 const meta = {
   component: RadioGroup,
@@ -13,12 +12,12 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    defaultValue: 'RadioGroup',
-    id: 'd',
+    defaultValue: '1',
+    id: 'radio',
     options: [
-      { disable: false, title: 'RadioGroup1' },
-      { disable: false, title: 'RadioGroup2' },
-      { disable: false, title: 'RadioGroup3' },
+      { title: 'RadioGroup1', value: '1' },
+      { title: 'RadioGroup2', value: '2' },
+      { title: 'RadioGroup3', value: '3' },
     ],
   },
 }

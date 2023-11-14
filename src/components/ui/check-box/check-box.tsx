@@ -7,7 +7,7 @@ import { clsx } from 'clsx'
 
 import s from './check-box.module.scss'
 
-export type CheckboxDemoProps = {
+export type CheckboxProps = {
   checked?: boolean
   className?: string
   disabled?: boolean
@@ -16,7 +16,7 @@ export type CheckboxDemoProps = {
   onChange?: (checked: boolean) => void
   required?: boolean
 }
-export const Checkbox: FC<CheckboxDemoProps> = ({
+export const Checkbox: FC<CheckboxProps> = ({
   checked,
   className,
   disabled = false,
