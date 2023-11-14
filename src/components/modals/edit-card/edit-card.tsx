@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Typography, videoSchema } from '@/components'
 import { Button } from '@/components/ui/button'
@@ -28,14 +28,7 @@ export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
 type EditCardProps = {
   card?: CardsResponse
-  onSubmit: SubmitHandler<{
-    answer: string
-    answerImg?: any
-    answerVideo?: string
-    question: string
-    questionImg?: any
-    questionVideo?: string
-  }>
+  onSubmit: (data: AddCardsFormValues) => void
   variant: 'add' | 'edit'
 }
 
