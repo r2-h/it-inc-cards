@@ -1,9 +1,11 @@
+import { CardsSort } from '@/pages'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: CardsStateType = {
   currentPage: 1,
   itemsPerPage: 10,
   searchQuestion: '',
+  sort: null,
 }
 
 const slice = createSlice({
@@ -21,6 +23,9 @@ const slice = createSlice({
       state.searchQuestion = action.payload
       state.currentPage = 1
     },
+    setSort: (state, action: PayloadAction<CardsSort>) => {
+      state.sort = action.payload
+    },
   },
 })
 
@@ -28,6 +33,7 @@ type CardsStateType = {
   currentPage: number
   itemsPerPage: number
   searchQuestion: string
+  sort: CardsSort
 }
 
 export const cardsReducers = slice.reducer
