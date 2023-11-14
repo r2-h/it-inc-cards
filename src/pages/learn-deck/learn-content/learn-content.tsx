@@ -19,6 +19,8 @@ export const LearnContent = () => {
     setIsShowAnswer(false)
   }
 
+  console.log(card?.grade)
+
   return (
     <>
       <Typography className={s.subtitle} variant={'subtitle1'}>

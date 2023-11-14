@@ -38,7 +38,6 @@ export const TextField: FC<TextFieldProps> = ({
   }
 
   const searchImgCN = clsx(s.searchImg, disabled && s.disabled)
-  const deleteIconCN = clsx(s.deleteBtn, disabled && s.disabled)
   const eyeIconCN = clsx(disabled && s.disabled)
   const inputCN = clsx(s.textField, errorMessage && s.error, disabled && s.disabled)
   const inputWrapperCN = clsx(
@@ -58,9 +57,16 @@ export const TextField: FC<TextFieldProps> = ({
       )}
       <div className={inputWrapperCN}>
         {type === 'search' && <SearchImg className={searchImgCN} />}
-        <input className={inputCN} onChange={onChange} type={finalType} value={value} {...rest} />
+        <input
+          className={inputCN}
+          disabled={disabled}
+          onChange={onChange}
+          type={finalType}
+          value={value}
+          {...rest}
+        />
         {type === 'search' && (
-          <button className={deleteIconCN} onClick={onClearClick} type={'button'}>
+          <button className={s.deleteBtn} onClick={onClearClick} type={'button'}>
             <DeleteIcon />
           </button>
         )}
