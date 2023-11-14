@@ -14,8 +14,13 @@ import { TextField } from '@/components/ui/text-field'
 import { TriggerMore } from '@/components/ui/triggerMore'
 import { Typography } from '@/components/ui/typography'
 import { AddNewCard } from '@/pages/cards/add-new-card'
-import { CardsTable } from '@/pages/cards/cards-table'
-import { useDeleteDeckMutation, useGetDeckQuery, useUpdateDeckMutation } from '@/services'
+import { CardsSort, CardsTable } from '@/pages/cards/cards-table'
+import {
+  CardsSortQuery,
+  useDeleteDeckMutation,
+  useGetDeckQuery,
+  useUpdateDeckMutation,
+} from '@/services'
 import { useMeQuery } from '@/services/auth/auth-api'
 import { useGetCardsInDeckQuery } from '@/services/cards/cards-api'
 import { cardsActions } from '@/services/cards/cards-slice'
@@ -28,11 +33,21 @@ import { EmptyDeck } from './empty-deck'
 export const Cards = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{
+    id: string
+  }>()
 
   const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemsPerPage)
+  const sort = useAppSelector(state => state.cards.sort)
+  let orderBy: CardsSortQuery
+
+  if (sort) {
+    orderBy = `${sort.key}-${sort.direction}`
+  } else {
+    orderBy = 'updated-asc'
+  }
 
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -42,12 +57,14 @@ export const Cards = () => {
     currentPage,
     id: id ?? '',
     itemsPerPage,
+    orderBy,
     question: searchQuestion,
   })
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
+  const sortHandler = (sort: CardsSort) => dispatch(cardsActions.setSort(sort))
   const currentPageHandler = (page: number) => dispatch(cardsActions.setCurrentPage(page))
   const itemsPerPageHandler = (size: string) => dispatch(cardsActions.setItemsPerPage(+size))
   const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) =>
@@ -135,7 +152,7 @@ export const Cards = () => {
         value={searchQuestion}
       />
 
-      <CardsTable data={cards?.items} myDeck={myDeck} />
+      <CardsTable data={cards?.items} myDeck={myDeck} onSort={sortHandler} sort={sort} />
 
       {!!cards?.pagination.totalItems && (
         <Pagination

@@ -1,3 +1,6 @@
+import { CardsColumnField } from '@/pages'
+import { Direction } from '@/services'
+
 export type CardsResponse = {
   answer: string
   answerImg: string
@@ -39,8 +42,9 @@ export type GetCardsParams = {
   currentPage?: number
   id: string
   itemsPerPage?: number
-  orderBy?: string
+  orderBy?: CardsSortQuery
   question?: string
 }
+export type CardsSortQuery = `${CardsColumnField}-${Direction}`
 
 export type SaveGradeArgs = { cardId: string; grade: number; id: string }
