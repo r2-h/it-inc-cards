@@ -111,7 +111,11 @@ export const Cards = () => {
         </div>
 
         {myDeck && !!deck?.cardsCount && <AddNewCard />}
-        {!myDeck && <Button variant={'primary'}>Learn to Deck</Button>}
+        {!myDeck && (
+          <Button as={'a'} href={`/learn-deck/${id}`} variant={'primary'}>
+            Learn the Deck
+          </Button>
+        )}
       </div>
 
       {deck?.cover && (
@@ -120,21 +124,18 @@ export const Cards = () => {
 
       {myDeck && !deck?.cardsCount && <EmptyDeck />}
 
-      {!!cards?.pagination.totalItems && (
-        <>
-          <TextField
-            className={s.input}
-            fullWidth
-            onChange={searchQuestionHandler}
-            onClearClick={clearSearchHandler}
-            placeholder={'Input search'}
-            type={'search'}
-            value={searchQuestion}
-          />
+      <TextField
+        className={s.input}
+        disabled={!cards?.pagination.totalItems}
+        fullWidth
+        onChange={searchQuestionHandler}
+        onClearClick={clearSearchHandler}
+        placeholder={'Input search'}
+        type={'search'}
+        value={searchQuestion}
+      />
 
-          <CardsTable data={cards?.items} myDeck={myDeck} />
-        </>
-      )}
+      <CardsTable data={cards?.items} myDeck={myDeck} />
 
       {!!cards?.pagination.totalItems && (
         <Pagination

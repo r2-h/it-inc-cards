@@ -9,28 +9,28 @@ type Props = {
 }
 
 export const LearnForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm({})
+  const { control, handleSubmit } = useForm()
 
   const options = [
     {
-      disable: false,
       title: 'Did not know',
+      value: '1',
     },
     {
-      disable: false,
       title: 'forgot',
+      value: '2',
     },
     {
-      disable: false,
       title: 'A lot of thought',
+      value: '3',
     },
     {
-      disable: false,
       title: 'Confused',
+      value: '4',
     },
     {
-      disable: false,
       title: 'Knew the answer',
+      value: '5',
     },
   ]
 
@@ -42,7 +42,8 @@ export const LearnForm = ({ onSubmit }: Props) => {
       <ControlledRadioGroup
         className={s.radioGroup}
         control={control}
-        name={''}
+        defaultValue={'1'}
+        name={'radio'}
         options={options}
       />
       <Button className={s.button} fullWidth type={'submit'}>

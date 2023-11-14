@@ -8,16 +8,12 @@ import s from './radio-group.module.scss'
 
 export type RadioGroupProps = {
   className?: string
-  defaultValue?: string
-  disabled?: boolean
-  id?: string
   onChange?: () => void
-  options: OptionsType[]
-  value?: number | string
+  options: RadioOptionsType[]
 } & ComponentPropsWithoutRef<typeof RadioGroupRadix.Root>
-type OptionsType = {
-  disable: boolean
+export type RadioOptionsType = {
   title: string
+  value: string
 }
 
 export const RadioGroup: FC<RadioGroupProps> = ({
@@ -27,6 +23,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   id,
   onChange,
   options,
+  value,
 }) => {
   const radioGroupCN = clsx(s.radioGroupRoot, className)
   const labelCN = clsx(s.label, disabled && s.disabled)
@@ -36,16 +33,13 @@ export const RadioGroup: FC<RadioGroupProps> = ({
       className={radioGroupCN}
       defaultValue={defaultValue}
       disabled={disabled}
+      id={id}
       onValueChange={onChange}
+      value={value}
     >
       {options.map(option => (
         <div className={s.wrapper} key={id}>
-          <RadioGroupRadix.Item
-            className={s.radioGroupItem}
-            disabled={option.disable}
-            id={option.title}
-            value={option.title}
-          >
+          <RadioGroupRadix.Item className={s.radioGroupItem} id={option.value} value={option.value}>
             <RadioGroupRadix.Indicator className={s.radioGroupIndicator} />
           </RadioGroupRadix.Item>
           <Typography as={'label'} className={labelCN} htmlFor={option.title} variant={'body2'}>

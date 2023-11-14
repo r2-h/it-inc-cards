@@ -78,7 +78,7 @@ export const CardsTableBody: FC<
             })}
           </TD>
           <TD>
-            <Grade stars={card.rating} />
+            <Grade stars={card?.grade} />
           </TD>
           <TD>
             {myDeck ? (
