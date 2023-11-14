@@ -43,7 +43,7 @@ export const LearnForm = ({ onSubmit }: Props) => {
         className={s.radioGroup}
         control={control}
         defaultValue={'1'}
-        name={'radio'}
+        name={'cardId'}
         options={options}
       />
       <Button className={s.button} fullWidth type={'submit'}>

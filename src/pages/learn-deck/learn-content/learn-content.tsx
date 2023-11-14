@@ -13,13 +13,11 @@ export const LearnContent = () => {
   const { data: card, refetch } = useLearnCardsQuery({ id: id ?? '' })
   const [saveGrade] = useSaveGradeMutation()
 
-  const onSubmit = () => {
+  const onSubmit = (args: { cardId: string }) => {
     refetch()
-    saveGrade({ cardId: card?.id ?? '', grade: Number(card?.grade), id: id ?? '' })
+    saveGrade({ cardId: card?.id ?? '', grade: Number(args.cardId), id: id ?? '' })
     setIsShowAnswer(false)
   }
-
-  console.log(card?.grade)
 
   return (
     <>
