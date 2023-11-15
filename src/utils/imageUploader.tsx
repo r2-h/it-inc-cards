@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import { EditImg } from '@/assets/edit-img'
-import { Typography } from '@/components'
+import { Button, Typography } from '@/components'
 
 import s from './imageUploader.module.scss'
 
@@ -51,14 +51,12 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
           type={'file'}
         />
       </div>
-      <div className={s.chooseFileContainer} onClick={selectFileHandler}>
-        <div className={s.editWrapper} tabIndex={0}>
-          <EditImg className={s.editIcon} />
-        </div>
-        <Typography as={'label'} className={s.editLabel} variant={'body2'}>
+      <Button className={s.button} fullWidth onClick={selectFileHandler} variant={'secondary'}>
+        <EditImg className={s.editIcon} />
+        <Typography className={s.editLabel} variant={'body2'}>
           {label}
         </Typography>
-      </div>
+      </Button>
     </div>
   )
 }

@@ -52,36 +52,32 @@ export const EditDeck = ({
   })
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ImageUploader
-          imageKey={'image'}
-          initialImageURL={cover}
-          label={'Choose image'}
-          register={register}
-          setValue={setValue}
-        />
-        <div className={s.wrapperForm}>
-          <ControlledTextField
-            control={control}
-            errorMessage={errors.name?.message}
-            fullWidth
-            label={'Name deck'}
-            name={'name'}
-          />
-          <ControlledCheckBox control={control} label={'Private deck'} name={'isPrivate'} />
-        </div>
-        <div className={s.buttons}>
-          <DialogClose>
-            <Button type={'button'} variant={'secondary'}>
-              Cancel
-            </Button>
-          </DialogClose>
-          <Button type={'submit'} variant={'primary'}>
-            {textButton}
+    <form className={s.wrapperForm} onSubmit={handleSubmit(onSubmit)}>
+      <ImageUploader
+        imageKey={'image'}
+        initialImageURL={cover}
+        label={'Choose image'}
+        register={register}
+        setValue={setValue}
+      />
+      <ControlledTextField
+        control={control}
+        errorMessage={errors.name?.message}
+        fullWidth
+        label={'Name deck'}
+        name={'name'}
+      />
+      <ControlledCheckBox control={control} label={'Private deck'} name={'isPrivate'} />
+      <div className={s.buttons}>
+        <DialogClose>
+          <Button type={'button'} variant={'secondary'}>
+            Cancel
           </Button>
-        </div>
-      </form>
-    </>
+        </DialogClose>
+        <Button type={'submit'} variant={'primary'}>
+          {textButton}
+        </Button>
+      </div>
+    </form>
   )
 }
