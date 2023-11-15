@@ -67,7 +67,7 @@ export const LearnContent = () => {
             </Typography>
           )}
 
-          <LearnForm onSubmit={onSubmit} />
+          <LearnForm grade={card?.grade} onSubmit={onSubmit} />
         </>
       )}
     </>

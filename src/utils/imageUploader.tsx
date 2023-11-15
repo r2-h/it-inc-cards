@@ -41,7 +41,7 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
   }, [])
 
   return (
-    <div className={s.wrapper}>
+    <>
       <div className={s.image} style={{ backgroundImage: `url(${imageURL})` }}>
         <input
           {...register(imageKey)}
@@ -51,12 +51,18 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
           type={'file'}
         />
       </div>
-      <Button className={s.button} fullWidth onClick={selectFileHandler} variant={'secondary'}>
+      <Button
+        className={s.button}
+        fullWidth
+        onClick={selectFileHandler}
+        type={'button'}
+        variant={'secondary'}
+      >
         <EditImg className={s.editIcon} />
         <Typography className={s.editLabel} variant={'body2'}>
           {label}
         </Typography>
       </Button>
-    </div>
+    </>
   )
 }

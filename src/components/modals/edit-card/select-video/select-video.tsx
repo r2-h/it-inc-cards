@@ -1,10 +1,11 @@
 import { FC } from 'react'
 import { Control, FieldErrors } from 'react-hook-form'
 
-import { Button, ControlledTextField } from '@/components'
+import { ControlledTextField } from '@/components'
 
 import s from './select-video.module.scss'
-export const SelectVideo: FC<SelectVideoProps> = ({ control, errors, setSelectValue }) => {
+
+export const SelectVideo: FC<SelectVideoProps> = ({ control, errors }) => {
   return (
     <div className={s.wrapper}>
       <ControlledTextField
@@ -14,18 +15,30 @@ export const SelectVideo: FC<SelectVideoProps> = ({ control, errors, setSelectVa
         label={'Question Video URL'}
         name={'questionVideo'}
       />
+
       <ControlledTextField
         control={control}
-        errorMessage={errors.questionVideo?.message}
+        errorMessage={errors.question?.message}
+        fullWidth
+        label={'Question'}
+        name={'question'}
+      />
+
+      <ControlledTextField
+        control={control}
+        errorMessage={errors.answerVideo?.message}
         fullWidth
         label={'Answer Video URL'}
         name={'answerVideo'}
       />
-      <div className={s.backButton}>
-        <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
-          back
-        </Button>
-      </div>
+
+      <ControlledTextField
+        control={control}
+        errorMessage={errors.answer?.message}
+        fullWidth
+        label={'Answer'}
+        name={'answer'}
+      />
     </div>
   )
 }

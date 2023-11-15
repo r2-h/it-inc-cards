@@ -1,16 +1,9 @@
-.uploaderContainer {
-  margin-bottom: 10px;
-
-  .backButton {
-    text-align: end;
-  }
+.viewport {
+  background-color: var(--color-dark-700);
 }
 
-.wrapperForm {
-  display: flex;
-  flex-direction: column;
-  row-gap: 24px;
-  margin-top: 20px;
+.wrapper {
+  padding: 24px 0;
 
   .select {
     button,
@@ -20,20 +13,15 @@
   }
 }
 
+.wrapperForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 12px;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
   padding: 24px 0;
-}
-
-.viewport {
-  background-color: var(--color-dark-700);
-}
-
-.error {
-  margin-top: 10px;
-
-  span {
-    color: var(--color-danger-300);
-  }
 }

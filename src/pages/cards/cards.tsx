@@ -158,6 +158,23 @@ export const Cards = () => {
         </>
       )}
 
+      {!myDeck && (
+        <>
+          <TextField
+            className={s.input}
+            disabled={!cards?.pagination.totalItems}
+            fullWidth
+            onChange={searchQuestionHandler}
+            onClearClick={clearSearchHandler}
+            placeholder={'Input search'}
+            type={'search'}
+            value={searchQuestion}
+          />
+
+          <CardsTable data={cards?.items} myDeck={myDeck} onSort={sortHandler} sort={sort} />
+        </>
+      )}
+
       {!!cards?.pagination.totalItems && (
         <Pagination
           className={s.pagination}
