@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Typography, videoSchema } from '@/components'
+import { SelectVideo, videoSchema } from '@/components'
+import { SelectImage } from '@/components/modals/edit-card/select-image'
 import { Button } from '@/components/ui/button'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Select } from '@/components/ui/select'
 import { CardsResponse } from '@/services'
-import { ImageUploader } from '@/utils/imageUploader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './edit-card.module.scss'
 
-import { SelectVideo, answerAndQuestionSchema } from '..'
+import { answerAndQuestionSchema } from '..'
 
 const addNewCardSchema = z.object({
   answer: answerAndQuestionSchema,
@@ -59,85 +59,62 @@ export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {selectValue === 'Image' && (
-        <div className={s.uploaderContainer}>
-          <ImageUploader
-            imageKey={'questionImg'}
-            initialImageURL={card?.questionImg}
-            label={'Choose question image'}
-            register={register}
-            setValue={setValue}
-          />
-          <ImageUploader
-            imageKey={'answerImg'}
-            initialImageURL={card?.answerImg}
-            label={'Choose answer image'}
-            register={register}
-            setValue={setValue}
-          />
-          <div className={s.backButton}>
-            <Button onClick={() => setSelectValue('Text')} variant={'secondary'}>
-              back
-            </Button>
-          </div>
-        </div>
-      )}
+      <div className={s.wrapper}>
+        <Select
+          className={s.select}
+          classNameViewport={s.viewport}
+          defaultValue={'Text'}
+          fullWidth
+          label={'Choose a question format'}
+          onChangeValue={value => {
+            setSelectValue(value)
+          }}
+          options={options}
+          value={selectValue}
+        />
+      </div>
 
       {selectValue === 'Text' && (
-        <>
-          <div className={s.wrapperForm}>
-            <Select
-              className={s.select}
-              classNameViewport={s.viewport}
-              defaultValue={'Text'}
-              fullWidth
-              label={'Choose a question format'}
-              onChangeValue={value => {
-                setSelectValue(value)
-              }}
-              options={options}
-              value={selectValue}
-            />
-            <ControlledTextField
-              control={control}
-              errorMessage={errors.question?.message}
-              fullWidth
-              label={'Question'}
-              name={'question'}
-            />
-            <ControlledTextField
-              control={control}
-              errorMessage={errors.answer?.message}
-              fullWidth
-              label={'Answer'}
-              name={'answer'}
-            />
-          </div>
+        <div className={s.wrapperForm}>
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.question?.message}
+            fullWidth
+            label={'Question'}
+            name={'question'}
+          />
 
-          {errors.questionVideo && (
-            <div className={s.error}>
-              <Typography variant={'caption'}>Invalid question url</Typography>
-            </div>
-          )}
-          {errors.answerVideo && (
-            <div className={s.error}>
-              <Typography variant={'caption'}>Invalid answer url</Typography>
-            </div>
-          )}
-
-          <div className={s.buttons}>
-            <Button type={'button'} variant={'secondary'}>
-              <DialogClose>Cancel</DialogClose>
-            </Button>
-            <Button type={'submit'} variant={'primary'}>
-              {textButton}
-            </Button>
-          </div>
-        </>
+          <ControlledTextField
+            control={control}
+            errorMessage={errors.answer?.message}
+            fullWidth
+            label={'Answer'}
+            name={'answer'}
+          />
+        </div>
       )}
       {selectValue === 'Video' && (
         <SelectVideo control={control} errors={errors} setSelectValue={setSelectValue} />
       )}
+
+      {selectValue === 'Image' && (
+        <SelectImage
+          card={card}
+          control={control}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+        />
+      )}
+
+      <div className={s.buttons}>
+        <Button type={'button'} variant={'secondary'}>
+          <DialogClose>Cancel</DialogClose>
+        </Button>
+        <Button type={'submit'} variant={'primary'}>
+          {textButton}
+        </Button>
+      </div>
     </form>
   )
 }

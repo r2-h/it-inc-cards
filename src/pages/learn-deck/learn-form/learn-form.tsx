@@ -5,10 +5,11 @@ import { Button, ControlledRadioGroup, Typography } from '@/components'
 import s from './learn-form.module.scss'
 
 type Props = {
+  grade?: number
   onSubmit: any
 }
 
-export const LearnForm = ({ onSubmit }: Props) => {
+export const LearnForm = ({ grade, onSubmit }: Props) => {
   const { control, handleSubmit } = useForm()
 
   const options = [
@@ -34,6 +35,14 @@ export const LearnForm = ({ onSubmit }: Props) => {
     },
   ]
 
+  let defaultRadioValue = '1'
+
+  if (grade) {
+    if (grade > 1) {
+      defaultRadioValue = grade.toString()
+    }
+  }
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <Typography className={s.subtitle} variant={'subtitle1'}>
@@ -42,7 +51,7 @@ export const LearnForm = ({ onSubmit }: Props) => {
       <ControlledRadioGroup
         className={s.radioGroup}
         control={control}
-        defaultValue={'1'}
+        defaultValue={defaultRadioValue}
         name={'cardId'}
         options={options}
       />

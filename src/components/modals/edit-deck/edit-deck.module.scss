@@ -2,68 +2,11 @@
   display: flex;
   flex-direction: column;
   row-gap: 24px;
+  padding-top: 24px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   padding: 12px 0 24px;
-}
-
-.image {
-  width: 100%;
-  height: 200px;
-
-  background-color: var(--color-dark-900);
-  background-position: center;
-  background-size: cover;
-  border-radius: 1px;
-}
-
-.chooseFileContainer {
-  cursor: pointer;
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-
-  .editLabel {
-    cursor: pointer;
-    color: var(--color-light-100);
-  }
-
-  .editWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 36px;
-    height: 36px;
-
-    border-radius: 50%;
-
-    tab-index: 0;
-
-    &:focus-visible {
-      background-color: var(--color-dark-100);
-      outline: none;
-    }
-
-    .editIcon {
-      width: 22px;
-      height: 22px;
-
-      path {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-
-  &:hover .editWrapper {
-    background-color: var(--color-dark-500);
-  }
-
-  &:active .editWrapper {
-    background-color: var(--color-dark-100);
-  }
 }
