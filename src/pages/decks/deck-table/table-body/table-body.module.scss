@@ -1,4 +1,10 @@
 .cellWrapper {
+  max-width: 260px;
+
+  .title {
+    color: var(--color-light-100);
+  }
+
   &:hover {
     background-color: var(--color-dark-700);
   }
@@ -39,8 +45,4 @@
   margin-left: 10px;
   font-size: var(--font-size-xs);
   color: var(--color-info-300);
-}
-
-.title {
-  color: var(--color-light-100);
 }

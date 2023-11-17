@@ -28,6 +28,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
 
   const buttonCN = clsx(!isMyDeck && s.disabled)
+  const linkCN = clsx(item.cardsCount === 0 && s.disabled)
 
   const updateDeckHandler = (data: CreateDeckFormValues) => {
     setIsOpenEdit(false)
@@ -47,7 +48,7 @@ export const EditButtons: FC<EditButtonsProps> = ({ item }) => {
 
   return (
     <div className={s.wrapper}>
-      <Link to={`/learn-deck/${item.id}`}>
+      <Link className={linkCN} to={`/learn-deck/${item.id}`}>
         <PlayCircleImg />
       </Link>
 
