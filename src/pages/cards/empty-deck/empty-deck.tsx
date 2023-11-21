@@ -1,8 +1,7 @@
 import { Typography } from '@/components'
+import { AddNewCard } from '@/pages'
 
 import s from './empty-deck.module.scss'
-
-import { AddNewCard } from '@/pages'
 
 export const EmptyDeck = () => {
   return (
