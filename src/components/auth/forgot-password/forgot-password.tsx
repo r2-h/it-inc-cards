@@ -1,17 +1,13 @@
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Button, Card, ControlledTextField, Typography, emailValidation } from '@/components'
+import { Button, Card, ControlledTextField, Typography, emailSchema } from '@/components'
 import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
-
-const emailSchema = z.object({
-  email: emailValidation,
-})
 
 export type ForgotPasswordFormValues = z.infer<typeof emailSchema>
 

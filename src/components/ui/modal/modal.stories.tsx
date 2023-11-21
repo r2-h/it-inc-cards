@@ -1,5 +1,8 @@
-import { SignIn } from '@/components/auth/sign-in'
-import { Button } from '@/components/ui/button'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+
+import { Button, SignIn } from '@/components'
+import { store } from '@/services'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Modal } from './modal'
@@ -18,4 +21,13 @@ export const Default: Story = {
     children: <SignIn onSubmit={() => {}} />,
     trigger: <Button>Sign In</Button>,
   },
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Provider>
+    ),
+  ],
 }

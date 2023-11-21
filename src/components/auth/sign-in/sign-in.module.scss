@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     margin-bottom: 27px;
-    color: var(--color-light-100);
   }
 
   .wrapper {
@@ -24,11 +23,7 @@
   .forgotPassword {
     display: flex;
     justify-content: end;
-
     margin-bottom: 66px;
-
-    font-size: var(--font-size-s);
-    color: var(--color-light-100);
     text-decoration: none;
   }
 
@@ -39,10 +34,7 @@
   .haveAnAccount {
     display: flex;
     justify-content: center;
-
     margin-bottom: 7px;
-
-    font-size: var(--font-size-s);
     color: var(--color-light-900);
   }
 

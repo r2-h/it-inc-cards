@@ -54,7 +54,7 @@ export const Select: FC<SelectDemoProps> = ({
 
   return (
     <div className={cNames.root}>
-      <Typography as={'label'} className={s.selectLabel} variant={'body2'}>
+      <Typography as={'label'} variant={'body2'}>
         {label}
       </Typography>
       <SelectRadix.Root

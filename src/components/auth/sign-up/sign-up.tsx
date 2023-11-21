@@ -2,14 +2,7 @@ import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  Button,
-  Card,
-  ControlledTextField,
-  Typography,
-  emailValidation,
-  passwordValidation,
-} from '@/components'
+import { Button, Card, ControlledTextField, Typography, signUpSchema } from '@/components'
 import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,23 +10,7 @@ import { z } from 'zod'
 
 import s from './sign-up.module.scss'
 
-const loginSchema = z
-  .object({
-    confirmPassword: passwordValidation,
-    email: emailValidation,
-    password: passwordValidation,
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.confirmPassword) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Passwords do not match',
-        path: ['confirmPassword'],
-      })
-    }
-  })
-
-export type SignUpFormValues = z.infer<typeof loginSchema>
+export type SignUpFormValues = z.infer<typeof signUpSchema>
 type SignOutProps = {
   onSubmit: SubmitHandler<SignUpFormValues>
 }
@@ -44,7 +21,7 @@ export const SignUp: FC<SignOutProps> = ({ onSubmit }) => {
     formState: { errors },
     handleSubmit,
   } = useForm<SignUpFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signUpSchema),
   })
   const navigate = useNavigate()
   const error = useAppSelector(state => state.auth.error)

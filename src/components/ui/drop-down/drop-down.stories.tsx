@@ -6,6 +6,7 @@ import { MyProfileImg } from '@/assets/my-profile-img'
 import { PlayCircleImg } from '@/assets/play-circle-img'
 import { SignOutImg } from '@/assets/sign-out-img'
 import { TrashImg } from '@/assets/trash-img'
+import { TriggerMore } from '@/components'
 
 import { DropDown, DropDownItem } from './drop-down'
 
@@ -41,5 +42,6 @@ export const DropDownMore: Story = {
         <DropDownItem icon={<TrashImg />} lastItem text={'Delete'}></DropDownItem>
       </>
     ),
+    trigger: <TriggerMore />,
   },
 }

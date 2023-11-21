@@ -2,6 +2,7 @@
   all: unset;
   display: flex;
   gap: 10px;
+  justify-content: center;
 
   button {
     cursor: pointer;

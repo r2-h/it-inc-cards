@@ -8,10 +8,6 @@ button {
   gap: 6px;
   align-items: center;
   text-decoration: none;
-
-  .back {
-    color: var(--color-light-100);
-  }
 }
 
 .header {
@@ -21,7 +17,6 @@ button {
 
   .title {
     margin-right: 16px;
-    color: var(--color-light-100);
   }
 }
 

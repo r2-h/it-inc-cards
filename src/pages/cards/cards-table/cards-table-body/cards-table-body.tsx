@@ -1,8 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { Typography } from '@/components'
-import { Body, Row, TD } from '@/components/ui/tables'
-import { Grade } from '@/components/ui/tables/grade'
+import { Body, Grade, Row, TD, Typography } from '@/components'
 import { EditCell } from '@/pages'
 import { CardsResponse } from '@/services'
 import clsx from 'clsx'
@@ -28,7 +26,7 @@ export const CardsTableBody: FC<
                 <div className={s.image} style={{ backgroundImage: `url(${card.questionImg})` }} />
                 <Typography
                   as={'a'}
-                  className={clsx(s.title, card.questionVideo ?? s.disabled)}
+                  className={clsx(card.questionVideo ?? s.disabled)}
                   href={card.questionVideo ?? ''}
                   variant={'body2'}
                 >
@@ -38,7 +36,7 @@ export const CardsTableBody: FC<
             ) : (
               <Typography
                 as={'a'}
-                className={clsx(s.title, card.questionVideo ?? s.disabled)}
+                className={clsx(card.questionVideo ?? s.disabled)}
                 href={card.questionVideo ?? ''}
                 variant={'body2'}
               >
@@ -52,7 +50,7 @@ export const CardsTableBody: FC<
                 <div className={s.image} style={{ backgroundImage: `url(${card.answerImg})` }} />
                 <Typography
                   as={'a'}
-                  className={clsx(s.title, card.answerVideo ?? s.disabled)}
+                  className={clsx(card.answerVideo ?? s.disabled)}
                   href={card.answerVideo ?? ''}
                   variant={'body2'}
                 >
@@ -62,7 +60,7 @@ export const CardsTableBody: FC<
             ) : (
               <Typography
                 as={'a'}
-                className={clsx(s.title, card.answerVideo ?? s.disabled)}
+                className={clsx(card.answerVideo ?? s.disabled)}
                 href={card.answerVideo ?? ''}
                 variant={'body2'}
               >

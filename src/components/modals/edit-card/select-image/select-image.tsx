@@ -15,9 +15,7 @@ export const SelectImage: FC<SelectImageProps> = ({
 }) => {
   return (
     <div className={s.wrapper}>
-      <Typography className={s.title} variant={'subtitle2'}>
-        Question
-      </Typography>
+      <Typography variant={'subtitle2'}>Question</Typography>
       <ImageUploader
         imageKey={'questionImg'}
         initialImageURL={card?.questionImg}
@@ -33,9 +31,7 @@ export const SelectImage: FC<SelectImageProps> = ({
         name={'question'}
       />
 
-      <Typography className={s.title} variant={'subtitle2'}>
-        Answer
-      </Typography>
+      <Typography variant={'subtitle2'}>Answer</Typography>
       <ImageUploader
         imageKey={'answerImg'}
         initialImageURL={card?.answerImg}

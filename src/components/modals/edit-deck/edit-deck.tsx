@@ -1,21 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { namePackSchema, privateCheckboxSchema } from '@/components'
-import { Button } from '@/components/ui/button'
-import { ControlledCheckBox } from '@/components/ui/controlled/controlled-check-box'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
+import { Button, ControlledCheckBox, ControlledTextField, addNewDeckSchema } from '@/components'
 import { ImageUploader } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './edit-deck.module.scss'
-
-const addNewDeckSchema = z.object({
-  image: z.any(),
-  isPrivate: privateCheckboxSchema,
-  name: namePackSchema,
-})
 
 export type CreateDeckFormValues = z.infer<typeof addNewDeckSchema>
 
@@ -70,7 +61,7 @@ export const EditDeck = ({
       <ControlledCheckBox control={control} label={'Private deck'} name={'isPrivate'} />
       <div className={s.buttons}>
         <DialogClose>
-          <Button type={'button'} variant={'secondary'}>
+          <Button as={'span'} variant={'secondary'}>
             Cancel
           </Button>
         </DialogClose>

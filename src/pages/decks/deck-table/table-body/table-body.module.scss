@@ -1,9 +1,5 @@
 .cellWrapper {
-  max-width: 260px;
-
-  .title {
-    color: var(--color-light-100);
-  }
+  width: 260px;
 
   &:hover {
     background-color: var(--color-dark-700);
@@ -45,4 +41,16 @@
   margin-left: 10px;
   font-size: var(--font-size-xs);
   color: var(--color-info-300);
+}
+
+.cardsCountCell {
+  width: 140px;
+}
+
+.authorCell {
+  width: 286px;
+}
+
+.editCell {
+  padding: 6px 0;
 }

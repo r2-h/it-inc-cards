@@ -1,8 +1,7 @@
 import { ReactNode } from 'react'
 
 import CloseImg from '@/assets/close-img'
-import { Card } from '@/components/ui/card'
-import { Typography } from '@/components/ui/typography'
+import { Card, Typography } from '@/components'
 import { DialogClose } from '@radix-ui/react-dialog'
 
 import s from './modal-wrapper.module.scss'

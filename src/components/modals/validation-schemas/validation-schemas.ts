@@ -8,3 +8,18 @@ const urlSchema = z.string().url()
 const emptyStringSchema = z.literal('')
 
 export const videoSchema = urlSchema.or(emptyStringSchema)
+
+export const addNewCardSchema = z.object({
+  answer: answerAndQuestionSchema,
+  answerImg: z.any(),
+  answerVideo: videoSchema,
+  question: answerAndQuestionSchema,
+  questionImg: z.any(),
+  questionVideo: videoSchema,
+})
+
+export const addNewDeckSchema = z.object({
+  image: z.any(),
+  isPrivate: privateCheckboxSchema,
+  name: namePackSchema,
+})
