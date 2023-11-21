@@ -2,18 +2,17 @@ import { ChangeEvent } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
-import { Button } from '@/components/ui/button'
-import { Pagination } from '@/components/ui/pagination'
-import { TextField } from '@/components/ui/text-field'
-import { Typography } from '@/components/ui/typography'
-import { AddNewCard } from '@/pages/cards/add-new-card'
-import { CardsSort, CardsTable } from '@/pages/cards/cards-table'
-import { DropDownForCards } from '@/pages/cards/drop-down-for-cards'
-import { CardsSortQuery, useGetDeckQuery } from '@/services'
-import { useMeQuery } from '@/services/auth/auth-api'
-import { useGetCardsInDeckQuery } from '@/services/cards/cards-api'
-import { cardsActions } from '@/services/cards/cards-slice'
-import { useAppDispatch, useAppSelector } from '@/services/store'
+import { Button, Pagination, TextField, Typography } from '@/components'
+import { AddNewCard, CardsSort, CardsTable, DropDownForCards } from '@/pages'
+import {
+  CardsSortQuery,
+  cardsActions,
+  useAppDispatch,
+  useAppSelector,
+  useGetCardsInDeckQuery,
+  useGetDeckQuery,
+  useMeQuery,
+} from '@/services'
 import { clsx } from 'clsx'
 
 import s from './cards.module.scss'
@@ -69,9 +68,7 @@ export const Cards = () => {
     <>
       <Link className={s.linkBack} to={'/'}>
         <ArrowBackImg />
-        <Typography className={s.back} variant={'body2'}>
-          Back to Decks List
-        </Typography>
+        <Typography variant={'body2'}>Back to Decks List</Typography>
       </Link>
       <div className={s.header}>
         <div>

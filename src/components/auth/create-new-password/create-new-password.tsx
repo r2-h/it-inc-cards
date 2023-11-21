@@ -1,17 +1,13 @@
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Button, Card, ControlledTextField, Typography, passwordValidation } from '@/components'
+import { Button, Card, ControlledTextField, Typography, passwordSchema } from '@/components'
 import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './create-new-password.module.scss'
-
-const passwordSchema = z.object({
-  password: passwordValidation,
-})
 
 export type CreatePasswordFormValues = z.infer<typeof passwordSchema>
 

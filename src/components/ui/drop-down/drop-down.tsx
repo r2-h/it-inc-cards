@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 
 import ava from '@/assets/ava.jpg'
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/components'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
 
@@ -30,9 +30,7 @@ export const DropDown: FC<DropDownProps> = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className={s.trigger}>
-        {trigger ?? <button className={s.buttonTrigger}></button>}
-      </DropdownMenu.Trigger>
+      <DropdownMenu.Trigger className={s.trigger}>{trigger}</DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content align={align} className={contentCN} sideOffset={5}>
@@ -53,20 +51,25 @@ export const DropDown: FC<DropDownProps> = ({
 }
 
 type DropDownItemProps = {
+  disabled?: boolean
   icon?: ReactNode
   lastItem?: boolean
   onSelect?: () => void
   text: string
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Item>
 
-export const DropDownItem: FC<DropDownItemProps> = ({ icon, lastItem, onSelect, text }) => {
+export const DropDownItem: FC<DropDownItemProps> = ({
+  disabled = false,
+  icon,
+  lastItem,
+  onSelect,
+  text,
+}) => {
   return (
     <>
-      <DropdownMenu.Item className={s.item} onSelect={onSelect}>
+      <DropdownMenu.Item className={s.item} disabled={disabled} onSelect={onSelect}>
         <div className={s.icon}>{icon}</div>
-        <Typography className={s.text} variant={'caption'}>
-          {text}
-        </Typography>
+        <Typography variant={'caption'}>{text}</Typography>
       </DropdownMenu.Item>
       {!lastItem && <DropdownMenu.Separator className={s.separator} />}
     </>
@@ -84,10 +87,10 @@ export const DropDownLabel: FC<DropDownLabelProps> = ({ avatar, email, name }) =
     <div className={s.labelWrapper}>
       <div className={s.img} style={{ backgroundImage: `url(${avatar ?? ava})` }} />
       <DropdownMenu.Label className={s.label}>
-        <Typography as={'label'} className={s.name} variant={'subtitle2'}>
+        <Typography as={'label'} variant={'subtitle2'}>
           {name}
         </Typography>
-        <Typography as={'label'} className={s.email} variant={'caption'}>
+        <Typography as={'label'} variant={'caption'}>
           {email}
         </Typography>
       </DropdownMenu.Label>

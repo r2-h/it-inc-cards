@@ -1,5 +1,8 @@
-import { TableDemo } from '@/components/ui/tables/table-demo/table-demo'
-import { Deck } from '@/services/decks/types'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+
+import { TableDemo } from '@/components'
+import { Deck, store } from '@/services'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
@@ -132,6 +135,15 @@ export const Default: Story = {
     columns: columns,
     data: data,
   },
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Provider>
+    ),
+  ],
   render: () => {
     return <TableDemo columns={columns} data={data} />
   },

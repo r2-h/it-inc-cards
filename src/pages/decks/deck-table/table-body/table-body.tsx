@@ -1,10 +1,8 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Body, Row, TD } from '@/components/ui/tables'
-import { EditButtons } from '@/components/ui/tables/edit-buttons/edit-buttons'
-import { Typography } from '@/components/ui/typography'
-import { Deck } from '@/services/decks/types'
+import { Body, EditButtons, Row, TD, Typography } from '@/components'
+import { Deck } from '@/services'
 
 import s from './table-body.module.scss'
 
@@ -25,18 +23,14 @@ export const TableBody: FC<
               {item.cover ? (
                 <div className={s.wrapper}>
                   <div className={s.deckImage} style={{ backgroundImage: `url(${item.cover})` }} />
-                  <Typography className={s.title} variant={'body2'}>
-                    {item.name}
-                  </Typography>
+                  <Typography variant={'body2'}>{item.name}</Typography>
                 </div>
               ) : (
-                <Typography className={s.title} variant={'body2'}>
-                  {item.name}
-                </Typography>
+                <Typography variant={'body2'}>{item.name}</Typography>
               )}
             </Link>
           </TD>
-          <TD>{item.cardsCount}</TD>
+          <TD className={s.cardsCountCell}>{item.cardsCount}</TD>
           <TD>
             {new Date(item.updated).toLocaleString('ru-RU', {
               day: 'numeric',
@@ -46,7 +40,7 @@ export const TableBody: FC<
               year: 'numeric',
             })}
           </TD>
-          <TD>
+          <TD className={s.authorCell}>
             {item.author.name}
             {item.isPrivate && (
               <Typography className={s.private} variant={'body2'}>
@@ -54,7 +48,7 @@ export const TableBody: FC<
               </Typography>
             )}
           </TD>
-          <TD>
+          <TD className={s.editCell}>
             <EditButtons item={item} />
           </TD>
         </Row>

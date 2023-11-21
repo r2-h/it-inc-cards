@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
+
+import { store } from '@/services'
 
 import { SignUp, SignUpFormValues } from './sign-up'
 
@@ -21,9 +24,11 @@ export const Primary: Story = {
   },
   decorators: [
     Story => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Provider>
     ),
   ],
 }

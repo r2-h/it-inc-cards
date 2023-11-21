@@ -1,10 +1,5 @@
 .trigger {
   cursor: pointer;
-
-  .buttonTrigger {
-    width: 24px;
-    height: 24px;
-  }
 }
 
 .content {
@@ -36,15 +31,26 @@
       outline: 2px solid var(--color-info-700);
     }
 
-    .text {
-      color: var(--color-light-100);
-    }
-
     .icon {
       height: 16px;
 
       path {
         fill: var(--color-light-100);
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+      cursor: default;
+
+      .text {
+        color: var(--color-dark-100);
+      }
+
+      .icon {
+        path {
+          fill: var(--color-dark-100);
+        }
       }
     }
   }
@@ -71,14 +77,6 @@
     .label {
       display: flex;
       flex-direction: column;
-
-      .name {
-        color: var(--color-light-100);
-      }
-
-      .email {
-        color: var(--color-dark-100);
-      }
     }
   }
 

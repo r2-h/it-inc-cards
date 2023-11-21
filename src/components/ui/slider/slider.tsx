@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/components'
 import * as RadixSlider from '@radix-ui/react-slider'
 import clsx from 'clsx'
 
@@ -30,11 +30,7 @@ export const Slider: FC<SliderProps> = ({
 
   return (
     <div className={s.container}>
-      {label && (
-        <Typography className={s.label} variant={'body2'}>
-          {label}
-        </Typography>
-      )}
+      {label && <Typography variant={'body2'}>{label}</Typography>}
       <div className={wrapperCN}>
         <div className={s.number}>{value[0]}</div>
         <RadixSlider.Root

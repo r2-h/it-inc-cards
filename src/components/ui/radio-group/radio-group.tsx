@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/components'
 import * as RadioGroupRadix from '@radix-ui/react-radio-group'
 import clsx from 'clsx'
 
@@ -38,7 +38,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
       value={value}
     >
       {options.map(option => (
-        <div className={s.wrapper} key={id}>
+        <div className={s.wrapper} key={option.value}>
           <RadioGroupRadix.Item className={s.radioGroupItem} id={option.value} value={option.value}>
             <RadioGroupRadix.Indicator className={s.radioGroupIndicator} />
           </RadioGroupRadix.Item>

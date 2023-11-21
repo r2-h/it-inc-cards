@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { EditImg } from '@/assets/edit-img'
 import LogoutImg from '@/assets/logout-img'
-import { Button } from '@/components/ui/button'
-import { Typography } from '@/components/ui/typography'
-import { useLogoutMutation } from '@/services/auth/auth-api'
+import { Button, Typography } from '@/components'
+import { useLogoutMutation } from '@/services'
 import { DialogClose } from '@radix-ui/react-dialog'
 
 import s from './edit-mode-off.module.scss'
@@ -43,10 +42,10 @@ export const EditModeOff: FC<EditModeOffProps> = ({ email, name, setEditMode }) 
       </Typography>
       <DialogClose>
         <Button
+          as={'span'}
           className={s.buttonLogout}
           fullWidth={false}
           onClick={logOutHandler}
-          type={'button'}
           variant={'secondary'}
         >
           <LogoutImg className={s.iconLogout} /> Logout

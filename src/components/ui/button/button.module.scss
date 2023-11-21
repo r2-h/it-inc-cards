@@ -20,10 +20,6 @@
 
   &:disabled {
     cursor: default;
-
-    .title {
-      color: var(--color-light-900);
-    }
   }
 
   &.fullWidth {
@@ -41,15 +37,8 @@
   @include button;
 
   height: 36px;
-  color: var(--color-light-100);
   background-color: var(--color-accent-500);
   box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
-
-  .icon {
-    path {
-      fill: var(--color-light-100);
-    }
-  }
 
   &:hover {
     background-color: var(--color-accent-300);
@@ -80,15 +69,8 @@
   @include button;
 
   height: 36px;
-  color: var(--color-light-100);
   background-color: var(--color-dark-300);
   box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%);
-
-  .icon {
-    path {
-      fill: var(--color-light-100);
-    }
-  }
 
   &:hover {
     background-color: var(--color-dark-100);

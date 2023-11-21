@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/components'
 import * as Tabs from '@radix-ui/react-tabs'
 
 import s from './tab.module.scss'
@@ -33,7 +33,7 @@ export const Tab: FC<TabProps> = ({
     value={value}
   >
     {label && (
-      <Typography as={'label'} className={s.label} variant={'body2'}>
+      <Typography as={'label'} variant={'body2'}>
         {label}
       </Typography>
     )}
@@ -45,9 +45,7 @@ export const Tab: FC<TabProps> = ({
           key={option.value}
           value={option.value}
         >
-          <Typography className={s.title} variant={'body1'}>
-            {option.title}
-          </Typography>
+          <Typography variant={'body1'}>{option.title}</Typography>
         </Tabs.Trigger>
       ))}
     </Tabs.List>

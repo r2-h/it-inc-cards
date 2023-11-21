@@ -45,9 +45,7 @@ export const LearnForm = ({ grade, onSubmit }: Props) => {
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <Typography className={s.subtitle} variant={'subtitle1'}>
-        Rate yourself:
-      </Typography>
+      <Typography variant={'subtitle1'}>Rate yourself:</Typography>
       <ControlledRadioGroup
         className={s.radioGroup}
         control={control}

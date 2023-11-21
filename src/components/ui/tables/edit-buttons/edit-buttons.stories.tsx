@@ -1,4 +1,8 @@
-import { EditButtons } from '@/components/ui/tables/edit-buttons/edit-buttons'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+
+import { EditButtons } from '@/components'
+import { store } from '@/services'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
@@ -28,4 +32,13 @@ export const Default: Story = {
       userId: 'string',
     },
   },
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Provider>
+    ),
+  ],
 }

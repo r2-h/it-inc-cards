@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import ArrowBackImg from '@/assets/arrow-back-img'
@@ -22,9 +23,7 @@ export const LearnDeck = () => {
     <>
       <Link className={s.linkBack} to={'/'}>
         <ArrowBackImg />
-        <Typography className={s.back} variant={'body2'}>
-          Back to Decks List
-        </Typography>
+        <Typography variant={'body2'}>Back to Decks List</Typography>
       </Link>
       <Card className={s.wrapper}>
         <Typography className={s.title} variant={'large'}>

@@ -36,21 +36,14 @@ button {
       justify-content: space-between;
 
       .name {
-        color: var(--color-light-100);
         border-bottom: 1px dashed var(--color-light-100);
       }
 
-      button {
-        cursor: pointer;
+      .img {
         width: 36px;
         height: 36px;
-
-        .img {
-          width: 36px;
-          height: 36px;
-          background-size: cover;
-          border-radius: 50%;
-        }
+        background-size: cover;
+        border-radius: 50%;
       }
     }
   }

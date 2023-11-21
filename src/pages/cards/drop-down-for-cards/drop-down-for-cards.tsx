@@ -39,15 +39,19 @@ export const DropDownForCards = ({ deck }: Props) => {
       navigate('/')
     }
   }
+  const learnCardsHandler = () => {
+    if (deck?.cardsCount) {
+      navigate(`/learn-deck/${deck?.id}`)
+    }
+  }
 
   return (
     <>
       <DropDown trigger={<TriggerMore />}>
         <DropDownItem
+          disabled={!deck?.cardsCount}
           icon={<PlayCircleImg />}
-          onSelect={() => {
-            navigate(`/learn-deck/${deck?.id}`)
-          }}
+          onSelect={learnCardsHandler}
           text={'Learn'}
         />
         <DropDownItem icon={<EditImg />} onSelect={() => setIsEditModalOpen(true)} text={'Edit'} />

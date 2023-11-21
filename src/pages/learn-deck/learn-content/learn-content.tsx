@@ -39,7 +39,7 @@ export const LearnContent = () => {
       )}
 
       <Typography className={s.description} variant={'body2'}>
-        Количество попыток ответов на вопрос: {card?.shots}
+        Number of attempts to answer the question: {card?.shots}
       </Typography>
 
       {!isShowAnswer && (

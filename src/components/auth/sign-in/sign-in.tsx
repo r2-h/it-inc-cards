@@ -8,9 +8,7 @@ import {
   ControlledCheckBox,
   ControlledTextField,
   Typography,
-  emailValidation,
-  passwordValidation,
-  rememberMeValidation,
+  signInSchema,
 } from '@/components'
 import { useAppSelector } from '@/services'
 import { DevTool } from '@hookform/devtools'
@@ -19,13 +17,7 @@ import { z } from 'zod'
 
 import s from './sign-in.module.scss'
 
-const loginSchema = z.object({
-  email: emailValidation,
-  password: passwordValidation,
-  rememberMe: rememberMeValidation,
-})
-
-export type SignInFormValues = z.infer<typeof loginSchema>
+export type SignInFormValues = z.infer<typeof signInSchema>
 
 type SignInProps = {
   onSubmit: SubmitHandler<SignInFormValues>
@@ -37,7 +29,7 @@ export const SignIn: FC<SignInProps> = ({ onSubmit }) => {
     formState: { errors },
     handleSubmit,
   } = useForm<SignInFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signInSchema),
   })
   const navigate = useNavigate()
 

@@ -1,28 +1,20 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { SelectVideo, videoSchema } from '@/components'
-import { SelectImage } from '@/components/modals/edit-card/select-image'
-import { Button } from '@/components/ui/button'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { Select } from '@/components/ui/select'
+import {
+  Button,
+  ControlledTextField,
+  Select,
+  SelectImage,
+  SelectVideo,
+  addNewCardSchema,
+} from '@/components'
 import { CardsResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { z } from 'zod'
 
 import s from './edit-card.module.scss'
-
-import { answerAndQuestionSchema } from '..'
-
-const addNewCardSchema = z.object({
-  answer: answerAndQuestionSchema,
-  answerImg: z.any(),
-  answerVideo: videoSchema,
-  question: answerAndQuestionSchema,
-  questionImg: z.any(),
-  questionVideo: videoSchema,
-})
 
 export type AddCardsFormValues = z.infer<typeof addNewCardSchema>
 
@@ -108,7 +100,7 @@ export const EditCard = ({ card, onSubmit, variant }: EditCardProps) => {
       )}
 
       <div className={s.buttons}>
-        <Button type={'button'} variant={'secondary'}>
+        <Button as={'span'} variant={'secondary'}>
           <DialogClose>Cancel</DialogClose>
         </Button>
         <Button type={'submit'} variant={'primary'}>

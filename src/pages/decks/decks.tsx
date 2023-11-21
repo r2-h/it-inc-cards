@@ -1,19 +1,30 @@
 import { ChangeEvent, useState } from 'react'
 
 import { TrashImg } from '@/assets/trash-img'
-import { Button, CreateDeckFormValues, EditDeck, ModalWrapper } from '@/components'
-import { Modal } from '@/components/ui/modal'
-import { Pagination } from '@/components/ui/pagination'
-import { Slider } from '@/components/ui/slider'
-import { OptionsType, Tab } from '@/components/ui/tab'
-import { TextField } from '@/components/ui/text-field'
-import { Typography } from '@/components/ui/typography'
-import { DeckTable, Sort } from '@/pages/decks/deck-table'
-import { useMeQuery } from '@/services/auth/auth-api'
-import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks-api'
-import { decksActions } from '@/services/decks/decks-slice'
-import { Direction, Field } from '@/services/decks/types'
-import { useAppDispatch, useAppSelector } from '@/services/store'
+import {
+  Button,
+  CreateDeckFormValues,
+  EditDeck,
+  Modal,
+  ModalWrapper,
+  OptionsType,
+  Pagination,
+  Slider,
+  Tab,
+  TextField,
+  Typography,
+} from '@/components'
+import { DeckTable, Sort } from '@/pages'
+import {
+  Direction,
+  Field,
+  decksActions,
+  useAppDispatch,
+  useAppSelector,
+  useCreateDeckMutation,
+  useGetDecksQuery,
+  useMeQuery,
+} from '@/services'
 
 import s from './decks.module.scss'
 
@@ -79,9 +90,7 @@ export const Decks = () => {
   return (
     <>
       <div className={s.wrapper}>
-        <Typography className={s.title} variant={'large'}>
-          Decks list
-        </Typography>
+        <Typography variant={'large'}>Decks list</Typography>
 
         <Button disabled={isLoading} onClick={() => setIsModalOpen(true)}>
           Create Deck

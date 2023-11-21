@@ -51,17 +51,9 @@ export const ImageUploader: FC<ImageUploaderProps> = ({
           type={'file'}
         />
       </div>
-      <Button
-        className={s.button}
-        fullWidth
-        onClick={selectFileHandler}
-        type={'button'}
-        variant={'secondary'}
-      >
-        <EditImg className={s.editIcon} />
-        <Typography className={s.editLabel} variant={'body2'}>
-          {label}
-        </Typography>
+      <Button fullWidth onClick={selectFileHandler} type={'button'} variant={'secondary'}>
+        <EditImg />
+        <Typography variant={'body2'}>{label}</Typography>
       </Button>
     </>
   )
